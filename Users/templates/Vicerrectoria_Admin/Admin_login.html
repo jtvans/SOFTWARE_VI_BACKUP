@@ -1,0 +1,27 @@
+<!-- Admin_login.html -->
+{% extends 'layouts/Admin_base.html' %}
+{% block content %}
+<div class="container py-5">
+    <form method="POST" class="col-md-6 mx-auto">
+        {% csrf_token %}
+        <h1 class="text-center">Iniciar sesión</h1>
+
+        {% if message %}
+            <div class="alert alert-danger">{{ message }}</div>
+        {% elif error_message %}
+            <div class="alert alert-danger">{{ error_message }}</div>
+            <p>Si eres Docente Investigador, ve al Portal <a href="{% url 'Users:Users_login' %}">aquí</a>.</p>
+        {% endif %}
+
+        <div class="mb-3">
+            <label for="username" class="form-label">Identificacion Administrador:</label>
+            <input type="text" id="username" name="username" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Contraseña Administrador:</label>
+            <input type="password" id="password" name="password" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+    </form>
+</div>
+{% endblock %}

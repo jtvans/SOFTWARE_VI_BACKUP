@@ -1,0 +1,235 @@
+/* Google Font Link */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins" , sans-serif;
+}
+
+body{
+  min-height: auto;
+  align-items: center;
+  justify-content: center;
+  background-image: url('/static/images/USERS_PROYECTOS/Users_Lista_Proyectos/Lista_Proyectos.png');
+  background-repeat: auto;
+}
+
+
+/* ------------- CARDS -------------*/
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.center {
+  text-align: center;
+  color: #000000;
+}
+
+.card {
+  width: 300px;
+  display: inline-block;
+  margin: 10px;
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 10px;
+  color: #ffffff;
+  background-color: #6300cd;
+}
+
+.card h4 {
+  margin-top: 10px;
+  height: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card h4 a {
+  display: block;
+  font-size: 16px;
+  line-height: 20px;
+  color: #ffffff;
+}
+
+/*--------------------------------------------------*/
+
+
+/* ------------- NAVAR ----------------- */
+.navbar {
+  background-color: #6300cd;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+}
+
+.navbar-brand img {
+  width: 150px;
+  height: 50px;
+}
+
+.navbar-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.navbar-item {
+  margin-right: 20px;
+}
+
+.navbar-item a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.navbar-item a:hover {
+  color: #dacf04;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 200px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border: 1px solid #ccc; /* Agregar un borde */
+  border-radius: 4px; /* Agregar bordes suaves */
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  transition: background-color 0.3s ease; /* Agregar una transición de color de fondo */
+}
+
+.dropdown-content a:hover {
+  background-color: #eeeeee; /* Cambiar el color de fondo al pasar el cursor */
+}
+
+.navbar-item.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+
+/* ------------------------------------- */
+
+/* ------------- DETALLE PROYECTO ---------------- */
+.producto {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+}
+
+.no-margin p {
+  margin: 0;
+  font-size: 16px;
+}
+
+.my-table {
+border: 1px solid black;
+margin: 0 auto;
+width: 80%;
+margin-top: 30px;
+}
+
+.my-table th,
+.my-table td {
+    text-align: center;
+}
+/* ------------------------------------------------ */
+
+/* Estilos para el contenedor de mensajes */
+.messages-container {
+  margin-top: 20px;
+  padding: 10px;
+}
+
+/* Estilos para el mensaje de éxito */
+.success-message {
+  text-align: center;
+  background-color: #bde9bd;
+  color: rgb(0, 0, 0);
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 20px;
+  border: 1px solid #4cae4c;
+  margin: 0 auto; /* Centrar horizontalmente */
+  max-width: 70%; /* Establecer una anchura máxima */
+}
+
+/* ------------------------------------------------ */
+.container-c-p {
+  background-color: #6300cd; /* Color de fondo deseado */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.container-c-p-1 {
+  background-color: #f2f2f1; /* Color de fondo deseado */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.container-c-p-2 {
+  background-color: #dcdcdc; /* Color de fondo deseado */
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  height: auto;
+}
+
+/* ---------------- Tabla Porcentaje cumplimiento  ----------------- */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #dddddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+.avance-row div {
+  margin-bottom: 5px;
+}
+
+/* ---------------- Para dividir en mas lineas el link  ----------------- */
+
+.producto-link {
+  color: #000000;
+  max-width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-all;
+}

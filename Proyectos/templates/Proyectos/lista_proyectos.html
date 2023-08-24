@@ -1,0 +1,144 @@
+<!-- lista_proyectos.html -->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Breadcrumb -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="{% static 'css/USERS_PROYECTOS/Breadcrumbs/style.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/USERS_PROYECTOS/Users_Lista_Proyectos/style.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}">
+    <title>SeedResearchTool</title>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <a class="navbar-brand" href="{% url 'Users:Users_home' %}">
+                <img src="{% static 'images/USERS_PROYECTOS/Users_Lista_Proyectos/Proyectos_Logo.png' %}" alt=""
+                    style="width: 240px; height: 60px;">
+            </a>
+        </div>
+        <ul class="navbar-menu">
+            {% if user.is_authenticated and not user.usuario_administrador %}
+            <li class="navbar-item">
+                <a class="nav-link" href="{% url 'Users:Users_home' %}"><strong>HOME</strong></a>
+            </li>
+            <li class="navbar-item dropdown">
+                <a class="nav-link" href="#"><strong>PROYECTOS</strong></a>
+                <div class="dropdown-content">
+                    <a href="{% url 'Proyectos:crear_proyecto' %}">Crear Proyecto</a>
+                    <a href="{% url 'Proyectos:lista_proyectos' %}">Lista de Proyectos</a>
+                </div>
+            </li>
+            <li class="navbar-item dropdown">
+                <a class="nav-link" href="#">SEMILLEROS</a>
+                <div class="dropdown-content">
+                    <a href="{% url 'Semilleros:crear_semillero' %}">Crear Semillero</a>
+                    <a href="{% url 'Semilleros:lista_semilleros' %}">Lista de Semilleros</a>
+                </div>
+            </li>
+            {% endif %}
+        </ul>
+
+        <ul class="navbar-menu ml-auto">
+            {% if user.is_authenticated and not user.usuario_administrador %}
+            <li class="navbar-item dropdown">
+                <a class="nav-link" href="#"><strong>PERFIL</strong></a>
+                <div class="dropdown-content">
+                    <a href="{% url 'Users:Users_ver_perfil' %}">Ver Perfil</a>
+                    <a href="{% url 'Users:Users_editar_perfil' %}">Editar Perfil</a>
+                </div>
+            </li>
+            <li class="navbar-item">
+                <a class="nav-link" href="{% url 'Users:logout' %}"><strong>CERRAR SESION</strong></a>
+            </li>
+            {% else %}
+            <li class="navbar-item">
+                <a class="nav-link" href="{% url 'Users:Users_login' %}"><strong>INICIAR SESION</strong></a>
+            </li>
+            <li class="navbar-item">
+                <a class="nav-link"
+                    href="{% url 'Users:Users_consultar_identificacion' %}"><strong>REGISTRARSE</strong></a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+
+
+    <!-- Breadcrumb -->
+    <div class="wrapper">
+        <ol class="breadcrumbs breadcrumbs--one" itemscope itemtype="http://schema.org/BreadcrumbList">
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="breadcrumb" href="{% url 'Users:Users_home' %}" itemprop="item">
+                    <span itemprop="name">
+                        <i class="material-icons" aria-hidden="true">home</i>
+                        <span>INICIO</span>
+                    </span>
+                </a>
+                <meta itemprop="position" content="1" />
+            </li>
+
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="breadcrumb" href="{% url 'Proyectos:lista_proyectos' %}" itemprop="item">
+                    <span itemprop="name">
+                        <i class="material-icons" aria-hidden="true">cases</i>
+                        <span>PROYECTOS</span>
+                    </span>
+                </a>
+                <meta itemprop="position" content="2" />
+            </li>
+        </ol>
+    </div>
+
+
+    <br>
+    <br>
+    <hr>
+    <div class="center">
+        <h3><strong>Mis Proyectos De Investigación</strong></h3>
+    </div>
+    <hr>
+    
+
+    <!-- Message Creado -->
+    <div class="messages-container">
+        {% if success_message %}
+            <div class="success-message">
+                {{ success_message }}
+            </div>
+        {% endif %}
+    </div>
+
+
+    <div class="cards-container">
+        {% for proyecto in proyectos %}
+        <div class="card">
+            <img src="{% static 'images_list_proyect/'|add:proyecto.imagen %}" alt="Imagen Proyecto">
+            <div class="card-body">
+                <div class="center">
+                    <h4><a href="{% url 'Proyectos:opciones_proyecto' proyecto.id %}">{{ proyecto.titulo }}</a></h4>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>No se encontraron proyectos.</p>
+        {% endfor %}
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

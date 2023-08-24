@@ -1,0 +1,356 @@
+<!-- portafolio_actividades.html -->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Breadcrumb -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="{% static 'css/USERS_PROYECTOS/Breadcrumbs/style.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/USERS_PROYECTOS/Users_Lista_Proyectos/style.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}">
+    <title>SeedResearchTool</title>
+    {% block extra_styles %}
+    {% endblock %}
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <a class="navbar-brand" href="{% url 'Users:Users_home' %}">
+                <img src="{% static 'images/USERS_PROYECTOS/Users_Lista_Proyectos/Proyectos_Logo.png' %}" alt=""
+                    style="width: 240px; height: 60px;">
+            </a>
+        </div>
+        <ul class="navbar-menu">
+            {% if user.is_authenticated and not user.usuario_administrador %}
+            <li class="navbar-item">
+                <a class="nav-link" href="{% url 'Users:Users_home' %}"><strong>HOME</strong></a>
+            </li>
+            <li class="navbar-item">
+                <a class="nav-link" href="{% url 'Proyectos:lista_proyectos' %}"><strong>PROYECTOS</strong></a>
+            </li>
+            <li class="navbar-item">
+                <a class="nav-link" href="{% url 'Proyectos:crear_proyecto' %}"><strong>CREAR PROYECTO</strong></a>
+            </li>
+            {% endif %}
+        </ul>
+
+        <ul class="navbar-menu ml-auto">
+            {% if user.is_authenticated and not user.usuario_administrador %}
+            <li class="navbar-item">
+                <a class="nav-link" href="{% url 'Users:Users_ver_perfil' %}"><strong>PERFIL</strong></a>
+            </li>
+            <li class="navbar-item">
+                <a class="nav-link" href="{% url 'Users:logout' %}"><strong>CERRAR SESION</strong></a>
+            </li>
+            {% else %}
+            <li class="navbar-item">
+                <a class="nav-link" href="{% url 'Users:Users_login' %}"><strong>INICIAR SESION</strong></a>
+            </li>
+            <li class="navbar-item">
+                <a class="nav-link"
+                    href="{% url 'Users:Users_consultar_identificacion' %}"><strong>REGISTRARSE</strong></a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+
+
+    <!-- Breadcrumb -->
+    <div class="wrapper">
+        <ol class="breadcrumbs breadcrumbs--one" itemscope itemtype="http://schema.org/BreadcrumbList">
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="breadcrumb" href="{% url 'Users:Users_home' %}" itemprop="item">
+                    <span itemprop="name">
+                        <i class="material-icons" aria-hidden="true">home</i>
+                        <span>INICIO</span>
+                    </span>
+                </a>
+                <meta itemprop="position" content="1" />
+            </li>
+
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="breadcrumb" href="{% url 'Proyectos:lista_proyectos' %}" itemprop="item">
+                    <span itemprop="name">
+                        <i class="material-icons" aria-hidden="true">cases</i>
+                        <span>PROYECTOS</span>
+                    </span>
+                </a>
+                <meta itemprop="position" content="2" />
+            </li>
+
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="breadcrumb" href="{% url 'Proyectos:opciones_proyecto' proyecto.id %}" itemprop="item">
+                    <span itemprop="name">
+                        <i class="material-icons" aria-hidden="true">widgets</i>
+                        <span>ACCIONES</span>
+                    </span>
+                </a>
+                <meta itemprop="position" content="2" />
+            </li>
+
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="breadcrumb" href="" itemprop="item">
+                    <span itemprop="name">
+                        <i class="material-icons" aria-hidden="true">receipt_long</i>
+                        <span>PORTAFOLIO ACTIVIDADES</span>
+                    </span>
+                </a>
+                <meta itemprop="position" content="2" />
+            </li>
+        </ol>
+    </div>
+
+<br>
+<div class="text-center my-5">
+  <hr>
+  <h1 class="display-4">Portafolio de Actividades</h1>
+  <hr>
+</div>
+<br>
+
+
+<div style="text-align: center;">
+    <table class="table" style="border-collapse: collapse; margin: auto; width: 90%; border: 2px solid #6300cd;">
+      <thead>
+        <tr>
+          <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; border: 2px solid #6300cd; color:#6300cd"></th>
+          <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; border: 2px solid #6300cd; color:#6300cd">PRODUCTOS PARA ENTREGAR</th>
+          <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; border: 2px solid #6300cd; color:#6300cd">Nº</th>
+          <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; border: 2px solid #6300cd; color:#6300cd">No Iniciado</th>
+          <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; border: 2px solid #6300cd; color:#6300cd">1era. Entrega<br>(30/06/2023)</th>
+          <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; border: 2px solid #6300cd; color:#6300cd">2da. Entrega<br>(29/09/2023)</th>
+          <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; border: 2px solid #6300cd; color:#6300cd">Última entrega<br>(30/11/2023)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for producto in productos %}
+            <tr>
+                <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; border: 2px solid #6300cd;"><br><br>{{ forloop.counter }}</td>
+                <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; border: 2px solid #6300cd; width: 40%;">
+                    <p style="text-align: center;"><br><br>{{ producto.tipo_producto }}</p>
+                </td>
+                <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; border: 2px solid #6300cd;">
+                    <p style="text-align: center;"><br><br>{{ producto.cantidad }}</p>
+                </td>
+                
+                {% if producto.estado_0 == 'Iniciado' %}
+
+                  <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; border: 2px solid #6300cd;"><strong>----</strong></td>
+
+                {% else %}
+
+                  <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; border: 2px solid #6300cd;"><strong>{{ producto.estado_0 }}</strong>
+                    <br>
+                      {% if producto.estado_0_justificado == 'Justificado' %}
+                          <a href="{% url 'Proyectos:ver_evidencias_0' proyecto_id=proyecto.id producto_id=producto.id %}" class="btn btn-outline-danger">Ver Justificacion</a>
+                      {% else %}
+                          <a href="{% url 'Proyectos:avance_estado_0' proyecto_id=proyecto.id producto_id=producto.id %}" class="btn btn-danger">Justificar</a>
+                      {% endif %}
+                  </td>
+
+                {% endif %}
+                
+                <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; border: 2px solid #6300cd;"><strong>{{ producto.estado_1 }}</strong>
+                    <br>
+                      {% if producto.estado_1 == 'Iniciado' %}
+                          <a href="{% url 'Proyectos:ver_evidencias_1' proyecto_id=proyecto.id producto_id=producto.id %}" class="btn btn-info">Ver</a>
+                      {% else %}
+                          <a href="{% url 'Proyectos:avance_estado_1' proyecto_id=proyecto.id producto_id=producto.id %}" class="btn btn-outline-info">Iniciar</a>
+                      {% endif %}
+                </td>
+                
+                <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; border: 2px solid #6300cd;"><strong>
+                  {{ producto.estado_2 }}</strong>
+                  <br>
+                  {% if producto.estado_1 == 'Iniciado'%}
+                      {% if producto.estado_2 == 'En Progreso' or producto.estado_2 == 'No se cargo evidencia' %}
+                          <a href="{% url 'Proyectos:ver_evidencias_2' proyecto_id=proyecto.id producto_id=producto.id %}" class="btn btn-primary">Ver</a>
+                      {% else %}
+                          <a href="{% url 'Proyectos:avance_estado_2' proyecto_id=proyecto.id producto_id=producto.id %}" class="btn btn-outline-primary">+</a>
+                      {% endif %}
+                  {% else %}
+                      <button class="btn btn-outline-primary" disabled>+</button>
+                      <p class="text-muted">Primero Inicia El Producto</p>
+                  {% endif %}
+                </td>
+
+                <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; border: 2px solid #6300cd;"><strong>{{ producto.estado_3 }}</strong>
+                  <br>
+                  {% if producto.estado_1 == 'Iniciado' %}
+                      {% if producto.estado_3 == 'Completado' %}
+                          <a href="{% url 'Proyectos:ver_evidencias_3' proyecto_id=proyecto.id producto_id=producto.id %}" class="btn btn-success">Ver</a>
+                      {% else %}
+                          <a href="{% url 'Proyectos:avance_estado_3' proyecto_id=proyecto.id producto_id=producto.id %}" class="btn btn-outline-success">+</a>
+                      {% endif %}
+                  {% else %}
+                      <button class="btn btn-outline-success" disabled>+</button>
+                      <p class="text-muted">Primero Inicia El Producto</p>
+                  {% endif %}
+                </td>
+            </tr>
+        {% empty %}
+            <tr>
+            <td colspan="6" style="text-align: center; padding-top: 2px; padding-bottom: 2px; border: 2px solid #6300cd;">
+                <p>No puedes gestinar tu portafolio, sin antes Añadir productos a tu Plan.</p>
+            </td>
+            </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+</div>
+<br>
+<br>
+<hr>
+
+<div style="text-align: center;">
+    <p>Porcentaje de Cumplimiento: {{ porcentaje_cumplimiento_total }}%</p>
+    <table class="table" style="border-collapse: collapse; margin: auto; width: 90%;">
+        <thead>
+            <tr>
+                <th>Nº</th>
+                <th>Tipo Producto</th>
+                <th>Producto</th>
+                <th>Número de productos comprometidos en el portafolio</th>
+                <th>Productos entregados por el docente</th>
+                <th>Indicador</th>
+                <th>Puntaje</th>
+                <th>Peso en el portafolio</th>
+                <th>Porcentaje de Cumplimiento</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in tabla_avances %}
+            <tr>
+                <!-- Nº -->
+                <td>{{ forloop.counter }}</td>
+    
+                <!-- Tipo Producto -->
+                <td>{{ item.producto.tipo_producto }}</td>
+    
+                <!-- Producto -->
+                <td>
+                    {% if item.avances %}
+                        {% for avance in item.avances %}
+                            <div class="avance-row">
+                                {% if avance.avance_1_nombre %}
+                                    <div>{{ avance.avance_1_nombre }}</div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="avance-row">
+                            <div>N/A</div>
+                        </div>
+                    {% endif %}
+                </td>
+    
+                <!-- Número de productos comprometidos en el portafolio -->
+                <td>
+                    {% if item.avances %}
+                        {% for avance in item.avances %}
+                            <div class="avance-row">
+                                {% if avance.avance_1_nombre %}
+                                    <div>1</div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="avance-row">
+                            <div>0</div>
+                        </div>
+                    {% endif %}
+                </td>
+    
+                <!-- Productos entregados por el docente -->
+                <td>
+                    {% if item.avances %}
+                        {% for avance in item.avances %}
+                            <div class="avance-row">
+                                {% if avance.avance_3_estado == 'Aceptado' %}
+                                    <div>1</div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="avance-row">
+                            <div>0</div>
+                        </div>
+                    {% endif %}
+                </td>
+    
+                <!-- Indicador -->
+                <td>
+                    {% if item.avances %}
+                        {% for avance in item.avances %}
+                            <div class="avance-row">
+                                {% if avance.avance_3_estado == 'Aceptado' %}
+                                    <div>100%</div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="avance-row">
+                            <div>0%</div>
+                        </div>
+                    {% endif %}
+                </td>
+    
+                <!-- Puntaje -->
+                <td>
+                    {% if item.avances %}
+                        {% for avance in item.avances %}
+                            <div class="avance-row">
+                                {% if avance.avance_3_estado == 'Aceptado' %}
+                                    <div>100%</div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="avance-row">
+                            <div>0%</div>
+                        </div>
+                    {% endif %}
+                </td>
+    
+                <!-- Peso en el portafolio -->
+                <td>
+                    {% if item.avances %}
+                        {% for avance in item.avances %}
+                            <div class="avance-row">
+                                {% if avance.avance_3_estado == 'Aceptado' %}
+                                    {% with formatted_pesos=pesos_productos|floatformat:3 %}
+                                        <div>{{ formatted_pesos }}</div>
+                                    {% endwith %}
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="avance-row">
+                            <div>0.0</div>
+                        </div>
+                    {% endif %}
+                </td>
+    
+                <!-- Porcentaje de Cumplimiento -->
+                <td>{{ item.porcentaje_cumplimiento }}%</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>    
+    <br>
+</div>
+
+
+</body>
+</html>

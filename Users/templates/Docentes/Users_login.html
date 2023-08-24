@@ -1,0 +1,85 @@
+<!-- Users_login.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/USERS/Users_Login/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Gotham+Rounded:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+   
+  <body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <a class="navbar-brand" href="{% url 'Pagina_Principal' %}">
+          <img src="{% static 'images/USERS/Users_Login/Login_Logo.png' %}" alt="" style="width: 300px; height: 80px;">
+        </a>
+      </div>
+      <ul class="navbar-menu">
+        <li class="navbar-item"><a href="{% url 'Users:Users_consultar_identificacion' %}">Registrarse</a></li>
+        <li class="navbar-item"><a href="{% url 'Pagina_Principal_About' %}">Acerca De</a></li>
+        <li class="navbar-item"><a href="{% url 'Pagina_Principal_Contact' %}">Contacto</a></li>
+      </ul>
+    </nav>
+
+    <br>
+    <div class="container">
+        <input type="checkbox" id="flip">
+        <div class="cover">
+          <div class="front">
+            <img src="{% static 'images/USERS/Users_Login/frontImg.jpg' %}" alt="">
+          </div>
+        </div>
+        <div class="forms">
+            <div class="form-content">
+                <div class="login-form">
+                    <div class="title">Iniciar Sesion</div>
+                    <br>
+                    <form method="POST" class="col-md-6 mx-auto">
+                        {% csrf_token %}
+                        {% if message %}
+                            <div class="alert alert-danger">{{ message }}</div>
+                        {% elif error_message %}
+                            <div class="alert alert-danger">{{ error_message }}</div>
+                        {% endif %}
+                        <div class="input-boxes">
+                          
+                            <div class="input-box">
+                                <i class="fas fa-envelope"></i>
+                                <input type="text" id="username" name="username" placeholder="Identificacion" class="form-control" required>
+                            </div>
+
+                            <div class="input-box">
+                                <i class="fas fa-lock"></i>
+                                <input type="password" id="password" name="password" placeholder="Contraseña" class="form-control" required>
+                            </div>
+
+                            <div class="button input-box">
+                                <input type="submit" value="Iniciar">
+                            </div>
+
+                            {% if error_message %}
+                            <br>
+                            <p>¿ Aun no te registras? Hazlo  <a href="{% url 'Users:Users_consultar_identificacion' %}">aquí</a>.</p>
+                            {% endif %}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% if not error_message %}
+        <div class="text sign-up-text">Registrate <a href="{% url 'Users:Users_consultar_identificacion' %}">Aqui</a></div>
+        {% endif %}
+    </div>
+
+
+    
+  </body>
+</html>
+
+

@@ -1,0 +1,283 @@
+<mxfile host="app.diagrams.net" modified="2023-04-20T14:39:59.222Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36" etag="Bh_Sf1wVN19HAlmuhXpP" version="21.2.1" type="device">
+  <diagram id="07fea595-8f29-1299-0266-81d95cde20df" name="Page-1">
+    <mxGraphModel dx="90" dy="1509" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" background="none" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="723" value="" style="whiteSpace=wrap;fillColor=#12AAB5;gradientColor=none;gradientDirection=east;strokeColor=none;html=1;fontColor=#23445d;" parent="1" vertex="1">
+          <mxGeometry x="2470.63" y="1580" width="83.75" height="14.5" as="geometry" />
+        </mxCell>
+        <mxCell id="724" value="" style="whiteSpace=wrap;fillColor=#12AAB5;gradientColor=none;gradientDirection=east;strokeColor=none;html=1;fontColor=#23445d;" parent="1" vertex="1">
+          <mxGeometry x="2610" y="1570" width="70" height="24.5" as="geometry" />
+        </mxCell>
+        <mxCell id="725" value="" style="whiteSpace=wrap;fillColor=#12AAB5;gradientColor=none;gradientDirection=east;strokeColor=none;html=1;fontColor=#23445d;" parent="1" vertex="1">
+          <mxGeometry x="2748.75" y="1580" width="70" height="14.5" as="geometry" />
+        </mxCell>
+        <mxCell id="726" value="" style="whiteSpace=wrap;fillColor=#12AAB5;gradientColor=none;gradientDirection=east;strokeColor=none;html=1;fontColor=#23445d;" parent="1" vertex="1">
+          <mxGeometry x="2889" y="1580" width="67" height="14.5" as="geometry" />
+        </mxCell>
+        <mxCell id="727" value="" style="edgeStyle=none;html=1;fontColor=#000000;strokeWidth=3;strokeColor=#000000;" parent="1" edge="1">
+          <mxGeometry width="100" height="100" relative="1" as="geometry">
+            <mxPoint x="2437.5" y="1594.5" as="sourcePoint" />
+            <mxPoint x="2438" y="1320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="734" value="" style="edgeStyle=none;html=1;fontColor=#000000;strokeWidth=3;strokeColor=#000000;" parent="1" edge="1">
+          <mxGeometry width="100" height="100" relative="1" as="geometry">
+            <mxPoint x="2437.5" y="1594.5" as="sourcePoint" />
+            <mxPoint x="2990" y="1594" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="737" value="Complejidad &lt;br style=&quot;font-size: 16px;&quot;&gt;Oración" style="text;spacingTop=-5;align=center;verticalAlign=middle;fontStyle=1;html=1;fontSize=16;points=[];fontColor=#FF0505;" parent="1" vertex="1">
+          <mxGeometry x="2590" y="1610" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="738" value="Complejidad &lt;br style=&quot;font-size: 16px;&quot;&gt;Sintáctica" style="text;spacingTop=-5;align=center;verticalAlign=middle;fontStyle=1;html=1;fontSize=16;points=[];fontColor=#FF0505;" parent="1" vertex="1">
+          <mxGeometry x="2723.75" y="1610" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="746" value="40" style="text;spacingTop=-5;align=center;verticalAlign=middle;fontStyle=1;html=1;fontSize=20;points=[];fontColor=#FF4019;" parent="1" vertex="1">
+          <mxGeometry x="2360" y="1510" width="27.5" height="19.5" as="geometry" />
+        </mxCell>
+        <mxCell id="749" value="&lt;font style=&quot;font-size: 40px;&quot;&gt;Comprensibilidad&lt;/font&gt;" style="text;spacingTop=-5;align=center;verticalAlign=middle;fontSize=30;fontStyle=1;html=1;points=[]" parent="1" vertex="1">
+          <mxGeometry x="2660" y="1230" width="310" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="752" value="Marcas &lt;br style=&quot;font-size: 16px;&quot;&gt;Puntuación" style="text;spacingTop=-5;align=center;verticalAlign=middle;fontStyle=1;html=1;fontSize=16;points=[];fontColor=#FF0505;" parent="1" vertex="1">
+          <mxGeometry x="2863" y="1610" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p1tD0fV-p20YhZrAr31D-758" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=3;fontColor=#FF4019;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="2437.5" y="1520" as="sourcePoint" />
+            <mxPoint x="2400" y="1520.25" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="2427.5" y="1520" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p1tD0fV-p20YhZrAr31D-762" value="Densidad &lt;br style=&quot;font-size: 16px;&quot;&gt;Léxica" style="text;spacingTop=-5;align=center;verticalAlign=middle;fontStyle=1;html=1;fontSize=16;points=[];fontColor=#FF0505;" parent="1" vertex="1">
+          <mxGeometry x="2452.5" y="1610" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="p1tD0fV-p20YhZrAr31D-764" value="60" style="text;spacingTop=-5;align=center;verticalAlign=middle;fontStyle=1;html=1;fontSize=20;points=[];fontColor=#FF4019;" parent="1" vertex="1">
+          <mxGeometry x="2360" y="1470" width="27.5" height="19.5" as="geometry" />
+        </mxCell>
+        <mxCell id="p1tD0fV-p20YhZrAr31D-765" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=3;fontColor=#FF4019;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="2437.5" y="1480" as="sourcePoint" />
+            <mxPoint x="2400" y="1480.25" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="2427.5" y="1480" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p1tD0fV-p20YhZrAr31D-779" value="80" style="text;spacingTop=-5;align=center;verticalAlign=middle;fontStyle=1;html=1;fontSize=20;points=[];fontColor=#FF4019;" parent="1" vertex="1">
+          <mxGeometry x="2360" y="1430" width="27.5" height="19.5" as="geometry" />
+        </mxCell>
+        <mxCell id="p1tD0fV-p20YhZrAr31D-780" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=3;fontColor=#FF4019;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="2437.5" y="1439.47" as="sourcePoint" />
+            <mxPoint x="2400" y="1439.72" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="2427.5" y="1439.47" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p1tD0fV-p20YhZrAr31D-781" value="100" style="text;spacingTop=-5;align=center;verticalAlign=middle;fontStyle=1;html=1;fontSize=20;points=[];fontColor=#FF4019;" parent="1" vertex="1">
+          <mxGeometry x="2360" y="1390" width="27.5" height="19.5" as="geometry" />
+        </mxCell>
+        <mxCell id="p1tD0fV-p20YhZrAr31D-782" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=3;fontColor=#FF4019;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="2437.5" y="1400.25" as="sourcePoint" />
+            <mxPoint x="2400" y="1400" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="2427.5" y="1400.25" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p1tD0fV-p20YhZrAr31D-783" value="120" style="text;spacingTop=-5;align=center;verticalAlign=middle;fontStyle=1;html=1;fontSize=20;points=[];fontColor=#FF4019;" parent="1" vertex="1">
+          <mxGeometry x="2360" y="1350" width="27.5" height="19.5" as="geometry" />
+        </mxCell>
+        <mxCell id="p1tD0fV-p20YhZrAr31D-784" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=3;fontColor=#FF4019;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="2437.5" y="1359.72" as="sourcePoint" />
+            <mxPoint x="2400" y="1359.47" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="2427.5" y="1359.72" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p1tD0fV-p20YhZrAr31D-794" value="" style="group" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="2410" y="1654" width="417" height="399" as="geometry" />
+        </mxCell>
+        <mxCell id="p1tD0fV-p20YhZrAr31D-789" value="" style="shape=card;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" parent="p1tD0fV-p20YhZrAr31D-794" vertex="1">
+          <mxGeometry y="10" width="350" height="370" as="geometry" />
+        </mxCell>
+        <mxCell id="739" value="" style="whiteSpace=wrap;fillColor=#10B563;gradientColor=none;gradientDirection=east;strokeColor=none;html=1;fontColor=#23445d;fontSize=16;fontStyle=1" parent="p1tD0fV-p20YhZrAr31D-794" vertex="1">
+          <mxGeometry x="17" y="210.25" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="740" value="" style="whiteSpace=wrap;fillColor=#F08705;gradientColor=none;gradientDirection=east;strokeColor=none;html=1;fontColor=#23445d;fontSize=16;fontStyle=1" parent="p1tD0fV-p20YhZrAr31D-794" vertex="1">
+          <mxGeometry x="17" y="150" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="741" value="" style="whiteSpace=wrap;fillColor=#E85642;gradientColor=none;gradientDirection=east;strokeColor=none;html=1;fontColor=#23445d;fontSize=16;fontStyle=1" parent="p1tD0fV-p20YhZrAr31D-794" vertex="1">
+          <mxGeometry x="17" y="90" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="742" value="Dificil&amp;nbsp; [101 - 120]" style="text;spacingTop=-5;html=1;points=[];fontSize=16;fontStyle=1" parent="p1tD0fV-p20YhZrAr31D-794" vertex="1">
+          <mxGeometry x="77" y="100" width="80" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="743" value="Dificultad Moderada&amp;nbsp; [81 - 100]" style="text;spacingTop=-5;html=1;points=[];fontSize=16;fontStyle=1" parent="p1tD0fV-p20YhZrAr31D-794" vertex="1">
+          <mxGeometry x="77" y="160" width="80" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="744" value="Facil&amp;nbsp; [61 - 80]" style="text;spacingTop=-5;html=1;points=[];fontSize=16;fontStyle=1" parent="p1tD0fV-p20YhZrAr31D-794" vertex="1">
+          <mxGeometry x="77" y="220" width="80" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="p1tD0fV-p20YhZrAr31D-766" value="" style="whiteSpace=wrap;fillColor=#B84434;gradientColor=none;gradientDirection=east;strokeColor=none;html=1;fontColor=#23445d;fontSize=16;fontStyle=1" parent="p1tD0fV-p20YhZrAr31D-794" vertex="1">
+          <mxGeometry x="17" y="30" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="p1tD0fV-p20YhZrAr31D-767" value="Muy Dificil&amp;nbsp; [121 - N]" style="text;spacingTop=-5;html=1;points=[];fontSize=16;fontStyle=1" parent="p1tD0fV-p20YhZrAr31D-794" vertex="1">
+          <mxGeometry x="77" y="40" width="80" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="p1tD0fV-p20YhZrAr31D-768" value="" style="whiteSpace=wrap;fillColor=#1B63B5;gradientColor=none;gradientDirection=east;strokeColor=none;html=1;fontColor=#23445d;fontSize=16;fontStyle=1" parent="p1tD0fV-p20YhZrAr31D-794" vertex="1">
+          <mxGeometry x="17" y="270" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="p1tD0fV-p20YhZrAr31D-769" value="Muy Facil&amp;nbsp; [40 - 60]" style="text;spacingTop=-5;html=1;points=[];fontSize=16;fontStyle=1" parent="p1tD0fV-p20YhZrAr31D-794" vertex="1">
+          <mxGeometry x="77" y="280" width="80" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="p1tD0fV-p20YhZrAr31D-770" value="" style="whiteSpace=wrap;fillColor=#12AAB5;gradientColor=none;gradientDirection=east;strokeColor=none;html=1;fontColor=#23445d;fontSize=16;fontStyle=1" parent="p1tD0fV-p20YhZrAr31D-794" vertex="1">
+          <mxGeometry x="17" y="331" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="p1tD0fV-p20YhZrAr31D-771" value="Material Muy Simplificado [0 - 39]" style="text;spacingTop=-5;html=1;points=[];fontSize=16;fontStyle=1" parent="p1tD0fV-p20YhZrAr31D-794" vertex="1">
+          <mxGeometry x="74.5" y="341" width="80" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="p1tD0fV-p20YhZrAr31D-795" value="&lt;blockquote style=&quot;border: none; text-align: left; margin: 0px 0px 0px 40px; padding: 0px; font-size: 17px;&quot;&gt;&lt;b style=&quot;border-color: var(--border-color); background-color: initial;&quot;&gt;&lt;font style=&quot;font-size: 17px;&quot;&gt; &lt;span style=&quot;border-color: var(--border-color);&quot;&gt; &lt;/span&gt;RESULTS&amp;nbsp;&lt;/font&gt;&lt;/b&gt;&lt;/blockquote&gt;&lt;blockquote style=&quot;border: none; text-align: left; margin: 0px 0px 0px 40px; padding: 0px; font-size: 17px;&quot;&gt;&lt;font style=&quot;font-size: 17px;&quot;&gt;&lt;b style=&quot;border-color: var(--border-color); background-color: initial;&quot;&gt;&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;&lt;/b&gt;&lt;b style=&quot;border-color: var(--border-color); background-color: initial;&quot;&gt;• Densidad Léxica: 0.64&lt;/b&gt;&lt;/font&gt;&lt;/blockquote&gt;&lt;blockquote style=&quot;border: none; text-align: left; margin: 0px 0px 0px 40px; padding: 0px; font-size: 17px;&quot;&gt;&lt;font style=&quot;font-size: 17px;&quot;&gt;&lt;b style=&quot;border-color: var(--border-color); background-color: initial;&quot;&gt;&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;&lt;/b&gt;&lt;b style=&quot;border-color: var(--border-color); background-color: initial;&quot;&gt;• Complejidad Oración:&amp;nbsp; &amp;nbsp;9.4&lt;/b&gt;&lt;/font&gt;&lt;/blockquote&gt;&lt;blockquote style=&quot;border: none; text-align: left; margin: 0px 0px 0px 40px; padding: 0px; font-size: 17px;&quot;&gt;&lt;font style=&quot;font-size: 17px;&quot;&gt;&lt;b style=&quot;border-color: var(--border-color); background-color: initial;&quot;&gt;&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;&lt;/b&gt;&lt;b style=&quot;border-color: var(--border-color); background-color: initial;&quot;&gt;• Complejidad Sintáctica:&amp;nbsp; &amp;nbsp;0.09&lt;/b&gt;&lt;/font&gt;&lt;/blockquote&gt;&lt;blockquote style=&quot;border: none; text-align: left; margin: 0px 0px 0px 40px; padding: 0px; font-size: 17px;&quot;&gt;&lt;font style=&quot;font-size: 17px;&quot;&gt;&lt;b style=&quot;border-color: var(--border-color); background-color: initial;&quot;&gt;&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;&lt;/b&gt;&lt;font style=&quot;border-color: var(--border-color); font-size: 17px;&quot;&gt;&lt;b style=&quot;border-color: var(--border-color);&quot;&gt;• Marcas puntuación:&amp;nbsp; 0.02&lt;/b&gt;&lt;/font&gt;&lt;/font&gt;&lt;/blockquote&gt;" style="shape=card;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="2956" y="1320" width="310" height="189.5" as="geometry" />
+        </mxCell>
+        <mxCell id="p1tD0fV-p20YhZrAr31D-798" value="&lt;span data-sheets-userformat=&quot;{&amp;quot;2&amp;quot;:14593,&amp;quot;3&amp;quot;:{&amp;quot;1&amp;quot;:0,&amp;quot;3&amp;quot;:1},&amp;quot;11&amp;quot;:4,&amp;quot;14&amp;quot;:{&amp;quot;1&amp;quot;:3,&amp;quot;3&amp;quot;:1},&amp;quot;15&amp;quot;:&amp;quot;Calibri&amp;quot;,&amp;quot;16&amp;quot;:11}&quot; data-sheets-value=&quot;{&amp;quot;1&amp;quot;:2,&amp;quot;2&amp;quot;:&amp;quot;menos de 40 Material muy simplificado\n40-60 Muy Fácil\n61- 8 0 Fácil\n81-10 0D ificultad moderada\n101-120 Difíci \nl121 o másMuy difícil&amp;quot;}&quot; style=&quot;font-size:11pt;font-family:Calibri,Arial;font-style:normal;color:#000000;&quot;&gt;menos de 40 Material muy simplificado&lt;br&gt;40-60 Muy Fácil&lt;br&gt;61- 80 Fácil&lt;br&gt;81-100 Dificultad moderada&lt;br&gt;101-120 Difíci &lt;br&gt;l121 o más Muy difícil&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;fillColor=#b0e3e6;strokeColor=#0e8088;" parent="1" vertex="1">
+          <mxGeometry x="3580" y="940" width="270" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="p1tD0fV-p20YhZrAr31D-799" value="&lt;span data-sheets-userformat=&quot;{&amp;quot;2&amp;quot;:15105,&amp;quot;3&amp;quot;:{&amp;quot;1&amp;quot;:0},&amp;quot;11&amp;quot;:4,&amp;quot;12&amp;quot;:0,&amp;quot;14&amp;quot;:{&amp;quot;1&amp;quot;:3,&amp;quot;3&amp;quot;:1},&amp;quot;15&amp;quot;:&amp;quot;Calibri&amp;quot;,&amp;quot;16&amp;quot;:11}&quot; data-sheets-value=&quot;{&amp;quot;1&amp;quot;:2,&amp;quot;2&amp;quot;:&amp;quot;80-100 --&gt; Muy Facil\n60-80 --&gt; Facil\n50-60 Bastante difícil --&gt; Preuniversitario\n30-50 Difícil --&gt; Cursos selectivos\n0-30 Muy difíci --&gt;l Universitaria, cientifica&amp;quot;}&quot; style=&quot;font-size:11pt;font-family:Calibri,Arial;font-style:normal;color:#000000;&quot;&gt;80-100 --&amp;gt; Muy Facil&lt;br&gt;60-80 --&amp;gt; Facil&lt;br&gt;50-60 Bastante difícil --&amp;gt; Preuniversitario&lt;br&gt;30-50 Difícil --&amp;gt; Cursos selectivos&lt;br&gt;0-30 Muy difíci --&amp;gt;l Universitaria, cientifica&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;fillColor=#b0e3e6;strokeColor=#0e8088;" parent="1" vertex="1">
+          <mxGeometry x="3507" y="701" width="270" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="p1tD0fV-p20YhZrAr31D-800" value="&lt;p class=&quot;MsoNormal&quot; style=&quot;font-size: 17px;&quot;&gt;******* DENSIDAD LEXICA *********&lt;/p&gt;&lt;p class=&quot;MsoNormal&quot; style=&quot;font-size: 17px;&quot;&gt;Densidad Lexica:&lt;span style=&quot;font-size: 17px;&quot;&gt;&amp;nbsp;&lt;br&gt;&lt;/span&gt;0.6467391304347826&lt;/p&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Densidad Lexica-Normalizada:&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;0.003514886578449905&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;br&gt;Densidad Lexica-Normalizada Con Peso:&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp; &lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;0.0040421195652173905&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;********************************&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;p class=&quot;MsoNormal&quot; style=&quot;font-size: 17px;&quot;&gt;******* COMPLEJIDAD DE LA ORACION *********&lt;/p&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Complejidad Oracion:&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp;&lt;br&gt;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;9.466666666666667&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;br&gt;Complejidad Oracion-Normalizada:&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp; &lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;0.3151515151515152&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;br&gt;Complejidad Oracion-Normalizada Con Peso:&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp; &lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;0.3624242424242424&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;********************************&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;p class=&quot;MsoNormal&quot; style=&quot;font-size: 17px;&quot;&gt;&lt;/p&gt;&lt;p class=&quot;MsoNormal&quot; style=&quot;font-size: 17px;&quot;&gt;******* COMPLEJIDAD SINTACTICA *********&lt;/p&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Complejidad Sintactica:&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp;&lt;br&gt;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;0.09389671361502347&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;br&gt;Complejidad Sintactica-Normalizar:&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp; &lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;0.010432968179447052&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;br&gt;Complejidad Sintactica-Normalizar Con Peso:&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp; &lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;0.011997913406364108&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;********************************&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;br&gt;******* MARCAS DE PUNTUACION *********&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Marcas puntuacion:&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp; &lt;br&gt;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;0.0249609984399376&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;br&gt;Marcas puntuacion-Normalizar:&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp; &lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;0.00078003120124805&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Marcas puntuacion-Normalizar Con Peso:&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp; &lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;0.0008970358814352574&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp; &amp;nbsp;&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;********************************&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;******* INDICE SSR *********&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;SRR:&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp;&lt;br&gt;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;54.895111111111106&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;br&gt;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Rango:&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp; &lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Muy Facil&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;SSR-Normalizado:&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp;&lt;br&gt;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;0.4536786042240587&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;br&gt;SSR-Normalizado Con Peso:&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp;&lt;br&gt;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;0.6941282644628098&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp; &amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;********************************&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;p class=&quot;MsoNormal&quot; style=&quot;font-size: 17px;&quot;&gt;******* FACILIDAD DE LECTURA *********&lt;/p&gt;&lt;br&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Facilidad Lectura: 64.45276995305166&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;br&gt;Facilidad Lectura-Norm: 0.6445276995305166&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Facilidad Lectura-Norm Con Peso: 0.9861273802816904&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;********************************&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;******* PROFUNDIDAD ARBOL *********&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Profundidad Arbol : 6&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;br&gt;Profundidad Arbol-Norm 0.29411764705882354&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;br&gt;Profundidad Arbol-Norm Con Peso 0.45&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;********************************&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;******* GRADO DE CUMPLIMIENTO *********&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Grado De Cumplimiento:&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp;&lt;br&gt;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;10&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Grado Cumplimiento-Norm:&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp;&lt;br&gt;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;0.6428571428571429&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;br&gt;Grado Cumplimiento-Norm Con Peso:&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp; &lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;1.4785714285714286&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;********************************&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;******* PROFUNDIDAD DE SECCIONES *********&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Profundidad Secciones:&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;2&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Profundidad Secciones-Norm:&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;0.5&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Profundidad Secciones-Norm Con Peso 1.15&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;********************************&lt;/span&gt;" style="text;whiteSpace=wrap;html=1;fontSize=17;fontStyle=1;fillColor=#cce5ff;strokeColor=#36393d;" parent="1" vertex="1">
+          <mxGeometry x="3910" y="96" width="410" height="2290" as="geometry" />
+        </mxCell>
+        <mxCell id="p1tD0fV-p20YhZrAr31D-801" value="Legibilidad" style="text;spacingTop=-5;align=center;verticalAlign=middle;fontSize=30;fontStyle=1;html=1;points=[]" parent="1" vertex="1">
+          <mxGeometry x="2452.5" y="360" width="310" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="p1tD0fV-p20YhZrAr31D-802" value="&lt;blockquote style=&quot;margin: 0 0 0 40px; border: none; padding: 0px;&quot;&gt;&lt;/blockquote&gt;&lt;blockquote style=&quot;margin: 0 0 0 40px; border: none; padding: 0px;&quot;&gt;&lt;/blockquote&gt;&lt;blockquote style=&quot;margin: 0 0 0 40px; border: none; padding: 0px;&quot;&gt;&lt;/blockquote&gt;&lt;blockquote style=&quot;margin: 0 0 0 40px; border: none; padding: 0px;&quot;&gt;&lt;/blockquote&gt;&lt;blockquote style=&quot;margin: 0 0 0 40px; border: none; padding: 0px;&quot;&gt;&lt;b style=&quot;background-color: initial; font-size: 20px;&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt; &lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt; &lt;span style=&quot;white-space: pre;&quot;&gt; &lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt; &lt;/span&gt;&lt;/span&gt;RESULTS&amp;nbsp;&lt;/b&gt;&lt;/blockquote&gt;&lt;blockquote style=&quot;margin: 0 0 0 40px; border: none; padding: 0px;&quot;&gt;&lt;b style=&quot;background-color: initial; font-size: 20px;&quot;&gt;&lt;br&gt;&lt;/b&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;b style=&quot;font-size: 20px;&quot;&gt;• &lt;/b&gt;&lt;span style=&quot;font-size: 20px;&quot;&gt;&lt;b&gt;Índice&lt;/b&gt;&lt;/span&gt;&lt;b style=&quot;font-size: 20px;&quot;&gt;&amp;nbsp;SSR: 54.8 Nivel: Facil&lt;/b&gt;&lt;/span&gt;&lt;/blockquote&gt;&lt;br&gt;&lt;blockquote style=&quot;margin: 0 0 0 40px; border: none; padding: 0px;&quot;&gt;&lt;b style=&quot;background-color: initial; font-size: 20px;&quot;&gt;&lt;br&gt;&lt;/b&gt;&lt;b style=&quot;background-color: initial; font-size: 20px;&quot;&gt;• Facilidad De Lectura: 64.4 Nivel: Dificil&lt;/b&gt;&lt;/blockquote&gt;&lt;br&gt;&lt;blockquote style=&quot;margin: 0 0 0 40px; border: none; padding: 0px;&quot;&gt;&lt;b style=&quot;background-color: initial; font-size: 20px;&quot;&gt;&lt;br&gt;&lt;/b&gt;&lt;b style=&quot;font-size: 20px; background-color: initial;&quot;&gt;• Arbol De Sitaxis Abstracta: 6 Nivel: Muy Simplificado&lt;br&gt;&lt;/b&gt;&lt;/blockquote&gt;&lt;blockquote style=&quot;margin: 0 0 0 40px; border: none; padding: 0px;&quot;&gt;&lt;/blockquote&gt;&lt;blockquote style=&quot;margin: 0 0 0 40px; border: none; padding: 0px;&quot;&gt;&lt;/blockquote&gt;&lt;blockquote style=&quot;margin: 0 0 0 40px; border: none; padding: 0px;&quot;&gt;&lt;/blockquote&gt;&lt;blockquote style=&quot;margin: 0 0 0 40px; border: none; padding: 0px;&quot;&gt;&lt;/blockquote&gt;&lt;blockquote style=&quot;margin: 0 0 0 40px; border: none; padding: 0px;&quot;&gt;&lt;/blockquote&gt;&lt;blockquote style=&quot;margin: 0 0 0 40px; border: none; padding: 0px;&quot;&gt;&lt;/blockquote&gt;" style="text;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="2910" y="130" width="550" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="Po3kkdIcqMW7CYR0yUJX-752" value="" style="edgeStyle=none;html=1;fontColor=#000000;strokeWidth=3;strokeColor=#000000;" parent="1" edge="1">
+          <mxGeometry width="100" height="100" relative="1" as="geometry">
+            <mxPoint x="2760" y="720" as="sourcePoint" />
+            <mxPoint x="2760.5" y="450" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Po3kkdIcqMW7CYR0yUJX-753" value="" style="edgeStyle=none;html=1;fontColor=#000000;strokeWidth=3;strokeColor=#000000;endArrow=none;endFill=0;" parent="1" edge="1">
+          <mxGeometry width="100" height="100" relative="1" as="geometry">
+            <mxPoint x="2480" y="720" as="sourcePoint" />
+            <mxPoint x="2760" y="720" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Po3kkdIcqMW7CYR0yUJX-754" value="40" style="text;spacingTop=-5;align=center;verticalAlign=middle;fontStyle=1;html=1;fontSize=20;points=[];fontColor=#FF4019;" parent="1" vertex="1">
+          <mxGeometry x="2810" y="640" width="27.5" height="19.5" as="geometry" />
+        </mxCell>
+        <mxCell id="Po3kkdIcqMW7CYR0yUJX-755" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=3;fontColor=#FF4019;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="2797.5" y="650.53" as="sourcePoint" />
+            <mxPoint x="2760" y="650.78" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="2787.5" y="650.53" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Po3kkdIcqMW7CYR0yUJX-756" value="60" style="text;spacingTop=-5;align=center;verticalAlign=middle;fontStyle=1;html=1;fontSize=20;points=[];fontColor=#FF4019;" parent="1" vertex="1">
+          <mxGeometry x="2810" y="600" width="27.5" height="19.5" as="geometry" />
+        </mxCell>
+        <mxCell id="Po3kkdIcqMW7CYR0yUJX-757" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=3;fontColor=#FF4019;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="2797.5" y="610.53" as="sourcePoint" />
+            <mxPoint x="2760" y="610.78" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="2787.5" y="610.53" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Po3kkdIcqMW7CYR0yUJX-758" value="80" style="text;spacingTop=-5;align=center;verticalAlign=middle;fontStyle=1;html=1;fontSize=20;points=[];fontColor=#FF4019;" parent="1" vertex="1">
+          <mxGeometry x="2810" y="560" width="27.5" height="19.5" as="geometry" />
+        </mxCell>
+        <mxCell id="Po3kkdIcqMW7CYR0yUJX-759" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=3;fontColor=#FF4019;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="2797.5" y="570" as="sourcePoint" />
+            <mxPoint x="2760" y="570.25" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="2787.5" y="570" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Po3kkdIcqMW7CYR0yUJX-760" value="100" style="text;spacingTop=-5;align=center;verticalAlign=middle;fontStyle=1;html=1;fontSize=20;points=[];fontColor=#FF4019;" parent="1" vertex="1">
+          <mxGeometry x="2810" y="520" width="27.5" height="19.5" as="geometry" />
+        </mxCell>
+        <mxCell id="Po3kkdIcqMW7CYR0yUJX-761" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=3;fontColor=#FF4019;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="2797.5" y="530.78" as="sourcePoint" />
+            <mxPoint x="2760" y="530.53" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="2787.5" y="530.78" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Po3kkdIcqMW7CYR0yUJX-762" value="120" style="text;spacingTop=-5;align=center;verticalAlign=middle;fontStyle=1;html=1;fontSize=20;points=[];fontColor=#FF4019;" parent="1" vertex="1">
+          <mxGeometry x="2810" y="480" width="27.5" height="19.5" as="geometry" />
+        </mxCell>
+        <mxCell id="Po3kkdIcqMW7CYR0yUJX-763" value="" style="endArrow=none;html=1;rounded=0;strokeWidth=3;fontColor=#FF4019;" parent="1" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="2797.5" y="490.25" as="sourcePoint" />
+            <mxPoint x="2760" y="490" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="2787.5" y="490.25" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Po3kkdIcqMW7CYR0yUJX-780" value="" style="shape=card;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" parent="1" vertex="1">
+          <mxGeometry x="3000" y="464.75" width="350" height="370" as="geometry" />
+        </mxCell>
+        <mxCell id="Po3kkdIcqMW7CYR0yUJX-781" value="" style="whiteSpace=wrap;fillColor=#10B563;gradientColor=none;gradientDirection=east;strokeColor=none;html=1;fontColor=#23445d;fontSize=16;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="3017" y="665" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Po3kkdIcqMW7CYR0yUJX-782" value="" style="whiteSpace=wrap;fillColor=#F08705;gradientColor=none;gradientDirection=east;strokeColor=none;html=1;fontColor=#23445d;fontSize=16;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="3017" y="604.75" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Po3kkdIcqMW7CYR0yUJX-783" value="" style="whiteSpace=wrap;fillColor=#E85642;gradientColor=none;gradientDirection=east;strokeColor=none;html=1;fontColor=#23445d;fontSize=16;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="3017" y="544.75" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Po3kkdIcqMW7CYR0yUJX-784" value="Dificil&amp;nbsp; [101 - 120]" style="text;spacingTop=-5;html=1;points=[];fontSize=16;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="3077" y="554.75" width="80" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="Po3kkdIcqMW7CYR0yUJX-785" value="Dificultad Moderada&amp;nbsp; [81 - 100]" style="text;spacingTop=-5;html=1;points=[];fontSize=16;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="3077" y="614.75" width="80" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="Po3kkdIcqMW7CYR0yUJX-786" value="Facil&amp;nbsp; [61 - 80]" style="text;spacingTop=-5;html=1;points=[];fontSize=16;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="3077" y="674.75" width="80" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="Po3kkdIcqMW7CYR0yUJX-787" value="" style="whiteSpace=wrap;fillColor=#B84434;gradientColor=none;gradientDirection=east;strokeColor=none;html=1;fontColor=#23445d;fontSize=16;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="3017" y="484.75" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Po3kkdIcqMW7CYR0yUJX-788" value="Muy Dificil&amp;nbsp; [121 - N]" style="text;spacingTop=-5;html=1;points=[];fontSize=16;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="3077" y="494.75" width="80" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="Po3kkdIcqMW7CYR0yUJX-789" value="" style="whiteSpace=wrap;fillColor=#1B63B5;gradientColor=none;gradientDirection=east;strokeColor=none;html=1;fontColor=#23445d;fontSize=16;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="3017" y="724.75" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Po3kkdIcqMW7CYR0yUJX-790" value="Muy Facil&amp;nbsp; [40 - 60]" style="text;spacingTop=-5;html=1;points=[];fontSize=16;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="3077" y="734.75" width="80" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="Po3kkdIcqMW7CYR0yUJX-791" value="" style="whiteSpace=wrap;fillColor=#12AAB5;gradientColor=none;gradientDirection=east;strokeColor=none;html=1;fontColor=#23445d;fontSize=16;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="3017" y="785.75" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Po3kkdIcqMW7CYR0yUJX-792" value="Material Muy Simplificado [0 - 39]" style="text;spacingTop=-5;html=1;points=[];fontSize=16;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="3074.5" y="795.75" width="80" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="veeMSnl05T0nteJ-uMmb-752" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;&lt;b&gt;Formulas:&lt;br&gt;&lt;br&gt;FL: Flesch–Kincaid readability tests&lt;br&gt;&lt;/b&gt;FL= 206,835 - 1,015 *(total words/total sentences) - 84,6 * (total syllables/total words)&lt;br&gt;&lt;br&gt;&lt;b&gt;SSR:&amp;nbsp;&lt;/b&gt;&lt;b&gt;Spaulding’s Spanish Readability&amp;nbsp;&lt;br&gt;&lt;/b&gt;SSR=1,609 * (total words/total sentences)&amp;nbsp;+ 331,8 * (rare words/total words)&amp;nbsp;+ 22,0&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="2090" y="-10" width="780" height="180" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

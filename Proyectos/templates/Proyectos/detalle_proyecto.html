@@ -1,0 +1,505 @@
+<!-- detalle_proyecto.html -->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Breadcrumb -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="{% static 'css/USERS_PROYECTOS/Breadcrumbs/style.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/USERS_PROYECTOS/Users_Detalle_Proyecto/style.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}">
+    <title>SeedResearchTool</title>
+    {% block extra_styles %}
+    {% endblock %}
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-brand">
+        <a class="navbar-brand" href="{% url 'Users:Users_home' %}">
+            <img src="{% static 'images/USERS_PROYECTOS/Users_Lista_Proyectos/Proyectos_Logo.png' %}" alt="" style="width: 240px; height: 60px;">
+        </a>
+    </div>
+    <ul class="navbar-menu">
+        {% if user.is_authenticated and not user.usuario_administrador %}
+        <li class="navbar-item">
+            <a class="nav-link" href="{% url 'Users:Users_home' %}"><strong>HOME</strong></a>
+        </li>
+        <li class="navbar-item">
+            <a class="nav-link" href="{% url 'Proyectos:lista_proyectos' %}"><strong>PROYECTOS</strong></a>
+        </li>
+        <li class="navbar-item">
+            <a class="nav-link" href="{% url 'Proyectos:crear_proyecto' %}"><strong>CREAR PROYECTO</strong></a>
+        </li>
+        {% endif %}
+    </ul>
+
+    <ul class="navbar-menu ml-auto">
+        {% if user.is_authenticated and not user.usuario_administrador %}
+        <li class="navbar-item">
+            <a class="nav-link" href="{% url 'Users:Users_ver_perfil' %}"><strong>PERFIL</strong></a>
+        </li>
+        <li class="navbar-item">
+            <a class="nav-link" href="{% url 'Users:logout' %}"><strong>CERRAR SESION</strong></a>
+        </li>
+        {% else %}
+        <li class="navbar-item">
+            <a class="nav-link" href="{% url 'Users:Users_login' %}"><strong>INICIAR SESION</strong></a>
+        </li>
+        <li class="navbar-item">
+            <a class="nav-link" href="{% url 'Users:Users_consultar_identificacion' %}"><strong>REGISTRARSE</strong></a>
+        </li>
+        {% endif %}
+    </ul>
+  </nav>
+        
+
+  <!-- Breadcrumb -->
+  <div class="wrapper">
+      <ol class="breadcrumbs breadcrumbs--one" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a class="breadcrumb" href="{% url 'Users:Users_home' %}" itemprop="item">
+              <span itemprop="name">
+              <i class="material-icons" aria-hidden="true">home</i>
+              <span>INICIO</span>
+              </span>
+          </a>
+          <meta itemprop="position" content="1" />
+          </li>
+
+          <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a class="breadcrumb" href="{% url 'Proyectos:lista_proyectos' %}" itemprop="item">
+              <span itemprop="name">
+              <i class="material-icons" aria-hidden="true">cases</i>
+              <span>PROYECTOS</span>
+              </span>
+          </a>
+          <meta itemprop="position" content="2" />
+          </li>
+
+          <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+              <a class="breadcrumb" href="{% url 'Proyectos:opciones_proyecto' proyecto.id %}" itemprop="item">
+                  <span itemprop="name">
+                  <i class="material-icons" aria-hidden="true">widgets</i>
+                  <span>ACCIONES</span>
+                  </span>
+              </a>
+              <meta itemprop="position" content="2" />
+          </li>
+
+          <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a class="breadcrumb" href="" itemprop="item">
+                <span itemprop="name">
+                <i class="material-icons" aria-hidden="true">info</i>
+                <span>DETALLES</span>
+                </span>
+            </a>
+            <meta itemprop="position" content="2" />
+        </li>
+      </ol>
+  </div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <br>
+    <br>
+    <br>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"><strong>¿Confirmar Eliminar Proyecto?</strong></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h4><strong>&#9888; ¿Estas Seguro? &#9888;</strong></h4>
+                <p><strong style="color: red;">Tenga en cuenta que al eliminar un proyecto. Se eliminaran todos los datos asociados a este y no se podran recuperar:</strong></p>
+                <p><strong>Productos</p></strong>
+                <p><strong>Evidencias</p></strong>
+                <p><strong>Portafolios</p></strong>
+                <p><strong>Cumplimientos</p></strong>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-danger" id="eliminarProyecto" >Si</button>
+            </div>
+        </div>
+    </div>
+  </div>
+
+
+
+  <br>
+  <br>
+  <hr>
+  <div class="container-title">
+    <h2 class="centered-title">PROYECTO DE INVESTIGACION</h2>
+    <form method="post" action="{% url 'Proyectos:descargar_pdf' proyecto.id %}">
+        {% csrf_token %}
+        <button type="submit" class="download-button" style="background-color: rgb(123, 0, 255); color: rgb(255, 255, 255); padding: 10px 20px; border: none; border-radius: 5px; font-size: 20px; margin-right: 10px;">Descargar PDF</button>
+    </form>
+    <button type="button" class="btn btn-danger" style="background-color: red; color: rgb(255, 255, 255); padding: 10px 20px; border: none; border-radius: 5px; font-size: 20px;" data-bs-toggle="modal" data-bs-target="#exampleModal">Eliminar</button>
+  </div>
+
+   
+  <hr>
+
+  <div class="container">
+    <div class="container-g-l">
+
+      <div class="container-g-l-1">
+        <p><strong>Titulo de Proyecto:</strong> {{ proyecto.titulo }}</p>
+        <p><strong>Fecha Inscripcion De Proyecto:</strong> {{ proyecto.fecha_inscripcion }}</p>
+        <p><strong>Palabras Claves:</strong> {{ proyecto.palabras_clave }}</p>
+        <p><strong>Facultad:</strong> {{ proyecto.facultad }}</p>
+        <p><strong>Programa:</strong> {{ proyecto.programa }}</p>
+        <p><strong>Grupo De Investigacion:</strong> {{ proyecto.grupo_investigacion }}</p>
+        <p><strong>Linea De Investigacion:</strong> {{ proyecto.linea_investigacion }}</p>
+        <p><strong>Semillero Investigacion:</strong> {{ proyecto.semillero_investigacion }}</p>
+      </div>
+
+      <br>
+      <div class="container-g-l-1">
+        <div style="text-align: center;">
+          <hr>
+          <br>
+          <h4>INVESTIGADORES PARTICIPANTES</h4>
+          <h6><strong>Datos del investigador</strong></h6>
+          <hr>
+          <br>
+        </div>
+
+
+        <p><strong>Nombre:</strong> {{ proyecto.nombre }}</p>
+        <p><strong>Identificacion:</strong> {{ proyecto.identificacion }}</p>
+        <p><strong>Telefono:</strong> {{ proyecto.telefono }}</p>
+        <p><strong>Correo:</strong> {{ proyecto.correo }}</p>
+        <p><strong>Cvlac:</strong> {{ proyecto.cvlac }}</p>
+
+
+        {% if proyecto.co_investigador_1_nombre %}
+          <hr>
+          <div style="text-align: center;"><h6><strong>Datos del Co-Investigador</strong></h6></div>
+            <br>
+            <h6><strong>Nombre:</strong> {{ proyecto.co_investigador_1_nombre }}</h6>
+            <p><strong>Identificacion:</strong> {{ proyecto.co_investigador_1_identificacion }}</p>
+            <p><strong>Telefono:</strong> {{ proyecto.co_investigador_1_telefono }}</p>
+            <p><strong>Correo:</strong> {{ proyecto.co_investigador_1_correo }}</p>
+            <p><strong>Formacion:</strong> {{ proyecto.co_investigador_1_formacion }}</p>
+            <p><strong>Institución en la que labora:</strong> {{ proyecto.co_investigador_1_institucion }}</p>
+            <p><strong>Link CVLAC:</strong> {{ proyecto.co_investigador_1_cvlac }}</p>
+        {% endif %}
+      </div>
+
+      <br>
+      <div class="container-g-l-1">
+        <hr>
+        <div style="text-align: center;"><h4>FECHAS DURACION PROYECTO</h4></div>
+        <hr>
+        <br>
+
+        <p><strong>Fecha de inicio:</strong> {{ proyecto.fecha_inicio }}</p>
+        <p><strong>Fecha de finalización:</strong> {{ proyecto.fecha_finalizacion }}</p>
+      </div>
+
+      <br>
+      <div class="container-g-l-1">
+        <hr>
+        <div style="text-align: center;"><h4>DESCRIPCIÓN DEL PROYECTO</h4></div>
+        <hr>
+        <br>
+
+        <p><strong>Problema y pregunta:</strong></p>
+        <p>{{ proyecto.problema_pregunta }}</p>
+
+        <p><strong>Justificación:</strong></p>
+        <p>{{ proyecto.justificacion }}</p>
+
+        <p><strong>Objetivo general:</strong></p>
+        <p>{{ proyecto.objetivo_general }}</p>
+
+        <p><strong>Objetivos específicos:</strong></p>
+        <p>{{ proyecto.objetivos_especificos }}</p>
+
+        <p><strong>Metodología propuesta:</strong></p>
+        <p>{{ proyecto.metodologia_propuesta }}</p>
+
+        <p><strong>Estado del arte o antecedentes:</strong></p> 
+        <p>{{ proyecto.estado_arte }}</p>
+
+        <p><strong>Impactos esperados:</strong></p>
+        <p>{{ proyecto.impactos_esperados }}</p>
+      </div>
+
+      <br>
+      <div class="container-g-l-1">
+        <hr>
+        <div style="text-align: center;"><h4>CRONOGRAMA</h4></div>
+        <hr>
+        <br>
+
+        <div style="text-align: center;">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; border: 1px solid rgb(187, 187, 187);">Actividad</th>
+                <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; border: 1px solid rgb(187, 187, 187);">Descripción</th>
+                <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; border: 1px solid rgb(187, 187, 187);">Duración</th>
+                <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; border: 1px solid rgb(187, 187, 187);">Tipo de Duración</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for actividad in actividades %}
+              <tr>
+                <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; border: 1px solid rgb(187, 187, 187);">{{ actividad.nombre }}</td>
+                <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; border: 1px solid rgb(187, 187, 187);">{{ actividad.descripcion }}</td>
+                <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; border: 1px solid rgb(187, 187, 187);">{{ actividad.duracion }}</td>
+                <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; border: 1px solid rgb(187, 187, 187);">{{ actividad.tipo_duracion }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <br>
+      <div class="container-g-l-1">
+        <hr>
+        <div style="text-align: center;"><h4>PRODUCTOS DERIVADOS DE LA INVESTIGACIÓN.</h4></div>
+        <hr>
+        <br>
+
+        <div style="text-align: center;">
+          <table class="table" style="border-collapse: collapse; margin: auto; width: 100%; border: 1px solid rgb(187, 187, 187);">
+            <thead>
+              <tr>
+                <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; border: 1px solid rgb(187, 187, 187);">Generación de Nuevo Conocimiento</th>
+                <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; border: 1px solid rgb(187, 187, 187);">Desarrollo Tecnológico e Innovación</th>
+                <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; border: 1px solid rgb(187, 187, 187);">Apropiación Social del Conocimiento</th>
+                <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; border: 1px solid rgb(187, 187, 187);">Formación del Recurso Humano CteI</th>
+                <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; border: 1px solid rgb(187, 187, 187);">Gestión de semillero</th>
+                <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; border: 1px solid rgb(187, 187, 187);">Otros encargos</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; border: 1px solid rgb(187, 187, 187);">
+                  {% for producto in productos %}
+                    {% if producto.categoria == 'Generación de Nuevo Conocimiento' %}
+                      <p style="text-align: center;">{{ producto.tipo_producto }}</p>
+                    {% endif %}
+                  {% empty %}
+                    <p>No se han agregado productos aún.</p>
+                  {% endfor %}
+                </td>
+                <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; border: 1px solid rgb(187, 187, 187);">
+                  {% for producto in productos %}
+                    {% if producto.categoria == 'Desarrollo Tecnológico e Innovación' %}
+                      <p style="text-align: center;">{{ producto.tipo_producto }}</p>     
+                    {% endif %}
+                  {% empty %}
+                    <p>No se han agregado productos aún.</p>
+                  {% endfor %}
+                </td>
+                <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; border: 1px solid rgb(187, 187, 187);">
+                  {% for producto in productos %}
+                    {% if producto.categoria == 'Apropiación Social del Conocimiento' %}
+                      <p style="text-align: center;">{{ producto.tipo_producto }}</p>     
+                    {% endif %}
+                  {% empty %}
+                    <p>No se han agregado productos aún.</p>
+                  {% endfor %}
+                </td>
+                <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; border: 1px solid rgb(187, 187, 187);">
+                  {% for producto in productos %}
+                    {% if producto.categoria == 'Formación del Recurso Humano CteI' %}
+                      <p style="text-align: center;">{{ producto.tipo_producto }}</p>   
+                    {% endif %}
+                  {% empty %}
+                    <p>No se han agregado productos aún.</p>
+                  {% endfor %}
+                </td>
+                <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; border: 1px solid rgb(187, 187, 187);">
+                  {% for producto in productos %}
+                    {% if producto.categoria == 'Gestión de semillero' %}
+                      <p style="text-align: center;">{{ producto.tipo_producto }}</p>   
+                    {% endif %}
+                  {% empty %}
+                    <p>No se han agregado productos aún.</p>
+                  {% endfor %}
+                </td>
+                <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; border: 1px solid rgb(187, 187, 187);">
+                  {% for producto in productos %}
+                    {% if producto.categoria == 'Otros encargos' %}
+                      <p style="text-align: center;">{{ producto.tipo_producto }}</p>   
+                    {% endif %}
+                  {% empty %}
+                    <p>No se han agregado productos aún.</p>
+                  {% endfor %}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <br>
+      <div class="container-g-l-1">
+        <hr>
+        <div style="text-align: center;"><h4>COMITE DE ETICA</h4></div>
+        <hr>
+        <br>
+
+        {% if proyecto.comite_etica == 'si' %}
+            <p>El proyecto ha sido sometido al Comité de Ética.</p>
+            {% if proyecto.archivo_adjunto %}
+                <p>Link de Acceso al Acta:</p>
+                <a href="{{ proyecto.archivo_adjunto.url }}" target="_blank">Descargar Acta</a>
+                <br>
+                <br>
+                <br>
+            {% endif %}
+        {% else %}
+            <p>El proyecto no ha sido sometido al Comité de Ética.</p>
+        {% endif %}
+      </div>
+
+      <br>
+      <div class="container-g-l-1">
+        <hr>
+        <div style="text-align: center;"><h4>APROBACION</h4></div>
+        <hr>
+        <br>
+
+        {% if not proyecto.aprobado %}
+
+          <p>El proyecto aún no ha sido aprobado</p>
+
+        {% else %}
+          <p><strong>Aprobaciones</strong></p>
+          <p>Fecha Aprobación: {{ proyecto.aprobado_fecha }}</p>
+          <p>Nombre de quien aprobó: {{ proyecto.aprobado_nombre }}</p>
+
+          {% if not proyecto.aprobado_adjunto %}
+            <p><strong>Aun no cuenta con el acta de aprobacion</strong></p>  
+          {% else %}
+            <p>Link de acceso al acta: <a href="{{ proyecto.aprobado_adjunto.url }}" target="_blank">Descargar</a></p>
+          {% endif %}
+
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+
+  <br>
+  <div class="container-g-l">
+    <div class="container-g-l-1">
+      <hr>
+      <div style="text-align: center;">
+        <h4>EVIDENCIAS</h4>
+      </div>
+      <hr>
+      
+      <div style="text-align: center;">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; border: 1px solid rgb(187, 187, 187);">Producto</th>
+              <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; border: 1px solid rgb(187, 187, 187);">Evidencia Nº 1</th>
+              <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; border: 1px solid rgb(187, 187, 187);">Evidencia Nº 2</th>
+              <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; border: 1px solid rgb(187, 187, 187);">Evidencia Nº 3</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for producto in productos %}
+              <tr>
+                <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; border: 1px solid rgb(187, 187, 187); font-size: 10px"><strong>{{ producto.tipo_producto }}</strong></td>
+        
+                <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; border: 1px solid rgb(187, 187, 187); font-size: 12px">
+                  {% for portafolio in portafolios %}
+                    {% if portafolio.producto.id == producto.id %}
+                      {% if portafolio.avance_1_nombre %}
+                        <p><strong>Nombre: </strong>{{ portafolio.avance_1_nombre }}</p>
+                        <p class="producto-descripcion"><strong>Descripcion:</strong> {{ portafolio.avance_1_descripcion }}</p>
+                        <p class="producto-link"><strong>Link:</strong> {{ portafolio.avance_1_link }}</p>                
+                        {% if portafolio.avance_1_adjunto %}
+                          <p><strong>Adjunto: </strong><a href="{{ portafolio.avance_1_adjunto.url }}" target="_blank">Descargar</a></p>
+                        {% endif %}
+                        <br>
+                      {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                </td>
+        
+                <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; border: 1px solid rgb(187, 187, 187); font-size: 12px">
+                  {% for portafolio in portafolios %}
+                    {% if portafolio.producto.id == producto.id %}
+                      {% if portafolio.avance_2_descripcion %}
+                      <p class="producto-descripcion"><strong>Descripcion:</strong> {{ portafolio.avance_2_descripcion }}</p>
+                        <p class="producto-link"><strong>Link:</strong> {{ portafolio.avance_2_link }}</p>                
+                        {% if portafolio.avance_2_adjunto %}
+                          <p><strong>Adjunto: </strong><a href="{{ portafolio.avance_2_adjunto.url }}" target="_blank">Descargar</a></p>
+                        {% endif %}
+                        <br>
+                      {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                </td>
+        
+                <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; border: 1px solid rgb(187, 187, 187); font-size: 12px">
+                  {% for portafolio in portafolios %}
+                    {% if portafolio.producto.id == producto.id %}
+                      {% if portafolio.avance_3_descripcion %}
+                        <p class="producto-descripcion"><strong>Descripcion:</strong> {{ portafolio.avance_3_descripcion }}</p>
+                        <p class="producto-link"><strong>Link:</strong> {{ portafolio.avance_3_link }}</p>                
+                        {% if portafolio.avance_3_adjunto %}
+                          <p><strong>Adjunto: </strong><a href="{{ portafolio.avance_3_adjunto.url }}" target="_blank">Descargar</a></p>
+                        {% endif %}
+                      {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>          
+      </div>
+    </div>
+  </div>
+
+
+<br>
+<br>
+<br>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- SCRIPT - Modal Confirmacion -->
+  <script>
+    document.getElementById('eliminarProyecto').addEventListener('click', function () {
+      var form = document.createElement('form');
+      form.method = 'post';
+      form.action = '{% url "Proyectos:eliminar_proyecto" proyecto.id %}';
+      var csrf = document.createElement('input');
+      csrf.type = 'hidden';
+      csrf.name = 'csrfmiddlewaretoken';
+      csrf.value = '{{ csrf_token }}';
+      form.appendChild(csrf);
+      document.body.appendChild(form);
+      form.submit();
+    });
+  </script>
+ 
+
+</body>
+</html>

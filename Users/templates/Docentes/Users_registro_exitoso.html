@@ -1,0 +1,116 @@
+<!-- Users_registro_exitoso.html -->
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- mobile metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <!-- site metas -->
+    <title>SeedResearchTool</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- bootstrap css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/USERS/Users_home/bootstrap.min.css' %}">
+    <!-- style css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/USERS/Users_home/style.css' %}">
+    <!-- Responsive-->
+    <link rel="stylesheet" href="{% static 'css/USERS/Users_home/responsive.css' %}">
+    <!-- favicon -->
+    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/gif" />
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/USERS/Users_home/jquery.mCustomScrollbar.min.css' %}">
+    <!-- Tweaks for older IEs-->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <!-- owl stylesheets --> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+  </head>
+
+
+   <body>
+
+    <!-- header section start -->
+    <div class="header_section">
+        <div class="container-fluid">
+          <nav class="navbar navbar-expand-lg navbar-light bg-light">
+              <div class="logo"><a href="{% url 'Users:Users_home' %}"><img src="{% static 'images/USERS/Users_Home/Users_Home_Logo.png' %}" alt="" style="width: 200px; height: 60px;"></a></div>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav mr-auto">
+                      {% if user.is_authenticated and not user.usuario_administrador %}
+                          <li class="nav-item">
+                              <a class="nav-link" href="{% url 'Users:Users_home' %}">HOME</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="{% url 'Proyectos:lista_proyectos' %}">PROYECTOS</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="{% url 'Proyectos:crear_proyecto' %}">CREAR PROYECTO</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="{% url 'Users:Users_ver_perfil' %}">PERFIL</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="{% url 'Users:logout' %}">CERRAR SESION</a>
+                          </li>
+                      {% else %}
+                          <li class="nav-item">
+                              <a class="nav-link" href="{% url 'Users:Users_login' %}">INICIAR SESION</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="{% url 'Users:Users_consultar_identificacion' %}">REGISTRARSE</a>
+                          </li>
+                      {% endif %}
+                  </ul>
+              </div>
+          </nav>
+        </div>
+    </div>
+    <!-- header section end -->
+
+    
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-7">
+          <form method="POST">
+            {% csrf_token %}
+            <br>
+            <br>
+            <h1 class="mb-4 text-center">¡Registro exitoso!</h1>
+            <h3 class="text-center">Bienvenid@ nuevo Docente Investigador. Antes de continuar, por favor ingresa tus datos de información Adicional.</h3>
+          </form>
+          <div class="text-center"> <!-- Utilizamos la clase text-center para centrar el enlace -->
+            <a href="{% url 'Users:Users_ver_perfil' %}" class="btn btn-primary">Añadir Información</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <!-- Javascript files-->
+    <script src="{% static 'js/USERS/Users_home/jquery.min.js' %}"></script>
+    <script src="{% static 'js/USERS/Users_home/popper.min.js' %}"></script>
+    <script src="{% static 'js/USERS/Users_home/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/USERS/Users_home/jquery-3.0.0.min.js' %}"></script>
+    <script src="{% static 'js/USERS/Users_home/plugin.js' %}"></script>
+    <!-- sidebar -->
+    <script src="{% static 'js/USERS/Users_home/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+    <script src="{% static 'js/USERS/Users_home/custom.js' %}"></script>
+    <!-- javascript --> 
+    <script src="{% static 'js/USERS/Users_home/owl.carousel.js' %}"></script>
+    <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+
+
+  </body>
+</html>
+
+

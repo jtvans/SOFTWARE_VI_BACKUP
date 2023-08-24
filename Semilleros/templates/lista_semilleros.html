@@ -1,0 +1,33 @@
+
+
+<br>
+<br>
+<hr>
+<div class="center">
+    <h3><strong>Semilleros</strong></h3>
+</div>
+<hr>
+
+<!-- Message Creado -->
+<div class="messages-container">
+    {% if success_message %}
+        <div class="success-message">
+            {{ success_message }}
+        </div>
+    {% endif %}
+</div>
+
+
+<div class="cards-container">
+    {% for semillero in semilleros %}
+    <div class="card">
+        <div class="card-body">
+            <div class="center">
+                <h4>{{ semillero.nombre_semillero }}</h4>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>No se encontraron Semilleros.</p>
+    {% endfor %}
+</div>

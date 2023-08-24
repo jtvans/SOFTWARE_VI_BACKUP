@@ -1,0 +1,26 @@
+<!--Admin_menu_opciones.html-->
+{% extends 'layouts/Admin_base.html' %}
+{% block content %}
+{% if user.is_authenticated and user.usuario_administrador %}
+
+    <h2>Opciones del Proyecto: {{ proyecto.titulo }}</h2>
+
+    <ul>
+        <li><a href="{% url 'Users:Admin_ver_productos' proyecto_id=proyecto.id usuario_id=usuario.id %}">Productos</a></li>
+        <li><a href="{% url 'Users:Admin_ver_portafolio' proyecto_id=proyecto.id usuario_id=usuario.id %}">Portafolio</a></li>
+        <li><a href="{% url 'Users:Admin_porcentaje_cumplimiento' proyecto_id=proyecto.id usuario_id=usuario.id %}">Porcentaje de Cumplimiento</a></li>
+        <li><a href="{% url 'Users:Admin_aprobar_proyecto' proyecto_id=proyecto.id usuario_id=usuario.id %}">Aprobar Proyecto</a></li>
+    </ul>
+
+{% else %}
+    <br>
+    <div class="alert alert-danger text-center" role="alert">
+        <h5>No tienes permisos para acceder a esta página.</p>
+        {% if user.is_authenticated %}
+            <a href="{% url 'Users:Users_Home' %}" class="btn btn-primary">Ir al Portal de Docente Investigador</a>
+        {% endif %}
+        <a href="{% url 'Pagina_Principal' %}" class="btn btn-primary">Página Principal</a>
+    </div>
+{% endif %}
+
+{% endblock %}

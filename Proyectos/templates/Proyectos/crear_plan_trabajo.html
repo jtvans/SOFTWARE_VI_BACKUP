@@ -1,0 +1,286 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Breadcrumb -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="{% static 'css/USERS_PROYECTOS/Breadcrumbs/style.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/USERS_PROYECTOS/Users_Opciones_Proyecto/style.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}">
+    <title>SeedResearchTool</title>
+    {% block extra_styles %}
+    {% endblock %}
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <a class="navbar-brand" href="{% url 'Users:Users_home' %}">
+                <img src="{% static 'images/USERS_PROYECTOS/Users_Lista_Proyectos/Proyectos_Logo.png' %}" alt="" style="width: 240px; height: 60px;">
+            </a>
+        </div>
+        <ul class="navbar-menu">
+            {% if user.is_authenticated and not user.usuario_administrador %}
+            <li class="navbar-item">
+                <a class="nav-link" href="{% url 'Users:Users_home' %}"><strong>HOME</strong></a>
+            </li>
+            <li class="navbar-item">
+                <a class="nav-link" href="{% url 'Proyectos:lista_proyectos' %}"><strong>PROYECTOS</strong></a>
+            </li>
+            <li class="navbar-item">
+                <a class="nav-link" href="{% url 'Proyectos:crear_proyecto' %}"><strong>CREAR PROYECTO</strong></a>
+            </li>
+            {% endif %}
+        </ul>
+
+        <ul class="navbar-menu ml-auto">
+            {% if user.is_authenticated and not user.usuario_administrador %}
+            <li class="navbar-item">
+                <a class="nav-link" href="{% url 'Users:Users_ver_perfil' %}"><strong>PERFIL</strong></a>
+            </li>
+            <li class="navbar-item">
+                <a class="nav-link" href="{% url 'Users:logout' %}"><strong>CERRAR SESION</strong></a>
+            </li>
+            {% else %}
+            <li class="navbar-item">
+                <a class="nav-link" href="{% url 'Users:Users_login' %}"><strong>INICIAR SESION</strong></a>
+            </li>
+            <li class="navbar-item">
+                <a class="nav-link" href="{% url 'Users:Users_consultar_identificacion' %}"><strong>REGISTRARSE</strong></a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    
+    <!-- Breadcrumb -->
+    <div class="wrapper">
+        <ol class="breadcrumbs breadcrumbs--one" itemscope itemtype="http://schema.org/BreadcrumbList">
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a class="breadcrumb" href="{% url 'Users:Users_home' %}" itemprop="item">
+                <span itemprop="name">
+                <i class="material-icons" aria-hidden="true">home</i>
+                <span>INICIO</span>
+                </span>
+            </a>
+            <meta itemprop="position" content="1" />
+            </li>
+
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a class="breadcrumb" href="{% url 'Proyectos:lista_proyectos' %}" itemprop="item">
+                <span itemprop="name">
+                <i class="material-icons" aria-hidden="true">cases</i>
+                <span>PROYECTOS</span>
+                </span>
+            </a>
+            <meta itemprop="position" content="2" />
+            </li>
+
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="breadcrumb" href="{% url 'Proyectos:opciones_proyecto' proyecto.id %}" itemprop="item">
+                    <span itemprop="name">
+                    <i class="material-icons" aria-hidden="true">widgets</i>
+                    <span>ACCIONES</span>
+                    </span>
+                </a>
+                <meta itemprop="position" content="2" />
+            </li>
+
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a class="breadcrumb" href="{% url 'Proyectos:crear_plan_trabajo' proyecto.id %}" itemprop="item">
+                <span itemprop="name">
+                <i class="material-icons" aria-hidden="true">assignment_add</i>
+                <span>PRODUCTOS</span>
+                </span>
+            </a>
+            <meta itemprop="position" content="2" />
+        </li>
+        </ol>
+    </div>
+
+    <!-- Modal Confirmar Salir -->
+    <div class="modal fade" id="combinedModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="combinedModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="combinedModalLabel">Guardar Productos</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ¿ Guardar Y Salir ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <a href="{% url 'Proyectos:plan_trabajo_creado' proyecto.id %}" class="btn btn-secondary">Confirmar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+    <br>
+    <div class="text-center my-5">
+    <hr>
+    <h6 class="display-6">Añadir productos a tu plan de trabajo</h6>
+    <hr>
+    </div>
+
+    <main class="container">
+        <form method="post" id="producto-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-secondary">Añadir</button>
+        <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#combinedModal">
+            Guardar Y Salir
+        </button>
+        
+        </form>
+
+
+        <br>
+        <hr>
+        <h3>PRODUCTOS DERIVADOS DE LA INVESTIGACIÓN.</h3>
+        <hr>
+        <br>
+
+        {% if productos %}
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Categoría</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for producto in productos %}
+            <tr class="producto" data-producto-id="{{ producto.id }}">
+                <td>{{ producto.categoria }}</td>
+                <td>{{ producto.tipo_producto }}</td>
+                <td>{{ producto.cantidad }}</td>
+                <td>
+                    <button class="btn btn-danger btn-eliminar-producto" data-producto-id="{{ producto.id }}">Eliminar</button>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No se han agregado productos aún.</p>
+        {% endif %}
+    </main>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- CATEGORIAS / TIPOS PRODUCTOS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var categoriaField = $('#id_categoria');
+            var tipoProductoField = $('#id_tipo_producto');
+            
+            // Definir los tipos de producto según la categoría seleccionada
+            var tipos = {
+            'Generación de Nuevo Conocimiento': [
+                ['Publindex', 'Publindex'],
+                ['WoS', 'WoS'],
+                ['Scopus', 'Scopus'],
+                ['Noticias Científicas', 'Noticias Científicas'],
+                ['Libros resultado de Investigación', 'Libros resultado de Investigación'],
+                ['Capítulos en libros resultado de Investigación', 'Capítulos en libros resultado de Investigación'],
+                ['Productos tecnológicos patentados o en proceso de concesión de la patente', 'Productos tecnológicos patentados o en proceso de concesión de la patente'],
+                ['Variedades vegetales, nuevas razas animales y poblaciones mejoradas de razas pecuarias', 'Variedades vegetales, nuevas razas animales y poblaciones mejoradas de razas pecuarias'],
+                ['Obras o productos de investigación-creación en artes, Arquitectura y Diseño', 'Obras o productos de investigación-creación en artes, Arquitectura y Diseño']
+            ],
+            'Desarrollo Tecnológico e Innovación': [
+                ['Producto Tecnológico Certificado o Validado', 'Producto Tecnológico Certificado o Validado'],
+                ['Producto Empresarial', 'Producto Empresarial'],
+                ['Regulaciones, normas, reglamentos o legislaciones', 'Regulaciones, normas, reglamentos o legislaciones'],
+                ['Conceptos técnicos e informes técnicos', 'Conceptos técnicos e informes técnicos'],
+                ['Registros de Acuerdos de licencia para la explotación de obras protegidas por derecho de autor', 'Registros de Acuerdos de licencia para la explotación de obras protegidas por derecho de autor']
+            ],
+            'Apropiación Social del Conocimiento': [
+                ['Participación ciudadana en CTel y creación', 'Participación ciudadana en CTel y creación'],
+                ['Estrategias pedagógicas para el fomento de la CTel', 'Estrategias pedagógicas para el fomento de la CTel'],
+                ['Comunicación social del conocimiento', 'Comunicación social del conocimiento'],
+                ['Circulación de conocimiento especializado', 'Circulación de conocimiento especializado']
+            ],
+            'Formación del Recurso Humano CteI': [
+                ['Dirección de Tesis de Doctorado', 'Dirección de Tesis de Doctorado'],
+                ['Dirección de Trabajo de grado de Maestría', 'Dirección de Trabajo de grado de Maestría'],
+                ['Dirección de Trabajo de grado de Pregrado', 'Dirección de Trabajo de grado de Pregrado'],
+                ['Proyectos de Investigación y Desarrollo', 'Proyectos de Investigación y Desarrollo'],
+                ['Proyectos de Investigación-Creación', 'Proyectos de Investigación-Creación'],
+                ['Proyectos de Investigación, Desarrollo e Innovación (ID+I)', 'Proyectos de Investigación, Desarrollo e Innovación (ID+I)'],
+                ['Proyecto de extensión y Responsabilidad en CTI', 'Proyecto de extensión y Responsabilidad en CTI'],
+                ['Apoyo a creación de programas o cursos de formación de Investigadores', 'Apoyo a creación de programas o cursos de formación de Investigadores'],
+                ['Acompañamientos y asesorías de línea temática del Programa Ondas', 'Acompañamientos y asesorías de línea temática del Programa Ondas']
+            ],
+            'Gestión de semillero': [
+                ['Ponencias orales en eventos académicos con su respectiva certificación (Local, Nacional o Internacional).','Ponencias orales en eventos académicos con su respectiva certificación (Local, Nacional o Internacional).'],
+                ['Proyecto de semillero.','Proyecto de semillero.'],
+                ['Publicaciones (Memorias, capítulo de libro o artículo).','Publicaciones (Memorias, capítulo de libro o artículo).'],
+            ],
+            'Otros encargos': [
+                ['Participación en comité de captación y gestión de convocatorias y proyectos de interés institucional (SECOP, recursos internacionales, Minciencias, CTeI).','Participación en comité de captación y gestión de convocatorias y proyectos de interés institucional (SECOP, recursos internacionales, Minciencias, CTeI).'],
+                ['Coordinación de investigación del programa.','Coordinación de investigación del programa.'],
+                ['Líder de grupo de investigación.','Líder de grupo de investigación.'],
+                ['Delegado Centro Colombiano de Política Pública.','Delegado Centro Colombiano de Política Pública.'],
+                ['Compilación de libro publicado como producto de investigación con su respectiva certificación.','Compilación de libro publicado como producto de investigación con su respectiva certificación.'],
+            ]
+            };
+
+            // Actualizar los tipos de producto al cambiar la categoría seleccionada
+            categoriaField.on('change', function() {
+                var categoria = $(this).val();
+                var tipoProductos = tipos[categoria];
+                
+                // Limpiar el campo de tipo de producto
+                tipoProductoField.empty();
+                
+                // Agregar las opciones correspondientes al campo de tipo de producto
+                $.each(tipoProductos, function(index, tipo) {
+                    tipoProductoField.append($('<option>', {
+                        value: tipo[0],
+                        text: tipo[1]
+                    }));
+                });
+            });
+        });
+    </script>
+
+    <!--ELIMINAR PRODUCTOS -->
+    <script>
+        $('.btn-eliminar-producto').on('click', function() {
+            var productoId = $(this).data('producto-id');
+            var row = $(this).closest('tr');  // Obtener la fila del producto
+            
+            // Realizar la solicitud AJAX para eliminar el producto
+            $.ajax({
+                url: '{{ eliminar_producto_url }}'.replace('{}', productoId),
+                type: 'POST',
+                data: {
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success) {
+                        // Eliminar el producto del DOM
+                        row.remove();
+                    }
+                }
+            });
+        });
+    </script>
+  
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!-- Admin_porcentaje_cumplimiento.html -->
+{% extends 'layouts/Admin_base.html' %}
+{% block content %}
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        border: 1px solid #dddddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    .avance-row div {
+        margin-bottom: 5px;
+    }
+</style>
+
+  {% if user.is_authenticated and user.usuario_administrador %}
+
+    <h2>Porcentaje de Cumplimiento - Proyecto: {{ proyecto.titulo }}</h2>
+    <p>Usuario: {{ usuario.nombre }}</p>
+    <p>Porcentaje de Cumplimiento: {{ porcentaje_cumplimiento_total }}%</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Nº</th>
+                <th>Tipo Producto</th>
+                <th>Producto</th>
+                <th>Número de productos comprometidos en el portafolio</th>
+                <th>Productos entregados por el docente</th>
+                <th>Indicador</th>
+                <th>Puntaje</th>
+                <th>Peso en el portafolio</th>
+                <th>Porcentaje de Cumplimiento</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in tabla_avances %}
+            <tr>
+                <!-- Nº -->
+                <td>{{ forloop.counter }}</td>
+    
+                <!-- Tipo Producto -->
+                <td>{{ item.producto.tipo_producto }}</td>
+    
+                <!-- Producto -->
+                <td>
+                    {% if item.avances %}
+                        {% for avance in item.avances %}
+                            <div class="avance-row">
+                                {% if avance.avance_1_nombre %}
+                                    <div>{{ avance.avance_1_nombre }}</div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="avance-row">
+                            <div>N/A</div>
+                        </div>
+                    {% endif %}
+                </td>
+    
+                <!-- Número de productos comprometidos en el portafolio -->
+                <td>
+                    {% if item.avances %}
+                        {% for avance in item.avances %}
+                            <div class="avance-row">
+                                {% if avance.avance_1_nombre %}
+                                    <div>1</div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="avance-row">
+                            <div>0</div>
+                        </div>
+                    {% endif %}
+                </td>
+    
+                <!-- Productos entregados por el docente -->
+                <td>
+                    {% if item.avances %}
+                        {% for avance in item.avances %}
+                            <div class="avance-row">
+                                {% if avance.avance_3_estado == 'Aceptado' %}
+                                    <div>1</div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="avance-row">
+                            <div>0</div>
+                        </div>
+                    {% endif %}
+                </td>
+    
+                <!-- Indicador -->
+                <td>
+                    {% if item.avances %}
+                        {% for avance in item.avances %}
+                            <div class="avance-row">
+                                {% if avance.avance_3_estado == 'Aceptado' %}
+                                    <div>100%</div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="avance-row">
+                            <div>0%</div>
+                        </div>
+                    {% endif %}
+                </td>
+    
+                <!-- Puntaje -->
+                <td>
+                    {% if item.avances %}
+                        {% for avance in item.avances %}
+                            <div class="avance-row">
+                                {% if avance.avance_3_estado == 'Aceptado' %}
+                                    <div>100%</div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="avance-row">
+                            <div>0%</div>
+                        </div>
+                    {% endif %}
+                </td>
+    
+                <!-- Peso en el portafolio -->
+                <td>
+                    {% if item.avances %}
+                        {% for avance in item.avances %}
+                            <div class="avance-row">
+                                {% if avance.avance_3_estado == 'Aceptado' %}
+                                    {% with formatted_pesos=pesos_productos|floatformat:3 %}
+                                        <div>{{ formatted_pesos }}</div>
+                                    {% endwith %}
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="avance-row">
+                            <div>0.0</div>
+                        </div>
+                    {% endif %}
+                </td>
+    
+                <!-- Porcentaje de Cumplimiento -->
+                <td>{{ item.porcentaje_cumplimiento }}%</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>    
+    <br>
+    
+  {% else %}
+    <br>
+    <div class="alert alert-danger text-center" role="alert">
+        <h5>No tienes permisos para acceder a esta página.</h5>
+        {% if user.is_authenticated %}
+            <a href="{% url 'Users:Users_Home' %}" class="btn btn-primary">Ir al Portal de Docente Investigador</a>
+        {% endif %}
+        <a href="{% url 'Pagina_Principal' %}" class="btn btn-primary">Página Principal</a>
+    </div>
+  {% endif %}
+
+
+
+{% endblock %}

@@ -1,0 +1,75 @@
+<!-- Users_registro_usuario.html -->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/USERS/Users_E_Login/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/USERS/Users_Registro/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+  </head>
+
+  <body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <a class="navbar-brand" href="{% url 'Pagina_Principal' %}">
+          <img src="{% static 'images/USERS/Users_Login/Login_Logo.png' %}" alt="" style="width: 180px; height: 40px;">
+        </a>
+      </div>
+      <ul class="navbar-menu">
+        <li class="navbar-item"><a href="{% url 'Users:Users_E_login' %}">Iniciar Sesion</a></li>
+        <li class="navbar-item"><a href="{% url 'Users:Users_E_consultar_identificacion' %}">Registrarse</a></li>
+      </ul>
+    </nav>
+    
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          
+          <div class="title">Registro de Investigador</div>
+          <br>
+  
+          <form method="POST">
+            {% csrf_token %}
+            <!-- Estilos solo para el nombre -->
+            <h1 class="mb-4">HOLA, <span style="color: blue;">{{ nombre }}</span></h1>
+            <!-- Estilos para el párrafo -->
+            <p>Estás realizando tu proceso de registro en el portal. Recuerda que para iniciar sesión, utilizarás tu Identificación: <strong>{{ identificacion }}</strong>, junto a la contraseña que crearás a continuación.</p>
+            <br>
+            <p>{{ error_message }}</p>
+  
+            <div class="form-group">
+              <i class="fas fa-lock"></i>
+              <input type="password" class="form-control custom-input" id="clave" name="clave" placeholder="Contraseña" required>
+            </div>
+            <br>
+            <div class="form-group">
+              <i class="fas fa-lock"></i>
+              <input type="password" class="form-control custom-input" id="confirmar_clave" name="confirmar_clave" placeholder="Confirmar Contraseña" required>
+            </div>
+            
+            <br>
+
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary custom-btn">Registrarse</button>
+            </div>
+
+  
+          </form>
+        </div>
+      </div>
+    </div>
+    
+
+
+  </body>
+
+</html>

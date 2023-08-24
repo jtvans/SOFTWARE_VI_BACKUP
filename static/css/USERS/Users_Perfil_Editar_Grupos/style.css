@@ -1,0 +1,132 @@
+/* Google Font Link */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  background-image: url('/static/images/USERS/Users_Home/Users_Perfil_Fondo.jpg');
+  background-repeat: no-repeat;
+  background-size: cover; /* Modificado: Ajusta el tamaño de la imagen al contenedor */
+  background-position: center;
+}
+
+/* ------------- NAVAR ----------------- */
+/* Navbar styles */
+.navbar {
+  background-color: #ffffff;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  z-index: 9999;
+}
+
+.navbar-brand img {
+  width: 150px;
+  height: 50px;
+}
+
+.navbar-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.navbar-item {
+  margin-right: 20px;
+}
+
+.navbar-item a {
+  color: #101010;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.navbar-item a:hover {
+  color: #a8d1e3;
+}
+
+/*----------- CONTAINER ------------*/
+
+.container-e-g {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  margin: 0 auto; /* Centra horizontalmente */
+  max-width: 850px; /* Establece un ancho máximo */
+}
+
+.container-e-g-1 {
+  background-color: #c9e6ee; /* Color de fondo deseado */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 0 auto; /* Centra horizontalmente */
+  max-width: 850px; /* Establece un ancho máximo */
+}
+
+/*----------- BOTONES GUARDAR-CANCELAR -----------*/
+
+.btn-dark {
+  background-color: #343a40;
+  color: #fff;
+  border: none;
+  padding: 12px 24px; /* Ajustar el padding para cambiar el tamaño del botón */
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 20px; /* Ajustar el tamaño de fuente para cambiar el tamaño del texto */
+}
+
+.btn-dark:hover {
+  background-color: #23272b;
+}
+
+/* Estilos para el botón "Cancelar" */
+.btn-secondary {
+  background-color: #6c757d;
+  color: #fff;
+  border: none;
+  padding: 12px 24px; /* Ajustar el padding para cambiar el tamaño del botón */
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 20px; /* Ajustar el tamaño de fuente para cambiar el tamaño del texto */
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+/*--------------------------------------------------*/
+
+/* Estilos para el contenedor de mensajes */
+.messages-container {
+  margin-top: 20px;
+  padding: 10px;
+}
+
+/* Estilos para el mensaje */
+.error-message {
+  text-align: center;
+  background-color: #ded4a0;
+  color: rgb(0, 0, 0);
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 20px;
+  border: 3px solid #ecd149;
+  margin: 0 auto; /* Centrar horizontalmente */
+  max-width: 70%; /* Establecer una anchura máxima */
+}

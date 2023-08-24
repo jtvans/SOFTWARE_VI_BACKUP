@@ -1,0 +1,132 @@
+
+/* ------------- NAVAR ----------------- */
+.navbar {
+    background-color: #6300cd;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+  }
+  
+  .navbar-brand img {
+    width: 150px;
+    height: 50px;
+  }
+  
+  .navbar-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+  
+  .navbar-item {
+    margin-right: 20px;
+  }
+  
+  .navbar-item a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s ease;
+  }
+  
+  .navbar-item a:hover {
+    color: #ffffff;
+  }
+
+/* ------------------------------------- */
+
+body {
+  background-image: url("{% static 'detalle_proyecto_imagen1.png' %}");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.container {
+  max-width: 900px; /* El ancho máximo que deseas para el contenido */
+  margin: 0 auto; /* Esto centrará el contenedor en la página */
+  padding: 20px; /* Agrega espacios alrededor del contenido si lo deseas */
+}
+
+.producto {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+}
+
+.no-margin p {
+  margin: 0;
+  font-size: 16px;
+}
+
+.my-table {
+border: 1px solid black;
+margin: 0 auto;
+width: 80%;
+margin-top: 30px;
+}
+
+.my-table th,
+.my-table td {
+    text-align: center;
+}
+
+.container-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+}
+
+.centered-title {
+  text-align: center;
+  margin: 0;
+  padding: 10px 0;
+  flex: 1;
+}
+
+.download-button {
+  order: -1;
+}
+
+.container-g-l {
+  background-color: #6300cd;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.container-g-l-1 {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.container-g-l-1-1 {
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/*------------------------------------------*/
+.producto-link {
+  color: #000000;
+  max-width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-all;
+}
+
+.producto-descripcion {
+  color: #000000;
+    max-width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-all;
+}

@@ -1,0 +1,30 @@
+<!--Admin_ver_usuario.html-->
+{% extends 'layouts/Admin_base.html' %}
+{% block content %}
+{% if user.is_authenticated and user.usuario_administrador %}
+
+    <h2>Usuario: {{ usuario.nombre }}</h2>
+
+    <h3>Proyectos:</h3>
+    <ul>
+        {% for proyecto in proyectos %}
+            <li>
+                <a href="{% url 'Users:Admin_menu_opciones' proyecto_id=proyecto.id usuario_id=usuario.id %}">{{ proyecto.titulo }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% else %}
+
+<br>
+<div class="alert alert-danger text-center" role="alert">
+    <h5>No tienes permisos para acceder a esta página.</p>
+    {% if user.is_authenticated %}
+        <a href="{% url 'Users:Users_Home' %}" class="btn btn-primary">Ir al Portal de Docente Investigador</a>
+    {% endif %}
+    <a href="{% url 'Pagina_Principal' %}" class="btn btn-primary">Página Principal</a>
+</div>
+
+{% endif %}
+
+{% endblock %}

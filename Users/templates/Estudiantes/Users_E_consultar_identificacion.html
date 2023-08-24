@@ -1,0 +1,67 @@
+<!-- Users_consultar_identificacion.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/USERS/Users_E_Login/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}">
+  </head>
+  
+  
+   <body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <a class="navbar-brand" href="{% url 'Pagina_Principal' %}">
+          <img src="{% static 'images/USERS/Users_E_Login/Logo.png' %}" alt="" style="width: 300px; height: 80px;">
+        </a>
+      </div>
+      <ul class="navbar-menu">
+        <li class="navbar-item"><a href="{% url 'Users:Users_E_login' %}">Iniciar Sesion</a></li>
+        <li class="navbar-item"><a href="{% url 'Pagina_Principal_About' %}">Acerca De</a></li>
+        <li class="navbar-item"><a href="{% url 'Pagina_Principal_Contact' %}">Contacto</a></li>
+      </ul>
+    </nav>
+
+    <div class="container">
+      <div class="cover">
+        <div class="front">
+          <img class="backImg" src="{% static 'images/USERS/Users_E_Login/Image_1.jpg' %}" alt="">
+        </div>
+      </div>
+      <div class="forms">
+        <div class="form-content">
+          <div class="login-form">
+            <div class="title">Registrar</div>
+            <br>
+            <form method="POST" action="{% url 'Users:Users_E_consultar_identificacion' %}">
+              {% csrf_token %}
+              {% if message %}
+                <div class="alert alert-danger">{{ message }}</div>
+              {% elif error_message %}
+                <div class="alert alert-danger">{{ error_message }}</div>
+              {% endif %}
+              <div class="input-boxes">
+                <div class="input-box">
+                  <i class="fas fa-envelope"></i>
+                  <input type="text" id="identificacion" name="identificacion" placeholder="Identificación" class="form-control" required>
+                </div>
+                <div class="button input-box">
+                  <input type="submit" value="Consultar">
+              </div>      
+              </div>
+            </form>
+            <br>
+            <div class="text sign-up-text">Ya tienes Cuenta Registrada? <a href="{% url 'Users:Users_E_login' %}">Inicia Sesion</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </body>
+</html>

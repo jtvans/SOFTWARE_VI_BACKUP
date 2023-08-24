@@ -1,0 +1,174 @@
+<!-- Users_ver_grupos.html -->
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Breadcrumb -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="{% static 'css/USERS/Breadcrumbs/style.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/USERS/Users_Perfil_Editar/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}">
+    <title>SeedResearchTool</title>
+</head>
+
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <a class="navbar-brand" href="{% url 'Users:Users_home' %}">
+                <img src="{% static 'images/USERS/Users_Login/Login_Logo.png' %}" alt="" style="width: 240px; height: 60px;">
+            </a>
+        </div>
+        <ul class="navbar-menu">
+            {% if user.is_authenticated and not user.usuario_administrador %}
+            <li class="navbar-item">
+                <a class="nav-link" href="{% url 'Users:Users_home' %}"><strong>HOME</strong></a>
+            </li>
+            <li class="navbar-item">
+                <a class="nav-link" href="{% url 'Proyectos:lista_proyectos' %}"><strong>PROYECTOS</strong></a>
+            </li>
+            <li class="navbar-item">
+                <a class="nav-link" href="{% url 'Proyectos:crear_proyecto' %}"><strong>CREAR PROYECTO</strong></a>
+            </li>
+            {% endif %}
+        </ul>
+
+        <ul class="navbar-menu ml-auto">
+            {% if user.is_authenticated and not user.usuario_administrador %}
+            <li class="navbar-item">
+                <a class="nav-link" href="{% url 'Users:Users_ver_perfil' %}"><strong>PERFIL</strong></a>
+            </li>
+            <li class="navbar-item">
+                <a class="nav-link" href="{% url 'Users:logout' %}"><strong>CERRAR SESION</strong></a>
+            </li>
+            {% else %}
+            <li class="navbar-item">
+                <a class="nav-link" href="{% url 'Users:Users_login' %}"><strong>INICIAR SESION</strong></a>
+            </li>
+            <li class="navbar-item">
+                <a class="nav-link" href="{% url 'Users:Users_consultar_identificacion' %}"><strong>REGISTRARSE</strong></a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+
+
+    <!-- Breadcrumb -->
+    <div class="wrapper">
+        <ol class="breadcrumbs breadcrumbs--one" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a class="breadcrumb" href="{% url 'Users:Users_home' %}" itemprop="item">
+              <span itemprop="name">
+                <i class="material-icons" aria-hidden="true">home</i>
+                <span>INICIO</span>
+              </span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </li>
+
+          <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a class="breadcrumb" href="{% url 'Users:Users_ver_perfil' %}" itemprop="item">
+              <span itemprop="name">
+                <i class="material-icons" aria-hidden="true">person</i>
+                <span>PERFIL</span>
+               </span>
+            </a>
+            <meta itemprop="position" content="2" />
+          </li>
+
+          <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a class="breadcrumb" href="{% url 'Users:Users_ver_grupos' %}" itemprop="item">
+              <span itemprop="name">
+                <i class="material-icons" aria-hidden="true">science</i>
+                <span>GRUPOS DE INVESTIGACION</span>
+               </span>
+            </a>
+            <meta itemprop="position" content="3" />
+          </li>
+        </ol>
+    </div>
+
+
+    <div class="container-fluid content-container">
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <div class="text-center">
+            <h1>Mis Grupos de Investigación</h1>
+        </div>
+        
+        <br>
+        <br>
+
+        <div class="container-e">
+            {% if usuario.grupo_investigacion %}
+            <div class="container-e-1">
+                <h2>Grupo de Investigación: <span style="font-weight: normal;">{{ usuario.grupo_investigacion }}</span> </h2>
+                <br>
+                <h2>Líneas de Investigación:
+                    {% for linea in usuario.lineas_investigacion.all %}
+                    <span style="font-weight: normal;">{{ linea.nombre }},</span>
+                    {% endfor %}
+                </h2>
+            </div><br><hr>
+            {% endif %}
+                
+            <br>
+            
+            {% if usuario.grupo_investigacion_2 %}
+            <div class="container-e-1">
+                <h2>Grupo de Investigación: <span style="font-weight: normal;">{{ usuario.grupo_investigacion_2 }}</span></h2>
+                <br>
+                <h2>Líneas de Investigación:
+                    {% for linea in usuario.lineas_investigacion_2.all %}
+                    <span style="font-weight: normal;">{{ linea.nombre }},</span>
+                    {% endfor %}
+                </h2>
+            </div><br><hr>
+            {% endif %}
+            
+
+            <br>
+            
+            {% if usuario.grupo_investigacion_3 %}
+            <div class="container-e-1">
+                <h2>Grupo de Investigación: <span style="font-weight: normal;">{{ usuario.grupo_investigacion_3 }}</span></h2>
+                <br>
+                <h2>Líneas de Investigación:
+                    {% for linea in usuario.lineas_investigacion_3.all %}
+                    <span style="font-weight: normal;">{{ linea.nombre }},</span>
+                    {% endfor %}
+                </h2>
+            </div><br><hr>
+            {% endif %}
+            
+
+            <br>
+            <br>
+            <div class="container-fluid">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-md-6 text-center">
+                        <a href="{% url 'Users:Users_ver_perfil' %}" class="btn btn-secondary ml-2">Volver</a>
+                        <a href="{% url 'Users:Users_editar_grupos_investigacion' %}" class="btn btn-dark ml-2">Agregar / Editar</a>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>
+
+</body>
+</html>

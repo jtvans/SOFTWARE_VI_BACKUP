@@ -1,0 +1,28 @@
+<!--Admin_aprobar_proyecto.html-->
+{% extends 'layouts/Admin_base.html' %}
+{% block content %}
+{% if user.is_authenticated and user.usuario_administrador %}
+
+    <h2>Aprobar Proyecto: {{ proyecto.titulo }}</h2>
+
+    <form method="POST" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            <label for="aprobado_adjunto">Documento de Certificado de Aprobación:</label>
+            <input type="file" id="aprobado_adjunto" name="aprobado_adjunto">
+        </div>
+        <button type="submit" class="btn btn-primary">Aprobar</button>
+    </form>
+    
+{% else %}
+    <br>
+    <div class="alert alert-danger text-center" role="alert">
+        <h5>No tienes permisos para acceder a esta página.</h5>
+        {% if user.is_authenticated %}
+            <a href="{% url 'Users:Users_Home' %}" class="btn btn-primary">Ir al Portal de Docente Investigador</a>
+        {% endif %}
+        <a href="{% url 'Pagina_Principal' %}" class="btn btn-primary">Página Principal</a>
+    </div>
+{% endif %}
+
+{% endblock %}

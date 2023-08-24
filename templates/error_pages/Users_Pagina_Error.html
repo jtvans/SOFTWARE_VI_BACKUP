@@ -1,0 +1,47 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Error 404 - Página no encontrada</title>
+    <style>
+        body {
+            background-image: url('/static/images/Users_Pagina_Error.png');
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            color: rgb(255, 255, 255);
+            padding: 300px;
+            background-repeat: no-repeat;
+        }
+
+        h1 {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 30px;
+            margin-bottom: 30px;
+        }
+
+        #home-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Error 404</h1>
+    <p>Lo sentimos, la página que estás buscando no pudo ser encontrada.</p>
+    <a href="{% url 'Users:Users_home' %}" id="home-button">Volver a la página de inicio</a>
+</body>
+</html>

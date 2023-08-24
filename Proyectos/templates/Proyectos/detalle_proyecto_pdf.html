@@ -1,0 +1,419 @@
+<!-- detalle_proyecto_pdf.html -->
+{% block content %}
+{% load static %}
+
+<style>
+  .producto {
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 5px;
+      margin-bottom: 5px;
+  }
+
+  .no-margin p {
+    margin: 0;
+    font-size: 16px;
+  }
+
+  .my-table {
+  border: 1px solid black;
+  margin: 0 auto;
+  width: 80%;
+  margin-top: 30px;
+  }
+
+  .my-table th,
+  .my-table td {
+      text-align: center;
+  }
+
+  /* Aplicar estilos a la celda de la columna "Producto" */
+  .producto-cell {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    font-size: 5px;
+    width: 15%; /* Ajusta el ancho según sea necesario */
+  }
+
+  /* Estilos adicionales para las celdas de las evidencias */
+  .evidencia-cell {
+    text-align: center;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    font-size: 5px;
+    white-space: nowrap; /* Evitar saltos de línea en el contenido del enlace */
+  }
+
+</style>
+
+
+
+<!-- ------------------------------------------------------------------------------------ -->
+<br>
+<table class="table" style="border: 1px solid black;">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center;">
+        <img src="static/images/USERS_PROYECTOS/Users_Detalle_Proyecto_Pdf/detalle_proyecto_pdf_imagen1.png" alt="Imagen 1" width="200" height="50">
+      </td>
+      <td style="text-align: center;">
+        <strong style="font-size: 14px;">FORMATO DE INSCRIPCIÓN DE<br>PROYECTO DE INVESTIGACIÓN</strong>
+      </td>
+      <td style="text-align: center;">
+        <strong style="font-size: 14px;">Código: F IV 035<br>Fecha: 12/04/2023<br>Versión: 1.0</strong>
+      </td>
+    </tr>
+  </tbody>
+</table>
+  
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+<br>
+<div style="text-align: center;">
+    <h3 style="border: 1px solid black; padding: 8px; background-color: rgb(24, 106, 179); color: white; font-size: 18px;">PROYECTO DE INVESTIGACION</h3>
+</div>
+<div style="border: 1px solid black; padding: 10px;">
+
+    <div class="no-margin">
+        <p><strong>Proyecto:</strong> <span style="float: right;">{{ proyecto.titulo }}</span></p>
+        <p><strong>Fecha Inscripcion De Proyecto:</strong> {{ proyecto.fecha_inscripcion }}</p>
+        <p><strong>Palabras Claves:</strong> {{ proyecto.palabras_clave }}</p>
+        <p><strong>Facultad:</strong> {{ proyecto.facultad }}</p>
+        <p><strong>Programa:</strong> {{ proyecto.programa }}</p>
+        <p><strong>Grupo De Investigacion:</strong> {{ proyecto.grupo_investigacion }}</p>
+        <p><strong>Linea De Investigacion:</strong> {{ proyecto.linea_investigacion }}</p>
+        <p><strong>Semillero Investigacion:</strong> {{ proyecto.semillero_investigacion }}</p>
+
+    </div>
+</div>
+  
+
+<!-- ------------------------------------------------------------------------------------ -->
+<br>
+<div style="text-align: center;">
+    <h3 style="border: 1px solid black; padding: 8px; background-color: rgb(24, 106, 179); color: white; font-size: 18px;">INVESTIGADORES PARTICIPANTES</h3>
+    <h6 style="margin-top: 10px; font-size: 14px;"><strong>Datos Del Investigador</strong></h6>
+</div>
+
+<div style="border: 1px solid black; padding: 10px;">
+
+    <div class="no-margin">
+        <p><strong>Nombre:</strong> {{ proyecto.nombre }}</p>
+        <p><strong>Identificacion:</strong> {{ proyecto.identificacion }}</p>
+        <p><strong>Telefono:</strong> {{ proyecto.telefono }}</p>
+        <p><strong>Correo:</strong> {{ proyecto.correo }}</p>
+        <p><strong>Cvlac:</strong> {{ proyecto.cvlac }}</p>
+    </div>
+</div>
+
+{% if proyecto.co_investigador_1_nombre %}
+  <div style="text-align: center;">
+      <h6 style="margin-top: 10px; font-size: 14px;"><strong>Datos del Co-Investigador</strong></h6>
+  </div>
+
+  <div style="border: 1px solid black; padding: 10px;">
+    <div class="no-margin">
+        <p><strong>Nombre:</strong> {{ proyecto.co_investigador_1_nombre }}</p>
+        <p><strong>Identificacion:</strong> {{ proyecto.co_investigador_1_identificacion }}</p>
+        <p><strong>Telefono:</strong> {{ proyecto.co_investigador_1_telefono }}</p>
+        <p><strong>Correo:</strong> {{ proyecto.co_investigador_1_correo }}</p>
+        <p><strong>Formacion:</strong> {{ proyecto.co_investigador_1_formacion }}</p>
+        <p><strong>Institución en la que labora:</strong> {{ proyecto.co_investigador_1_institucion }}</p>
+        <p><strong>Link CVLAC:</strong> {{ proyecto.co_investigador_1_cvlac }}</p>
+    </div>
+  </div>
+{% endif %}
+
+<!-- ------------------------------------------------------------------------------------ -->
+<br>
+<div style="text-align: center;">
+    <h3 style="border: 1px solid black; padding: 8px; background-color: rgb(24, 106, 179); color: white; font-size: 18px;">FECHAS DURACION PROYECTO</h3>
+</div>
+
+<div style="border: 1px solid black; padding: 10px;">
+  <div class="no-margin">
+      <p><strong>Fecha de inicio:</strong> {{ proyecto.fecha_inicio }}</p>
+      <p><strong>Fecha de finalización:</strong> {{ proyecto.fecha_finalizacion }}</p>
+  </div>
+</div>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+<br>
+<div style="text-align: center;">
+    <h3 style="border: 1px solid black; padding: 8px; background-color: rgb(24, 106, 179); color: white; font-size: 18px;">DESCRIPCIÓN DEL PROYECTO</h3>
+</div>
+
+<div style="border: 1px solid black; padding: 10px;">
+    <div class="no-margin">
+        <p><strong>Problema y pregunta:</strong> {{ proyecto.problema_pregunta }}</p>
+
+        <p><strong>Justificación:</strong> {{ proyecto.justificacion }}</p>
+
+        <p><strong>Objetivo general:</strong>{{ proyecto.objetivo_general }}</p>
+
+        <p><strong>Objetivos específicos:</strong>{{ proyecto.objetivos_especificos }}</p>
+
+        <p><strong>Metodología propuesta:</strong>{{ proyecto.metodologia_propuesta }}</p>
+
+        <p><strong>Estado del arte o antecedentes:</strong>{{ proyecto.estado_arte }}</p> 
+
+        <p><strong>Impactos esperados:</strong>{{ proyecto.impactos_esperados }}</p>
+    </div>
+</div>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+<br>
+<div style="text-align: center;">
+  <h3 style="border: 1px solid black; padding: 8px; background-color: rgb(24, 106, 179); color: white; font-size: 24px;">CRONOGRAMA</h3>
+</div>
+
+<table class="table" style="border: 1px solid black; margin: 4; width: 50%;">
+  <thead>
+    <tr>
+      <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; font-size: 15px;">Actividad</th>
+      <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; font-size: 15px;">Descripción</th>
+      <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; font-size: 15px;">Duración</th>
+      <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; font-size: 15px;">Tipo de Duración</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for actividad in actividades %}
+    <tr>
+      <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; font-size: 12px;">{{ actividad.nombre }}</td>
+      <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; font-size: 12px;">{{ actividad.descripcion }}</td>
+      <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; font-size: 12px;">{{ actividad.duracion }}</td>
+      <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; font-size: 12px;">{{ actividad.tipo_duracion }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+  
+
+  
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+<br>
+<div style="text-align: center;">
+  <h3 style="border: 1px solid black; padding: 8px; background-color: rgb(24, 106, 179); color: white; font-size: 18px;">PRODUCTOS DERIVADOS DE LA INVESTIGACIÓN.</h3>
+</div>
+
+<table class="table" style="border: 1px solid black; margin: 4; width: 50%;">
+  <thead>
+    <tr>
+      <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; font-size: 15px;">Generación de Nuevo Conocimiento</th>
+      <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; font-size: 15px;">Desarrollo Tecnológico e Innovación</th>
+      <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; font-size: 15px;">Apropiación Social del Conocimiento</th>
+      <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; font-size: 15px;">Formación del Recurso Humano CteI</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; font-size: 12px;">
+        {% for producto in productos %}
+          {% if producto.categoria == 'Generación de Nuevo Conocimiento' %}
+            <p class="text-align: center;">{{ producto.tipo_producto }}</p>
+          {% endif %}
+        {% empty %}
+          <p>No se han agregado productos aún.</p>
+        {% endfor %}
+      </td>
+      <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; font-size: 12px;">
+        {% for producto in productos %}
+          {% if producto.categoria == 'Desarrollo Tecnológico e Innovación' %}
+            <p class="text-align: center;">{{ producto.tipo_producto }}</p>     
+          {% endif %}
+        {% empty %}
+          <p>No se han agregado productos aún.</p>
+        {% endfor %}
+      </td>
+      <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; font-size: 12px;">
+        {% for producto in productos %}
+          {% if producto.categoria == 'Apropiación Social del Conocimiento' %}
+            <p class="text-align: center;">{{ producto.tipo_producto }}</p>     
+          {% endif %}
+        {% empty %}
+          <p>No se han agregado productos aún.</p>
+        {% endfor %}
+      </td>
+      <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; font-size: 12px;">
+        {% for producto in productos %}
+          {% if producto.categoria == 'Formación del Recurso Humano CteI' %}
+            <p class="text-align: center;">{{ producto.tipo_producto }}</p>   
+          {% endif %}
+        {% empty %}
+          <p>No se han agregado productos aún.</p>
+        {% endfor %}
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ------------------------------------------------------------------------------------ -->
+
+<br>
+<div style="text-align: center;">
+    <h3 style="border: 1px solid black; padding: 8px; background-color: rgb(24, 106, 179); color: white; font-size: 18px;">COMITE DE ETICA</h3>
+</div>
+
+<div style="border: 1px solid black; padding: 10px;">
+
+  <div class="no-margin">
+    {% if proyecto.comite_etica == 'si' %}
+        <div>
+            <h4 style="font-size: 13px;">El proyecto ha sido sometido al Comité de Ética.<br>Descarga el acta en el Portal</h4>
+        </div>
+    {% else %}
+        <div>
+            <h4 style="font-size: 13px;">El proyecto no ha sido sometido al Comité de Ética.</h4>
+        </div>
+    {% endif %}
+  </div>
+</div>
+
+
+
+
+<!--  ------------------------------------------------------------------------------------  -->
+
+
+<div style="text-align: center;">
+  <h3 style="border: 1px solid black; padding: 8px; background-color: rgb(24, 106, 179); color: white; font-size: 18px;">EVIDENCIAS</h3>
+</div>
+
+
+<!-- Evidencias 1 -->
+<table class="my-table" style="border: 1px solid black; margin: 4; width: 100%;">
+  <thead>
+    <tr>
+      <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; font-size: 15px;">Producto</th>
+      <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; font-size: 15px;">Evidencia Nº 1</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for producto in productos %}
+    <tr>
+      <td class="producto-cell">
+        {{ producto.tipo_producto }}
+      </td>
+      <td class="evidencia-cell">
+        {% for portafolio in portafolios %}
+          {% if portafolio.producto.id == producto.id %}
+            {% if portafolio.avance_1_nombre %}
+              <p><strong>Nombre: </strong>{{ portafolio.avance_1_nombre }}</p>
+              <p><strong>Descripcion: </strong>{{ portafolio.avance_1_descripcion }}</p>
+              <strong>Link: </strong><a href="{{ portafolio.avance_1_link }}" target="_blank">{{ portafolio.avance_1_link }}</a>
+              {% if portafolio.avance_1_adjunto %}
+                <p><strong>Adjunto: </strong>{{ portafolio.avance_1_adjunto }}</p>
+              {% endif %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<!-- Evidencias 2 -->
+<table class="my-table" style="border: 1px solid black; margin: 4; width: 100%;">
+  <thead>
+    <tr>
+      <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; font-size: 15px;">Producto</th>
+      <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; font-size: 15px;">Evidencia Nº 2</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for producto in productos %}
+    <tr>
+      <td class="producto-cell">
+        {{ producto.tipo_producto }}
+      </td>
+      <td class="evidencia-cell">
+        {% for portafolio in portafolios %}
+          {% if portafolio.producto.id == producto.id %}
+            {% if portafolio.avance_2_descripcion %}
+              <p><strong>Descripcion: </strong>{{ portafolio.avance_2_descripcion }}</p>
+              <strong>Link: </strong><a href="{{ portafolio.avance_2_link }}" target="_blank">{{ portafolio.avance_2_link }}</a>
+              {% if portafolio.avance_2_adjunto %}
+                <p><strong>Adjunto: </strong>{{ portafolio.avance_2_adjunto }}</p>
+              {% endif %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<!-- Evidencias 3 -->
+<table class="my-table" style="border: 1px solid black; margin: 4; width: 100%;">
+  <thead>
+    <tr>
+      <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; font-size: 15px;">Producto</th>
+      <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; font-size: 15px;">Evidencia Nº 3</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for producto in productos %}
+    <tr>
+      <td class="producto-cell">
+        {{ producto.tipo_producto }}
+      </td>
+      <td class="evidencia-cell">
+        {% for portafolio in portafolios %}
+          {% if portafolio.producto.id == producto.id %}
+            {% if portafolio.avance_3_descripcion %}
+              <p><strong>Descripcion: </strong>{{ portafolio.avance_3_descripcion }}</p>
+              <strong>Link: </strong><a href="{{ portafolio.avance_3_link }}" target="_blank">{{ portafolio.avance_3_link }}</a>
+              {% if portafolio.avance_3_adjunto %}
+                <p><strong>Adjunto: </strong>{{ portafolio.avance_3_adjunto }}</p>
+              {% endif %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+<!--  ------------------------------------------------------------------------------------  -->
+<br>
+<div style="text-align: center;">
+    <h3 style="border: 1px solid black; padding: 8px; background-color: rgb(24, 106, 179); color: white; font-size: 18px;">APROBACION</h3>
+</div>
+
+<div style="border: 1px solid black; padding: 10px;">
+  <div class="no-margin">
+
+    {% if not proyecto.aprobado %}
+      <p><strong>El proyecto aún no ha sido aprobado</strong></p>
+    {% else %}
+      <p><strong>Aprobaciones</strong></p>
+      <p>Fecha Aprobación: {{ proyecto.aprobado_fecha }}</p>
+      <p><strong>Nombre de quien aprobó: </strong>{{ proyecto.aprobado_nombre }}</p>
+      {% if not proyecto.aprobado_adjunto %}
+          <p><strong>Aun no cuenta con el acta de aprobacion</strong></p>  
+        {% else %}
+          <p><strong>Link de acceso al acta: </strong><a href="{{ proyecto.aprobado_adjunto.url }}" target="_blank">Descargar</a></p>
+        {% endif %}
+      
+    {% endif %}
+
+  </div>
+</div>
+
+{% endblock %}

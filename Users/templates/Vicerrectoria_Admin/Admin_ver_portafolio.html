@@ -1,0 +1,349 @@
+<!--Admin_ver_portafolio.html-->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="{% static 'css/ADMIN/style.css' %}">
+    
+
+    <!-- Breadcrumb -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="{% static 'css/ADMIN/Breadcrumbs/style.css' %}">
+    
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}">
+    <title>SeedResearchTool</title>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <a class="navbar-brand" href="{% url 'Users:Admin_home' %}">
+          <img src="{% static 'images/ADMIN//Logo.png' %}" alt="" style="width: 240px; height: 60px;">
+        </a>
+      </div>
+
+      <ul class="navbar-menu">
+        {% if user.is_authenticated and user.usuario_administrador %}
+          <li class="nav-item">
+            <a class="nav-link" style="color: white; font-size: 20px;" href="{% url 'Users:Admin_home' %}"><strong>Home</strong></a>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link" style="color: white;" href="{% url 'Pagina_Principal' %}"><strong>SeedResearchTool</strong></a>
+          </li>
+        {% endif %}
+      </ul>
+
+      <ul class="navbar-menu ml-auto">
+        {% if user.is_authenticated and user.usuario_administrador %}
+          <li class="nav-item">
+            <a class="nav-link" style="color: white; padding-right: 20px; font-size: 20px;" href="{% url 'Users:Admin_logout' %}"><strong>Cerrar Sesion</strong></a>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link" style="color: white; padding-right: 20px; font-size: 20px;" href="{% url 'Users:Admin_login' %}"><strong>Login Admin</strong></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" style="color: white; padding-right: 20px; font-size: 20px;" href="{% url 'Users:Admin_registro_usuario' %}"><strong>Sign Up - Admin</strong></a>
+          </li>
+        {% endif %}
+      </ul>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="wrapper">
+      <ol class="breadcrumbs breadcrumbs--one" itemscope itemtype="http://schema.org/BreadcrumbList">
+          <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a class="breadcrumb" href="{% url 'Users:Admin_home' %}" itemprop="item">
+              <span itemprop="name">
+              <i class="material-icons" aria-hidden="true">home</i>
+              <span>INICIO</span>
+              </span>
+          </a>
+          <meta itemprop="position" content="1" />
+          </li>
+
+          <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a class="breadcrumb" href="#" itemprop="item">
+                <span itemprop="name">
+                <i class="material-icons" aria-hidden="true">person</i>
+                <span>USUARIO</span>
+                </span>
+            </a>
+            <meta itemprop="position" content="2" />
+          </li>
+
+          <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a class="breadcrumb" href="#" itemprop="item">
+                <span itemprop="name">
+                <i class="material-icons" aria-hidden="true">cases</i>
+                <span>PROYECTO</span>
+                </span>
+            </a>
+            <meta itemprop="position" content="2" />
+          </li>
+
+          <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a class="breadcrumb" href="#" itemprop="item">
+                <span itemprop="name">
+                <i class="material-icons" aria-hidden="true">tune</i>
+                <span>Opciones de proyecto</span>
+                </span>
+            </a>
+            <meta itemprop="position" content="2" />
+          </li>
+
+          <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a class="breadcrumb" href="#" itemprop="item">
+                <span itemprop="name">
+                <i class="material-icons" aria-hidden="true">library_books</i>
+                <span>Portafolio</span>
+                </span>
+            </a>
+            <meta itemprop="position" content="2" />
+          </li>
+      </ol>
+    </div>
+
+{% if user.is_authenticated and user.usuario_administrador %}
+
+  <br>
+  <br>
+  <br>
+
+  <!-- Message Success -->
+  <div class="messages-container">
+    {% for message in messages %}
+      {% if tipo_mensaje == 'aceptar' %}
+        <div class="aceptar-message">
+          <p>{{ message }}</p>
+          <button type="button" class="btn btn-dark" onclick="closeMessage(this)">Confirmar</button>
+        </div>
+      {% endif %}
+      {% if tipo_mensaje == 'eliminar' %}
+        <div class="eliminar-message">
+          <p>{{ message }}</p>
+          <button type="button" class="btn btn-dark" onclick="closeMessage(this)">Confirmar</button>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+
+  <div class="container">
+    <br>
+    <div class="text-center">
+      <h2><strong>Investigador: </strong>{{ usuario.nombre }}</h2>
+      <h2><strong>Proyecto: </strong>{{ proyecto.titulo }}</h2>
+    </div>
+    <br>
+
+
+    {% for producto in productos %}
+
+    <div class="container-c-p">
+      <div class="container-c-p-1">
+        <div class="container-c-p text-center">
+          <h3 style="color: white;">Tipo de producto: <strong>{{ producto.tipo_producto }}</strong></h3>
+        </div>
+        <br>
+
+        <!--- EVIDENCIAS 1 -->
+        <div class="container-c-p-2">
+          <div class="text-center"><h4><strong>Informe N°1 de evidencias</strong></h4></div>
+          {% if portafolios %}
+            {% for portafolio in portafolios %}
+              {% if portafolio.producto == producto %}
+                <div class="producto">
+
+                  {% if portafolio.avance_1_fecha %}
+                    <p class="producto-estado"><strong>Fecha:</strong> {{portafolio.avance_1_fecha}}</p>
+                  {% endif %}
+
+                  {% if portafolio.avance_1_nombre %}
+                    <p class="producto-nombre"><strong>Nombre De Producto:</strong> {{ portafolio.avance_1_nombre }}</p>
+                  {% endif %}
+
+                  {% if portafolio.avance_1_descripcion %}
+                    <p class="producto-descripcion"><strong>Descripción:</strong> {{ portafolio.avance_1_descripcion }}</p>
+                  {% endif %}
+
+                  {% if portafolio.avance_1_link %}
+                    <p class="producto-link"><strong>Link:</strong> {{ portafolio.avance_1_link }}</p>                
+                  {% endif %}
+
+                  {% if portafolio.avance_1_adjunto %}
+                    <p class="producto-adjunto"><strong>Adjunto:</strong> <a href="{{ portafolio.avance_1_adjunto.url }}">Descargar adjunto</a></p>
+                  {% endif %}
+
+                  {% if portafolio.avance_1_nombre or portafolio.avance_1_descripcion or portafolio.avance_1_link or portafolio.avance_1_adjunto %}
+
+                    {% if portafolio.avance_1_estado %}
+                      {% if portafolio.avance_1_estado == "No Revisado" %}
+                        <p class="producto-adjunto"><strong>Estado:</strong><span style="color: orange; font-size: 20px;"><strong> {{portafolio.avance_1_estado}}</strong> </span></p>
+                      {% endif %}
+
+                      {% if portafolio.avance_1_estado == "Correcciones Requeridas" %}
+                        <p class="producto-adjunto"><strong>Estado:</strong><span style="color: red; font-size: 20px;"><strong> {{portafolio.avance_1_estado}}</strong> </span></p>
+                      {% endif %}
+
+                      {% if portafolio.avance_1_estado == "Aceptado" %}
+                        <p class="producto-adjunto"><strong>Estado:</strong><span style="color: green; font-size: 20px;"><strong> {{portafolio.avance_1_estado}}</strong> </span></p>
+                      {% endif %}
+
+                    {% endif %}
+
+                    <a href="{% url 'Users:aceptar_estado' portafolio.id 1 %}" class="btn btn-success icon-btn">&#10003;</a>
+                    <a href="{% url 'Users:eliminar_estado' portafolio.id 1 %}" class="btn btn-danger icon-btn">X</a>
+                  {% endif %}
+
+                </div>
+              {% endif %}
+            {% endfor %}
+          {% else %}
+            <p class="no-evidencias">El Docente Aun no Sube evidencias Del Primer Informe</p>
+          {% endif %}
+        </div>
+
+        <br>
+        <!--- EVIDENCIAS 2 -->
+        <div class="container-c-p-2">
+          <div class="text-center"><h4><strong>Informe N°2 de evidencias</strong></h4></div>
+          {% if portafolios %}
+            {% for portafolio in portafolios %}
+              {% if portafolio.producto == producto %}
+                <div class="producto">
+                  {% if portafolio.avance_2_fecha %}
+                    <p class="producto-estado"><strong>Fecha:</strong> {{portafolio.avance_2_fecha}}</p>
+                  {% endif %}
+                  {% if portafolio.avance_2_descripcion %}
+                    <p class="producto-descripcion"><strong>Descripción:</strong> {{ portafolio.avance_2_descripcion }}</p>
+                  {% endif %}
+                  {% if portafolio.avance_2_link %}
+                    <p class="producto-link"><strong>Link:</strong> {{ portafolio.avance_2_link }}</p>                
+                  {% endif %}
+                  {% if portafolio.avance_2_adjunto %}
+                    <p class="producto-adjunto"><strong>Adjunto:</strong> <a href="{{ portafolio.avance_2_adjunto.url }}">Descargar adjunto</a></p>
+                  {% endif %}
+
+                  {% if portafolio.avance_2_descripcion or portafolio.avance_2_link or portafolio.avance_2_adjunto %}
+                    { % if portafolio.avance_2_estado %}
+                      {% if portafolio.avance_2_estado == "No Revisado" %}
+                        <p class="producto-adjunto"><strong>Estado:</strong><span style="color: orange; font-size: 20px;"><strong> {{portafolio.avance_2_estado}}</strong> </span></p>
+                      {% endif %}
+
+                      {% if portafolio.avance_2_estado == "Correcciones Requeridas" %}
+                        <p class="producto-adjunto"><strong>Estado:</strong><span style="color: red; font-size: 20px;"><strong> {{portafolio.avance_2_estado}}</strong> </span></p>
+                      {% endif %}
+
+                      {% if portafolio.avance_2_estado == "Aceptado" %}
+                        <p class="producto-adjunto"><strong>Estado:</strong><span style="color: green; font-size: 20px;"><strong> {{portafolio.avance_2_estado}}</strong> </span></p>
+                    {% endif %}
+
+                    <a href="{% url 'Users:aceptar_estado' portafolio.id 2 %}" class="btn btn-success icon-btn">&#10003;</a>
+                    <a href="{% url 'Users:eliminar_estado' portafolio.id 2 %}" class="btn btn-danger icon-btn">X</a>
+
+                  {% endif %}
+                </div>
+              {% endif %}
+            {% endfor %}
+          {% else %}
+            <p class="no-evidencias">El Docente Aun no Sube evidencias Del Segundo Informe</p>
+          {% endif %}
+        </div>
+        <br>
+        
+        <!--- EVIDENCIAS 3 -->
+        <div class="container-c-p-2">
+          <div class="text-center"><h4><strong>Informe N°3 de evidencias</strong></h4></div>
+          {% if portafolios %}
+            {% for portafolio in portafolios %}
+              {% if portafolio.producto == producto %}
+                <div class="producto">
+                  {% if portafolio.avance_3_fecha %}
+                    <p class="producto-estado"><strong>Fecha:</strong> {{portafolio.avance_3_fecha}}</p>
+                  {% endif %}
+                  {% if portafolio.avance_3_descripcion %}
+                    <p class="producto-descripcion"><strong>Descripción:</strong> {{ portafolio.avance_3_descripcion }}</p>
+                  {% endif %}
+                  {% if portafolio.avance_3_link %}
+                    <p class="producto-link"><strong>Link:</strong> {{ portafolio.avance_3_link }}</p>                
+                  {% endif %}
+                  {% if portafolio.avance_3_adjunto %}
+                    <p class="producto-adjunto"><strong>Adjunto:</strong> <a href="{{ portafolio.avance_3_adjunto.url }}">Descargar adjunto</a></p>
+                  {% endif %}
+                  {% if portafolio.avance_3_descripcion or portafolio.avance_3_link or portafolio.avance_3_adjunto %}
+
+                    {% if portafolio.avance_3_estado %}
+                      {% if portafolio.avance_3_estado == "No Revisado" %}
+                        <p class="producto-adjunto"><strong>Estado:</strong><span style="color: orange; font-size: 20px;"><strong> {{portafolio.avance_3_estado}}</strong> </span></p>
+                      {% endif %}
+
+                      {% if portafolio.avance_3_estado == "Correcciones Requeridas" %}
+                        <p class="producto-adjunto"><strong>Estado:</strong><span style="color: red; font-size: 20px;"><strong> {{portafolio.avance_3_estado}}</strong> </span></p>
+                      {% endif %}
+
+                      {% if portafolio.avance_3_estado == "Aceptado" %}
+                        <p class="producto-adjunto"><strong>Estado:</strong><span style="color: green; font-size: 20px;"><strong> {{portafolio.avance_3_estado}}</strong> </span></p>
+                      {% endif %}
+                    {% endif %} 
+
+                    <a href="{% url 'Users:aceptar_estado' portafolio.id 3 %}" class="btn btn-success icon-btn">&#10003;</a>
+                    <a href="{% url 'Users:eliminar_estado' portafolio.id 3 %}" class="btn btn-danger icon-btn">X</a>
+                  {% endif %}
+                </div>
+              {% endif %}
+            {% endfor %}
+          {% else %}
+            <p class="no-evidencias">El Docente Aun no Sube evidencias Del Informe Final</p>
+          {% endif %}
+        </div>
+
+        <br>
+
+      </div>
+    </div>
+    <br>
+    <br>
+    {% endfor %}
+
+    <br>
+    <br>
+
+    {% else %}
+      <br>
+      <div class="alert alert-danger text-center" role="alert">
+          <h5 class="no-permisos">No tienes permisos para acceder a esta página.</p>
+          {% if user.is_authenticated %}
+              <a href="{% url 'Users:Users_Home' %}" class="btn btn-primary">Ir al Portal de Docente Investigador</a>
+          {% endif %}
+          <a href="{% url 'Pagina_Principal' %}" class="btn btn-primary">Página Principal</a>
+      </div>
+    {% endif %}
+
+  </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- MESSAGESS, Confirmar (Volver Atras) -->
+  <script>
+    function closeMessage(button) {
+      var messageDiv = button.closest(".aceptar-message, .eliminar-message");
+      messageDiv.style.display = "none";
+    }
+  </script>
+  
+
+</body>
+</html>
+
+

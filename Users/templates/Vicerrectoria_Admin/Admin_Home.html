@@ -1,0 +1,109 @@
+{% extends 'layouts/Admin_base.html' %}
+{% load static %}
+
+{% block extra_styles %}
+<style>
+    body {
+        background-image: url("{% static 'Admin_Home_0.webp' %}");
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .custom-card-body p {
+        font-size: 15px; /* Ajusta el tamaño del texto deseado */
+    }
+
+    .custom-card-body-2 p {
+        font-size: 15px; 
+    }
+
+    .custom-card-body-3 p {
+        font-size: 15px;
+    }
+
+    .card {
+        width: 100%; /* Ajusta el ancho deseado */
+        margin: 0 auto; /* Centra las tarjetas horizontalmente */
+        margin-bottom: 20px; /* Espacio entre las tarjetas */
+        display: grid; /* Utiliza grid para el diseño */
+        grid-template-columns: auto 1fr; /* La imagen ocupa el ancho automático y el contenido ocupa el espacio restante */
+        grid-gap: 10px; /* Espacio entre la imagen y el contenido */
+    }
+
+    .card-img-top {
+        width: 30%; /* La imagen ocupa todo el ancho disponible */
+        height: auto; /* La altura se ajusta automáticamente */
+        object-fit: cover; /* Ajusta el tamaño de la imagen para cubrir la caja */
+    }
+
+    .card-body {
+        padding: 10px; /* Ajusta el espaciado interno */
+    }
+
+    .card-title {
+        margin-bottom: 10px; /* Espaciado inferior para el título */
+    }
+
+    .card-text {
+        margin-bottom: 0; /* Elimina el espaciado inferior para el texto */
+    }
+
+    .list-group {
+        width: 70%;
+        margin: 0 auto;
+    }
+</style>
+{% endblock %}
+
+
+{% block content %}
+{% if user.is_authenticated and user.usuario_administrador %}
+
+    <br>
+    <h1 class="display-7 text-center">GESTION</h1>
+    <p class="text-center">Inicio Administrador</p>
+
+
+    <div class="container mt-5">
+
+        <div class="list-group">
+
+            <a href="{% url 'Users:Admin_lista_usuarios' %}" class="list-group-item list-group-item-action">
+                <div class="card">
+                    
+                    <div class="card-body custom-card-body">
+                        <h6 class="card-title">USUARIOS</h6>
+                        <p class="card-text">Consultar Datos De Investigadores</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="{% url 'Users:Admin_porcentaje_general' %}" class="list-group-item list-group-item-action">
+                <div class="card">
+                    
+                    <div class="card-body custom-card-body-2">
+                        <h6 class="card-title">PROCENTAJE GENERAL</h6>
+                        <p class="card-text">Consulatar estadisticas generales</p>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+    </div>
+    
+
+
+    <br>
+    <br>
+    <br>
+
+{% else %}
+<br>
+<div class="alert alert-danger text-center" role="alert">
+    <h5>No tienes permisos para acceder a esta página.</p>
+    {% if user.is_authenticated %}
+        <a href="{% url 'Users:Users_Home' %}" class="btn btn-primary">Ir al Portal de Docente Investigador</a>
+    {% endif %}
+    <a href="{% url 'Pagina_Principal' %}" class="btn btn-primary">Página Principal</a>
+</div>
+{% endif %}
+{% endblock %}

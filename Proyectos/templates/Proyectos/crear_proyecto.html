@@ -1,0 +1,642 @@
+<!-- crear_protyecto.html -->
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Breadcrumb -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="{% static 'css/USERS_PROYECTOS/Breadcrumbs/style.css' %}">
+
+  <link rel="stylesheet" href="{% static 'css/USERS_PROYECTOS/Users_Crear_Proyecto/style.css' %}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}">
+  <title>SeedResearchTool</title>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-brand" href="{% url 'Users:Users_home' %}">
+        <img src="{% static 'images/USERS_PROYECTOS/Users_Crear_Proyecto/Proyectos_Logo.png' %}" alt=""
+          style="width: 240px; height: 60px;">
+      </a>
+    </div>
+    <ul class="navbar-menu">
+      {% if user.is_authenticated and not user.usuario_administrador %}
+      <li class="navbar-item">
+        <a class="nav-link" href="{% url 'Users:Users_home' %}"><strong>HOME</strong></a>
+      </li>
+      <li class="navbar-item">
+        <a class="nav-link" href="{% url 'Proyectos:lista_proyectos' %}"><strong>PROYECTOS</strong></a>
+      </li>
+      <li class="navbar-item">
+        <a class="nav-link" href="{% url 'Proyectos:crear_proyecto' %}"><strong>CREAR PROYECTO</strong></a>
+      </li>
+      {% endif %}
+    </ul>
+
+    <ul class="navbar-menu ml-auto">
+      {% if user.is_authenticated and not user.usuario_administrador %}
+      <li class="navbar-item">
+        <a class="nav-link" href="{% url 'Users:Users_ver_perfil' %}"><strong>PERFIL</strong></a>
+      </li>
+      <li class="navbar-item">
+        <a class="nav-link" href="{% url 'Users:logout' %}"><strong>CERRAR SESION</strong></a>
+      </li>
+      {% else %}
+      <li class="navbar-item">
+        <a class="nav-link" href="{% url 'Users:Users_login' %}"><strong>INICIAR SESION</strong></a>
+      </li>
+      <li class="navbar-item">
+        <a class="nav-link" href="{% url 'Users:Users_consultar_identificacion' %}"><strong>REGISTRARSE</strong></a>
+      </li>
+      {% endif %}
+    </ul>
+  </nav>
+
+  <!-- Breadcrumb -->
+  <div class="wrapper">
+    <ol class="breadcrumbs breadcrumbs--one" itemscope itemtype="http://schema.org/BreadcrumbList">
+      <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+        <a class="breadcrumb" href="{% url 'Users:Users_home' %}" itemprop="item">
+          <span itemprop="name">
+            <i class="material-icons" aria-hidden="true">home</i>
+            <span>INICIO</span>
+          </span>
+        </a>
+        <meta itemprop="position" content="1" />
+      </li>
+
+      <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+        <a class="breadcrumb" href="{% url 'Proyectos:crear_proyecto' %}" itemprop="item">
+          <span itemprop="name">
+            <i class="material-icons" aria-hidden="true">cases</i>
+            <span>CREAR PROYECTO</span>
+          </span>
+        </a>
+        <meta itemprop="position" content="2" />
+      </li>
+    </ol>
+  </div>
+
+  <!-- Modal Confirmar Salir -->
+  <div class="modal fade" id="combinedModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="combinedModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="combinedModalLabel"><strong>Confirmar Datos de Proyecto</strong></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>¿ Guardar Proyecto ?</p></strong>
+                <p style="color: red;"><strong>Asegurate de completar los campos obligatorios "*"</strong></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary" id="guardarCambiosBtn" >Confirmar</button>
+            </div>
+        </div>
+    </div>
+  </div>
+
+
+  <br>
+  <br>
+  <br>
+  <div class="container">
+    <div class="container-c-p-1">
+      <h5><strong style="color: red;">* CAMPOS OBLIGATORIOS</strong></h5>
+    </div>
+  </div>
+  
+  <br>
+  <form method="POST" class="container" enctype="multipart/form-data" id="crear_Proyecto_Form">
+
+    {% csrf_token %}
+
+    <!-- INSCRIPCION PROYECTO -->
+    <br>
+    <div class="card mb-4">
+
+      <div class="container-c-p">
+        <h2 class="card-title text-center"><strong>INSCRIPCIÓN PROYECTO</strong></h2>
+        <h6 class="card-title text-center"><strong>(Obligatorio)</strong></h6>
+      </div>
+
+
+      <div class="container-c-p-1">
+        <div class="card-body">
+          <div class="row">
+            <div class="form-group">
+              <label for="titulo"><strong>Título: *</strong></label>
+              <input type="text" class="form-control" name="titulo" value="{{ usuario.titulo }}" required>
+              <br>
+            </div>
+
+            <div class="form-group">
+              <label for="palabras_clave"><strong>Palabras clave: *</strong></label>
+              <input type="text" class="form-control" name="palabras_clave" value="{{ usuario.palabras_clave }}" required>
+              <br>
+            </div>
+
+            <!-- Datos Precargados -->
+            <input type="hidden" name="facultad" value="{{ form.facultad.value }}">
+            <input type="hidden" name="programa" value="{{ form.programa.value }}">
+
+            <div class="form-group">
+              <label for="semillero_investigacion"><strong>Semillero Investigacion: *</strong></label>
+              <input type="text" class="form-control" name="semillero_investigacion"
+                value="{% if form.semillero_investigacion.value %}{{ form.semillero_investigacion.value }}{% endif %}" required>
+              <br>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label"><strong>Grupo Investigacion: *</strong></label>
+            {{ form.grupo_investigacion }}
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label"><strong>Linea Investigacion: *</strong></label>
+            {{ form.linea_investigacion }}
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- INVESTIGADORES PARTICIPANTES -->
+    <br>
+    <div class="card mb-4">
+      <div class="container-c-p">
+        <h2 class="card-title text-center"><strong>INVESTIGADORES PARTICIPANTES</strong></h2>
+        <h6 class="card-title text-center"><strong>(Opcional)</strong></h6>
+      </div>
+
+      <div class="container-c-p-1">
+        <div class="card-body">
+          <!-- Datos Precargados [Datos Investigador -->
+          <input type="hidden" name="nombre" value="{{ form.nombre.value }}">
+          <input type="hidden" name="telefono" value="{{ form.telefono.value }}">
+          <input type="hidden" name="correo" value="{{ form.correo.value }}">
+          <input type="hidden" name="cvlac" value="{{ form.cvlac.value }}">
+          <input type="hidden" name="identificacion" value="{{ form.identificacion.value }}">
+
+          <h4><strong>Datos del Co-Investigador</strong></h4>
+          <br>
+
+          <div class="form-group">
+            <label for="co_investigador_1_nombre"><strong>Nombre completo:</strong></label>
+            <input type="text" class="form-control" name="co_investigador_1_nombre"
+              value="{% if form.co_investigador_1_nombre.value %}{{ form.co_investigador_1_nombre.value }}{% endif %}">
+            <br>
+          </div>
+
+          <div class="form-group">
+            <label for="co_investigador_1_identificacion"><strong>Cédula:</strong></label>
+            <input type="text" class="form-control" name="co_investigador_1_identificacion"
+              value="{% if form.co_investigador_1_identificacion.value %}{{ form.co_investigador_1_identificacion.value }}{% endif %}">
+            <br>
+          </div>
+
+          <div class="form-group">
+            <label for="co_investigador_1_telefono"><strong>Teléfono:</strong></label>
+            <input type="text" class="form-control" name="co_investigador_1_telefono"
+              value="{% if form.co_investigador_1_telefono.value %}{{ form.co_investigador_1_telefono.value }}{% endif %}">
+            <br>
+          </div>
+
+          <div class="form-group">
+            <label for="co_investigador_1_correo"><strong>Correo:</strong></label>
+            <input type="text" class="form-control" name="co_investigador_1_correo"
+              value="{% if form.co_investigador_1_correo.value %}{{ form.co_investigador_1_correo.value }}{% endif %}">
+            <br>
+          </div>
+
+          <div class="form-group">
+            <label for="co_investigador_1_formacion"><strong>Formación:</strong></label>
+            <input type="text" class="form-control" name="co_investigador_1_formacion"
+              value="{% if form.co_investigador_1_formacion.value %}{{ form.co_investigador_1_formacion.value }}{% endif %}">
+            <br>
+          </div>
+
+          <div class="form-group">
+            <label for="co_investigador_1_institucion"><strong>Institución en la que labora:</strong></label>
+            <input type="text" class="form-control" name="co_investigador_1_institucion"
+              value="{% if form.co_investigador_1_institucion.value %}{{ form.co_investigador_1_institucion.value }}{% endif %}">
+            <br>
+          </div>
+
+          <div class="form-group">
+            <label for="co_investigador_1_cvlac"><strong>Link CVLAC:</strong></label>
+            <input type="text" class="form-control" name="co_investigador_1_cvlac" value="{% if form.co_investigador_1_cvlac.value %}{{ form.co_investigador_1_cvlac.value }}{% endif %}" pattern="https?://[^\s]+" title="Ingrese una URL válida">
+            <br>
+          </div>
+        </div>
+      </div>
+    </div><br>
+
+
+    <!-- FECHAS DURACION PROYECTO -->
+    <div class="card mb-4">
+
+      <div class="container-c-p">
+        <h2 class="card-title text-center"><strong>DURACION PROYECTO</strong></h2>
+        <h6 class="card-title text-center"><strong>(Obligatorio)</strong></h6>
+      </div>
+
+      <div class="container-c-p-1">
+        <div class="card-body">
+          <div class="form-row">
+            <div class="col-md-6">
+              <label for="fecha_inicio"><strong>Fecha de inicio: *</strong></label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                </div>
+                {{ form.fecha_inicio }}
+              </div>
+            </div>
+            <br>
+            <div class="col-md-6">
+              <label for="fecha_finalizacion"><strong>Fecha de finalización: *</strong></label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                </div>
+                {{ form.fecha_finalizacion }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+
+    </div><br>
+
+
+    <!-- DESCRIPCIÓN DEL PROYECTO -->
+    <div class="card mb-4">
+      <div class="container-c-p">
+        <h2 class="card-title text-center"><strong>DESCRIPCIÓN DEL PROYECTO</strong></h2>
+        <h6 class="card-title text-center"><strong>(Obligatorio)</strong></h6>
+      </div>
+
+      <div class="container-c-p-1">
+        <div class="card-body">
+          <div class="form-group text-center">
+            <h5><strong>Problema y pregunta: *</strong></h5>
+            <textarea class="form-control" rows="5" style="resize: vertical;"
+              name="{{ form.problema_pregunta.html_name }}" required>{{ form.problema_pregunta.value|default_if_none:'' }}</textarea>
+          </div>
+          <br>
+
+          <div class="form-group text-center">
+            <h5><strong>Justificación: *</strong></h5>
+            <textarea class="form-control" rows="5" style="resize: vertical;"
+              name="{{ form.justificacion.html_name }}" required>{{ form.justificacion.value|default_if_none:'' }}</textarea>
+          </div>
+          <br>
+
+          <div class="form-group text-center">
+            <h5><strong>Objetivo general: *</strong></h5>
+            <textarea class="form-control" rows="5" style="resize: vertical;"
+              name="{{ form.objetivo_general.html_name }}" required>{{ form.objetivo_general.value|default_if_none:'' }}</textarea>
+          </div>
+          <br>
+
+          <div class="form-group text-center">
+            <h5><strong>Objetivos específicos: *</strong></h5>
+            <textarea class="form-control" rows="5" style="resize: vertical;"
+              name="{{ form.objetivos_especificos.html_name }}" required>{{ form.objetivos_especificos.value|default_if_none:'' }}</textarea>
+          </div>
+          <br>
+
+          <div class="form-group text-center">
+            <h5><strong>Metodología propuesta: *</strong></h5>
+            <textarea class="form-control" rows="5" style="resize: vertical;"
+              name="{{ form.metodologia_propuesta.html_name }}" required>{{ form.metodologia_propuesta.value|default_if_none:'' }}</textarea>
+          </div>
+          <br>
+
+          <div class="form-group text-center">
+            <h5><strong>Estado del arte o antecedentes: *</strong></h5>
+            <textarea class="form-control" rows="5" style="resize: vertical;"
+              name="{{ form.estado_arte.html_name }}" required>{{ form.estado_arte.value|default_if_none:'' }}</textarea>
+          </div>
+          <br>
+
+          <div class="form-group text-center">
+            <h5><strong>Impactos esperados: *</strong></h5>
+            <textarea class="form-control" rows="5" style="resize: vertical;"
+              name="{{ form.impactos_esperados.html_name }}" required>{{ form.impactos_esperados.value|default_if_none:'' }}</textarea>
+          </div>
+          <br>
+
+        </div>
+      </div>
+    </div><br>
+
+
+    <!-- ACTIVIDADES -->
+    <div class="card mb-4">
+      <div class="container-c-p">
+        <h2 class="card-title text-center"><strong>ACTIVIDADES</strong></h2>
+        <h6 class="card-title text-center"><strong>(Obligatorio)</strong></h6>
+      </div>
+
+      <div class="container-c-p-1">
+        <div class="card-body">
+            <div id="actividades-formset">
+                {{ actividad_formset.management_form }}
+                <div id="formset-container">
+                    {% for form in actividad_formset %}
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="{{ form.nombre.id_for_label }}"><strong>Nombre: *</strong></label>
+                            {{ form.nombre }}
+                        </div><br>
+                        <div class="form-group">
+                            <label for="{{ form.descripcion.id_for_label }}"><strong>Descripción: *</strong></label>
+                            {{ form.descripcion }}
+                        </div><br>
+                        <div class="form-group">
+                            <label for="{{ form.duracion.id_for_label }}"><strong>Duración: *</strong></label>
+                            {{ form.duracion }}
+                        </div><br>
+                        <div class="form-group">
+                            <label for="{{ form.tipo_duracion.id_for_label }}"><strong>Meses - Semanas: *</strong></label>
+                            {{ form.tipo_duracion }}
+                        </div><br>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <button id="agregar-actividad" class="btn-actividad">Agregar Actividad</button>
+            </div>
+        </div>
+      </div>
+
+    </div><br>
+
+
+    <!-- COMITE ETICA - ADJUNTAR ARCHIVO -->
+    <div class="card mb-4">
+      <div class="container-c-p">
+        <h2 class="card-title text-center"><strong>COMITE ETICA</strong></h2>
+        <h6 class="card-title text-center"><strong>(Opcional)</strong></h6>
+      </div>
+
+      <div class="container-c-p-1">
+        <div class="card-body">
+          <div class="col-md-6">
+            <label for="{{ form.comite_etica.id_for_label }}"><strong>Comité de Ética:</strong></label>
+            {{ form.comite_etica }}
+          </div>
+          <br>
+
+          <div class="col-md-6" id="archivo-adjunto-field">
+            <label for="{{ form.archivo_adjunto.id_for_label }}"><strong>Archivo Adjunto: *</strong></label>
+            {{ form.archivo_adjunto }}
+          </div>
+          <br>
+        </div>
+      </div>
+    </div><br>
+
+    <br>
+    <div class="d-grid">
+      <button type="button" class="btn-actividad" data-bs-toggle="modal" data-bs-target="#combinedModal">Guardar</button>
+    </div>
+    <br>
+
+  </form>
+
+
+  <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+  <!-- SCRIPT - Modal Confirmacion -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const guardarCambiosBtn = document.getElementById("guardarCambiosBtn");
+        const crear_Proyecto_Form = document.getElementById("crear_Proyecto_Form");
+
+        let isSubmitting = false; // Variable para rastrear si el formulario se está enviando
+
+        guardarCambiosBtn.addEventListener("click", function (event) {
+            event.preventDefault(); // Evita que el formulario se envíe automáticamente
+
+            if (isSubmitting) {
+                return; // Si ya se está enviando el formulario, no hacer nada
+            }
+
+            if (crear_Proyecto_Form.checkValidity()) {
+                isSubmitting = true; // Se está enviando el formulario
+                guardarCambiosBtn.disabled = true; // Deshabilita el botón mientras se procesa
+
+                const formData = new FormData(crear_Proyecto_Form);
+
+                fetch("{% url 'Proyectos:crear_proyecto' %}", {
+                    method: "POST",
+                    body: formData
+                })
+                .then(data => {
+                    console.log(data);
+
+                    // Cerrar el modal
+                    const modal = new bootstrap.Modal(document.getElementById("combinedModal"));
+                    modal.hide();
+
+                    // Redirigir después de cerrar el modal, incluyendo el mensaje de éxito en la URL
+                    const successMessage = "¡Proyecto creado exitosamente!";
+                    const redirectUrl = "{% url 'Proyectos:lista_proyectos' %}" + "?message=" + encodeURIComponent(successMessage);
+                    window.location.href = redirectUrl;
+                })
+                .catch(error => {
+                    console.error("Error al enviar los datos:", error);
+                })
+                .finally(() => {
+                    isSubmitting = false; // Restaurar el estado después de completar la solicitud
+                    guardarCambiosBtn.disabled = false; // Habilitar el botón nuevamente
+                });
+            } else {
+                crear_Proyecto_Form.reportValidity(); // Mostrar mensajes de validación del formulario
+            }
+        });
+    });
+  </script>
+
+
+  <!-- SCRIPT PARA MANEJAR ACTIVIDADES -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+      $(document).ready(function () {
+      // Manejar evento clic del botón "Agregar Actividad"
+      $('#agregar-actividad').click(function (e) {
+          e.preventDefault();
+          agregarActividadForm();
+      });
+
+      // Función para agregar un nuevo formulario de actividad
+      function agregarActividadForm() {
+          var formIndex = $('#id_actividades-TOTAL_FORMS').val();
+          var formPrefix = 'actividades';
+
+          // Clonar el formulario de actividad inicial
+          var newForm = $('#formset-container .form-row:first').clone();
+
+          // Actualizar los atributos del formulario clonado
+          newForm.find(':input').each(function () {
+          var oldName = $(this).attr('name');
+          var newName = oldName.replace('-0-', '-' + formIndex + '-');
+          var oldId = $(this).attr('id');
+          var newId = oldId.replace('-0-', '-' + formIndex + '-');
+
+          $(this).attr('name', newName);
+          $(this).attr('id', newId);
+          $(this).val('');
+          });
+
+          // Agregar el formulario clonado al contenedor
+          $('#formset-container').append(newForm);
+
+          // Actualizar el número total de formularios
+          $('#id_actividades-TOTAL_FORMS').val(parseInt(formIndex) + 1);
+      }
+      });
+  </script>
+
+  <!-- SCRIPT PARA COMITE DE ETICA -->
+  <script>
+    function mostrarAdjunto() {
+      var comiteEtica = document.getElementById("id_comite_etica");
+      var adjunto = document.getElementById("id_archivo_adjunto");
+
+      if (comiteEtica.value === "si") {
+        adjunto.parentElement.style.display = "block";
+        adjunto.setAttribute("required", "required");
+      } else {
+        adjunto.parentElement.style.display = "none";
+        adjunto.removeAttribute("required");
+      }
+    }
+
+    // Ejecutar la función al cargar la página y cada vez que se cambie la selección
+    window.addEventListener("load", mostrarAdjunto);
+    document.getElementById("id_comite_etica").addEventListener("change", mostrarAdjunto);
+  </script>
+
+
+  <!-- SCRIPT PARA MANEJAR GRUPOS Y LINEAS DE INVESTIGACION DINAMICAS -->
+  <script>
+    const grupoInvestigacionSelect = document.getElementById('id_grupo_investigacion');
+    const lineaInvestigacionSelect = document.getElementById('id_linea_investigacion');
+
+    const opcionesLineasInvestigacion = {
+      'Aglalia': [
+        'Modelado y simulación',
+        'Nuevas tecnologías e inteligencia artificial',
+        'Sistemas de información e ingeniería de software'
+      ],
+      'ProCont': [
+        'Contabilidad social y ambiental',
+        'Contabilidad y gestión financiera',
+        'Estudios fiscales y gestión tributaria'
+      ],
+      'DehJüs': [
+        'Conflictos instituciones jurídicas y nuevas tendencias del derecho privado',
+        'Derecho público y justicia',
+        'Desarrollo humano salud mental y psicología forense',
+        'Genero sociedad y derechos humanos',
+      ],
+      'TES': [
+        'Bilinguismo',
+        'Infancia y desarrollo social',
+        'Neuropsicologia comportamiento y aprendizaje',
+        'Practica pedagógica investigativa',
+        'Psicologia educativa y evolutiva',
+        'Psicologia social y comunitaria',
+      ],
+      'GECAES': [
+        'Capital social y ambiental',
+        'Contabilidad y gestión financiera',
+        'Estudios fiscales y gestión tributaria',
+      ],
+      'Gestion e Innovacion': [
+        'Gestión e innovación',
+        'Innovación y gestión turística',
+      ],
+      'IC': [
+        'Ciudadanía genero y sociedad',
+        'Innovaciones sociales',
+      ],
+      'LyS': [
+        'Derecho y gestión de políticas publicas',
+        'Derecho y sociedad',
+        'Derecho y sujetos de especial protección constituciona',
+      ],
+      'Gisela': [
+        'Gestión organizacional, desarrollo y sociedad',
+        'Competitividad e innovacion en pymes',
+      ],
+      'LAW': [
+        'Mecanismos alternativos de solución de conflictos en particular la mediación interdisciplinaria y la conciliación',
+        'Propiedad intelectual',
+        'Práctica jurídica',
+        'Línea de investigación en educación inclusiva e interdisciplinar y de las nuevas tecnologías',
+      ],
+      'Business Intelligence': [
+        'Comercio y neogcios internacionales',
+        'Logistica nacional e internacional',
+      ],
+      'Americana Emprendedora': [
+        'Emprendimiento ecosistemas de emprendimiento e innovación',
+        'Emprendimiento de mujeres y comunidades',
+      ],
+      'PSI Context': [
+        'Desarrollo humano y problemáticas sociales',
+        'Salud y bienestar',
+      ],
+      'Engineeri': [
+        'Diseño y gestión de Sistemas productivos y logísticos',
+        'Innovación y gestión tecnológica',
+        'Modelado y simulación',
+        'Sistemas integrados de procesos y gestión',
+      ],
+      'SeHaT': [
+        'Emprendimiento e innovación',
+        'Salud Ocupacional',
+        'Seguridad Industrial',
+      ]
+    };
+
+    grupoInvestigacionSelect.addEventListener('change', (event) => {
+      const selectedOption = event.target.value;
+      const lineasInvestigacion = opcionesLineasInvestigacion[selectedOption];
+      lineaInvestigacionSelect.innerHTML = '';
+
+      lineasInvestigacion.forEach((linea) => {
+        const option = document.createElement('option');
+        option.value = linea;
+        option.text = linea;
+        lineaInvestigacionSelect.appendChild(option);
+      });
+    });
+  </script>
+
+
+</body>
+
+</html>

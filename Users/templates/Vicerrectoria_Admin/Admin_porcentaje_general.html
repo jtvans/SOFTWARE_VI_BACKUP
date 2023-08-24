@@ -1,0 +1,76 @@
+{% extends 'layouts/Admin_base.html' %}
+{% load static %}
+
+{% block content %}
+{% if user.is_authenticated and user.usuario_administrador %}
+    <br>
+    <h1>Porcentaje General de Cumplimiento</h1>
+    <p>Porcentaje general: {{ porcentaje_general }}%</p>
+    {% if porcentaje_general_malo == porcentaje_general %}
+        <div class="progress">
+            <div class="progress-bar bg-danger" role="progressbar" style="width: {{ porcentaje_general }}%;" aria-valuenow="{{ porcentaje_general }}" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+    {% endif %}
+    {% if porcentaje_general_medio == porcentaje_general %}
+        <div class="progress">
+            <div class="progress-bar bg-warning" role="progressbar" style="width: {{ porcentaje_general }}%;" aria-valuenow="{{ porcentaje_general }}" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+    {% endif %}
+    {% if porcentaje_general_aceptable == porcentaje_general %}
+        <div class="progress">
+            <div class="progress-bar bg-info" role="progressbar" style="width: {{ porcentaje_general }}%;" aria-valuenow="{{ porcentaje_general }}" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+    {% endif %}
+    {% if porcentaje_general_bueno == porcentaje_general %}
+        <div class="progress">
+            <div class="progress-bar bg-success" role="progressbar" style="width: {{ porcentaje_general }}%;" aria-valuenow="{{ porcentaje_general }}" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+    {% endif %}
+
+    
+    <hr>
+    <br>
+    <h2>Detalles</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Usuario</th>
+                <th>Porcentaje de Cumplimiento</th>
+                <th>Barra de Progreso</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for proyecto in proyectos %}
+                <tr>
+                    <td>{{ proyecto.nombre }}</td>
+                    <td>
+                        {% if proyecto.porcentaje_cumplimiento_total %}
+                            {{ proyecto.porcentaje_cumplimiento_total }}%
+                        {% else %}
+                            0 %
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: {{ proyecto.porcentaje_cumplimiento_total }}%;" aria-valuenow="{{ proyecto.porcentaje_cumplimiento_total }}" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% else %}
+
+    <br>
+    <div class="alert alert-danger text-center" role="alert">
+        <h5>No tienes permisos para acceder a esta página.</h5>
+        {% if user.is_authenticated %}
+            <a href="{% url 'Users:Users_Home' %}" class="btn btn-primary">Ir al Portal de Docente Investigador</a>
+        {% endif %}
+        <a href="{% url 'Pagina_Principal' %}" class="btn btn-primary">Página Principal</a>
+    </div>
+
+{% endif %}
+
+{% endblock %}
