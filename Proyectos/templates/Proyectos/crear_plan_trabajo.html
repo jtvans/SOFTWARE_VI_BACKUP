@@ -12,6 +12,7 @@
 
     <link rel="stylesheet" href="{% static 'css/USERS_PROYECTOS/Users_Opciones_Proyecto/style.css' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}">
     <title>SeedResearchTool</title>
     {% block extra_styles %}
@@ -30,31 +31,51 @@
         <ul class="navbar-menu">
             {% if user.is_authenticated and not user.usuario_administrador %}
             <li class="navbar-item">
-                <a class="nav-link" href="{% url 'Users:Users_home' %}"><strong>HOME</strong></a>
+                <a class="nav-link" href="{% url 'Users:Users_home' %}">HOME</a>
             </li>
-            <li class="navbar-item">
-                <a class="nav-link" href="{% url 'Proyectos:lista_proyectos' %}"><strong>PROYECTOS</strong></a>
+            <li class="navbar-item dropdown">
+                <a class="nav-link" href="#">PROYECTOS</a>
+                <div class="dropdown-content">
+                    <a class="text-center" href="{% url 'Proyectos:crear_proyecto' %}">Crear Proyecto</a>
+                    <a class="text-center" href="{% url 'Proyectos:lista_proyectos' %}">Lista de Proyectos</a>
+                </div>
             </li>
-            <li class="navbar-item">
-                <a class="nav-link" href="{% url 'Proyectos:crear_proyecto' %}"><strong>CREAR PROYECTO</strong></a>
+            <li class="navbar-item dropdown">
+                <a class="nav-link" href="#">SEMILLEROS</a>
+                <div class="dropdown-content">
+                    <a class="text-center" href="{% url 'Semilleros:crear_semillero' %}">Crear Semillero</a>
+                    <a class="text-center" href="{% url 'Semilleros:lista_semilleros' %}">Lista de Semilleros</a>
+                </div>
             </li>
             {% endif %}
         </ul>
-
+      
         <ul class="navbar-menu ml-auto">
             {% if user.is_authenticated and not user.usuario_administrador %}
-            <li class="navbar-item">
-                <a class="nav-link" href="{% url 'Users:Users_ver_perfil' %}"><strong>PERFIL</strong></a>
+            <li class="navbar-item dropdown">
+                <a class="nav-link" href="#">GRUPOS INVESTIGACION</a>
+                <div class="dropdown-content">
+                    <a class="text-center" href="{% url 'Users:Users_ver_grupos' %}">Ver Grupos</a>
+                    <a class="text-center" href="{% url 'Users:Users_editar_grupos_investigacion' %}">Editar Grupos</a>
+                </div>
             </li>
-            <li class="navbar-item">
-                <a class="nav-link" href="{% url 'Users:logout' %}"><strong>CERRAR SESION</strong></a>
+            <li class="navbar-item dropdown">
+                <a class="nav-link" href="#">PERFIL</a>
+                <div class="dropdown-content">
+                    <a class="text-center" href="{% url 'Users:Users_ver_perfil' %}">Ver Perfil</a>
+                    <a class="text-center" href="{% url 'Users:Users_editar_perfil' %}">Editar Perfil</a>
+                </div>
+            </li>
+            <li class="navbar-item">                
+                <a class="nav-link fa" style="font-size:26px" href="{% url 'Users:logout' %}">&#xf011;</a>
             </li>
             {% else %}
             <li class="navbar-item">
-                <a class="nav-link" href="{% url 'Users:Users_login' %}"><strong>INICIAR SESION</strong></a>
+                <a class="nav-link" href="{% url 'Users:Users_login' %}">INICIAR SESION</a>
             </li>
             <li class="navbar-item">
-                <a class="nav-link" href="{% url 'Users:Users_consultar_identificacion' %}"><strong>REGISTRARSE</strong></a>
+                <a class="nav-link"
+                    href="{% url 'Users:Users_consultar_identificacion' %}">REGISTRARSE</a>
             </li>
             {% endif %}
         </ul>

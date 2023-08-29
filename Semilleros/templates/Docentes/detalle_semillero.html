@@ -1,0 +1,422 @@
+<!-- detalle_proyecto.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Breadcrumb -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="{% static 'css/USERS_SEMILLEROS/Breadcrumbs/style.css' %}">
+
+  <link rel="stylesheet" href="{% static 'css/USERS_SEMILLEROS/Users_Crear_Semillero/style.css' %}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}">
+  <title>SeedResearchTool</title>
+  {% block extra_styles %}
+  {% endblock %}
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-brand" href="{% url 'Users:Users_home' %}">
+        <img src="{% static 'images/USERS_PROYECTOS/Users_Crear_Proyecto/Proyectos_Logo.png' %}" alt=""
+          style="width: 240px; height: 60px;">
+      </a>
+    </div>
+    <ul class="navbar-menu">
+      {% if user.is_authenticated and not user.usuario_administrador %}
+      <li class="navbar-item">
+        <a class="nav-link" href="{% url 'Users:Users_home' %}">HOME</a>
+      </li>
+      <li class="navbar-item dropdown">
+        <a class="nav-link" href="#">PROYECTOS</a>
+        <div class="dropdown-content">
+          <a class="text-center" href="{% url 'Proyectos:crear_proyecto' %}">Crear Proyecto</a>
+          <a class="text-center" href="{% url 'Proyectos:lista_proyectos' %}">Lista de Proyectos</a>
+        </div>
+      </li>
+      <li class="navbar-item dropdown">
+        <a class="nav-link" href="#">SEMILLEROS</a>
+        <div class="dropdown-content">
+          <a class="text-center" href="{% url 'Semilleros:crear_semillero' %}">Crear Semillero</a>
+          <a class="text-center" href="{% url 'Semilleros:lista_semilleros' %}">Lista de Semilleros</a>
+        </div>
+      </li>
+      {% endif %}
+    </ul>
+
+    <ul class="navbar-menu ml-auto">
+      {% if user.is_authenticated and not user.usuario_administrador %}
+      <li class="navbar-item dropdown">
+        <a class="nav-link" href="#">GRUPOS INVESTIGACION</a>
+        <div class="dropdown-content">
+          <a class="text-center" href="{% url 'Users:Users_ver_grupos' %}">Ver Grupos</a>
+          <a class="text-center" href="{% url 'Users:Users_editar_grupos_investigacion' %}">Editar Grupos</a>
+        </div>
+      </li>
+      <li class="navbar-item dropdown">
+        <a class="nav-link" href="#">PERFIL</a>
+        <div class="dropdown-content">
+          <a class="text-center" href="{% url 'Users:Users_ver_perfil' %}">Ver Perfil</a>
+          <a class="text-center" href="{% url 'Users:Users_editar_perfil' %}">Editar Perfil</a>
+        </div>
+      </li>
+      <li class="navbar-item">
+        <a class="nav-link fa" style="font-size:26px" href="{% url 'Users:logout' %}">&#xf011;</a>
+      </li>
+      {% else %}
+      <li class="navbar-item">
+        <a class="nav-link" href="{% url 'Users:Users_login' %}">INICIAR SESION</a>
+      </li>
+      <li class="navbar-item">
+        <a class="nav-link" href="{% url 'Users:Users_consultar_identificacion' %}">REGISTRARSE</a>
+      </li>
+      {% endif %}
+    </ul>
+  </nav>
+
+  <!-- Breadcrumb -->
+  <div class="wrapper">
+    <ol class="breadcrumbs breadcrumbs--one" itemscope itemtype="http://schema.org/BreadcrumbList">
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+        <a class="breadcrumb" href="{% url 'Users:Users_home' %}" itemprop="item">
+            <span itemprop="name">
+            <i class="material-icons" aria-hidden="true">home</i>
+            <span>INICIO</span>
+            </span>
+        </a>
+        <meta itemprop="position" content="1" />
+        </li>
+
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a class="breadcrumb" href="{% url 'Semilleros:lista_semilleros' %}" itemprop="item">
+              <span itemprop="name">
+              <i class="material-icons" aria-hidden="true">list</i>
+              <span>LISTA SEMILLEROS</span>
+              </span>
+          </a>
+          <meta itemprop="position" content="2" />
+        </li>
+
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a class="breadcrumb" href="{% url 'Semilleros:opciones_semillero' semillero.id %}" itemprop="item">
+              <span itemprop="name">
+              <i class="material-icons" aria-hidden="true">category</i>
+              <span>ACCIONES</span>
+              </span>
+          </a>
+          <meta itemprop="position" content="3" />
+        </li>
+
+        <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+          <a class="breadcrumb" href="{% url 'Semilleros:detalle_semillero' semillero.id %}" itemprop="item">
+              <span itemprop="name">
+                <i class="material-icons" aria-hidden="true">info</i>
+                <span>DETALLES</span>
+              </span>
+          </a>
+          <meta itemprop="position" content="4" />
+        </li>
+    </ol>
+  </div>
+
+  <br>
+  <br>
+  <hr>
+  <div class="container-title">
+    <h2 class="text-center">SEMILLERO</h2>
+  </div>
+  <hr>
+
+  <div class="container">
+    <div class="container-title">
+      <hr>
+      <h2 class="centered-title">INFORMACIÓN GENERAL DEL SEMILLERO</h2>
+      <hr>
+    </div>
+
+    <div class="container-g-l-1">
+      <p><strong>Nombre Semillero:</strong> {{ semillero.nombre_semillero }}</p>
+      <p><strong>Fecha Inscripcion:</strong> {{ semillero.fecha_inscripcion }}</p>
+      <p><strong>Facultad:</strong> {{ semillero.facultad }}</p>
+      <p><strong>Programa:</strong> {{ semillero.programa }}</p>
+      <p><strong>Grupo De Investigacion:</strong> {{ semillero.grupo_investigacion }}</p>
+      <p><strong>Linea De Investigacion:</strong> {{ semillero.linea_investigacion }}</p>
+      <p><strong>Tematica:</strong> {{ semillero.tematica_estudio }}</p>
+      <p><strong>Justificación:</strong> {{ semillero.justificacion_semillero }}</p>
+    </div>
+
+    <hr>
+    <div class="container-title">
+      <h2 class="centered-title">COORDINADOR DEL SEMILLERO</h2>
+    </div>
+    <hr>
+
+    <div class="container-g-l-1">
+      <p><strong>Nombre:</strong> {{ semillero.nombre }}</p>
+      <p><strong>Identificacion:</strong> {{ semillero.identificacion }}</p>
+      <p><strong>Lugar Expedicion:</strong> {{ semillero.lugar_expedicion }}</p>
+      <p><strong>Fecha Nacimiento:</strong> {{ semillero.fecha_nacimiento }}</p>
+      <p><strong>Lugar Nacimiento:</strong> {{ semillero.lugar_nacimiento }}</p>
+      <p><strong>Direccion Residencia:</strong> {{ semillero.direccion }}</p>
+      <p><strong>Telefono:</strong> {{ semillero.telefono }}</p>
+      <p><strong>Correo:</strong> {{ semillero.correo }}</p>
+      <p><strong>CvLAC:</strong> {{ semillero.cvlac }}</p>
+      <p><strong>Nivel De Formacion:</strong> {{ semillero.nivel_formacion }}</p>
+      <h3 class="centered-title">Nivel De Ingles</h3>
+      <p><strong>Habla:</strong> {{ semillero.nivel_ingles_habla }}</p>
+      <p><strong>Lee:</strong> {{ semillero.nivel_ingles_lee }}</p>
+      <p><strong>Entiende:</strong> {{ semillero.nivel_ingles_entiende }}</p>
+      <p><strong>Escribe:</strong> {{ semillero.nivel_ingles_escribe }}</p>
+      <br>
+    </div>
+
+    <div class="container-title">
+      <hr>
+      <h2 class="centered-title">CURSOS DE FORMACIÓN EN INVESTIGACIÓN</h2>
+      <hr>
+    </div>
+
+    <div class="container-g-l-1">
+      <p><strong>Docente Investigador:</strong> {{ semillero.docente_investigador }}</p>
+      {% if semillero.docente_investigador == 'si' %}
+      <div class="container-title">
+        <p class="centered-title"><strong>Proyectos De investigacion:</strong></p>
+      </div>
+      {% for proyecto in proyectos %}
+      <li><a href="{% url 'Proyectos:opciones_proyecto' proyecto.id %}">{{ proyecto.titulo }}</a></li>
+      {% endfor %}
+      {% else %}
+      {% if semillero.docente_investigador == 'no' %}
+      <div class="container-title">
+        <p class="centered-title"><strong>Cursos registrados</strong></p>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Tematica</th>
+            <th>Institución</th>
+            <th>Horas</th>
+            <th>Fecha</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ semillero.tematica }}</td>
+            <td>{{ semillero.institucion }}</td>
+            <td>{{ semillero.horas }}</td>
+            <td>{{ semillero.fecha }}</td>
+          </tr>
+          <tr>
+            <td>{{ semillero.tematica_2 }}</td>
+            <td>{{ semillero.institucion_2 }}</td>
+            <td>{{ semillero.horas_2 }}</td>
+            <td>{{ semillero.fecha_2 }}</td>
+          </tr>
+          <tr>
+            <td>{{ semillero.tematica_3 }}</td>
+            <td>{{ semillero.institucion_3 }}</td>
+            <td>{{ semillero.horas_3 }}</td>
+            <td>{{ semillero.fecha_3 }}</td>
+          </tr>
+        </tbody>
+      </table>
+      {% endif %}
+      {% endif %}
+    </div>
+
+    <br>
+
+    <div class="container-g-l-1">
+      <p><strong>Proyectos de Investigacion Abiertos:</strong> {{ semillero.tiene_proyectos }}</p>
+      {% if semillero.tiene_proyectos == 'si' %}
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nombre Proyecto</th>
+            <th>Institucion</th>
+            <th>Tipo Vinculacion</th>
+            <th>Año</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ semillero.Se_nombre_proyecto }}</td>
+            <td>{{ semillero.Se_institucion }}</td>
+            <td>{{ semillero.Se_tipo_vinculacion }}</td>
+            <td>{{ semillero.Se_fecha }}</td>
+          </tr>
+          <tr>
+            <td>{{ semillero.Se_nombre_proyecto_2 }}</td>
+            <td>{{ semillero.Se_institucion_2 }}</td>
+            <td>{{ semillero.Se_tipo_vinculacion_2 }}</td>
+            <td>{{ semillero.Se_fecha_2 }}</td>
+          </tr>
+          <tr>
+            <td>{{ semillero.Se_nombre_proyecto_3 }}</td>
+            <td>{{ semillero.Se_institucion_3 }}</td>
+            <td>{{ semillero.Se_tipo_vinculacion_3 }}</td>
+            <td>{{ semillero.Se_fecha_3 }}</td>
+          </tr>
+        </tbody>
+      </table>
+      {% endif %}
+
+    </div>
+
+    <br>
+
+    <div class="container-title">
+      <hr>
+      <h2 class="centered-title">ACTIVIDADES INTER E INTRA INSTITUCIONALES</h2>
+      <hr>
+    </div>
+    <div class="container-g-l-1">
+      <p><strong>Participa en Comité o Grupo de Trabajo:</strong> {{ semillero.actividades }}</p>
+      {% if semillero.actividades == 'si' %}
+      <div class="form-group">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Nombre Grupo / Comite</th>
+              <th>Actividad O Tematica</th>
+              <th>Tipo De Vinculacion (Rol)</th>
+              <th>Fecha</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ semillero.nombre_grupo }}</td>
+              <td>{{ semillero.actividad_tema }}</td>
+              <td>{{ semillero.tipo_vinculacion }}</td>
+              <td>{{ semillero.fecha_actividad }}</td>
+            </tr>
+            <tr>
+              <td>{{ semillero.nombre_grupo_2 }}</td>
+              <td>{{ semillero.actividad_tema_2 }}</td>
+              <td>{{ semillero.tipo_vinculacion_2 }}</td>
+              <td>{{ semillero.fecha_actividad_2 }}</td>
+            </tr>
+            <tr>
+              <td>{{ semillero.nombre_grupo_3 }}</td>
+              <td>{{ semillero.actividad_tema_3 }}</td>
+              <td>{{ semillero.tipo_vinculacion_3 }}</td>
+              <td>{{ semillero.fecha_actividad_3 }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      {% endif %}
+    </div>
+
+    <br>
+    <br>
+
+    <div class="container-title">
+      <hr>
+      <h2 class="centered-title">ESTUDIANTES INSCRITOS</h2>
+      <hr>
+    </div>
+
+    <div class="container-g-l-1"> 
+      <table class="table text-center">
+        <thead>
+          <tr>
+            <th>Estudiante</th>
+            <th>Estado</th>
+            <th>Accion</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for estudiante in estudiantes_inscritos %}
+            <tr>
+              <td>{{ estudiante.nombre_e }}</td>
+              <form method="post">
+                <td>
+                  {% csrf_token %}
+                  <input type="hidden" name="estudiante_id" value="{{ estudiante.id }}">
+                  {% if estudiante.estado_e %} 
+                    <p>Aceptado</p>
+                  {% else %}
+                    <p>Pendiente</p>
+                  {% endif %}
+                </td>
+                <td>
+                  {% if estudiante.estado_e %}
+                  <button type="submit" class="btn btn-danger">&#10005;</button>
+                  {% else %}
+                  <button type="submit" class="btn btn-success">&#10003;</button>
+                  {% endif %}
+                  <a href="{% url 'Semilleros:ver_perfil_solicitante' semillero.id estudiante.id %}" class="btn btn-secondary" target="_blank">&#128065;</a>
+                </td>
+              </form>
+
+              <form method="post" action="{% url 'Semilleros:generar_aval' semillero.id estudiante.id %}">
+                {% csrf_token %}
+                <td>
+                  {% if estudiante.estado_e %}
+                  <button type="submit" class="btn btn-primary">Generar Aval</button>
+                  {% endif %}
+                </td>
+              </form>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="2">Ningún estudiante inscrito.</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  
+    <br>
+    <br>
+
+    <br>
+    <div class="container-title">
+      <hr>
+      <h2 class="centered-title">RECIBIDO POR LA COORDINACIÓN GENERAL DE SEMILLEROS U HOMOLOGO EN SEDE</h2>
+      <hr>
+    </div>
+
+    <br>
+    <br>
+    <br>
+
+    <div class="firmas">
+      <div class="firma-estudiante">
+        <div class="container-g-l-1">
+          {{ semillero.nombre }}
+          <p><strong>Firma:</strong></p>
+          <p>DOCENTE COORDINADOR DEL SEMILLERO
+            Por medio de mi Firma, autorizo a la Corporación Universitaria Americana verificar la información suministrada
+            en este formato
+          </p>
+        </div>
+      </div>
+
+      <br>
+      <br>
+      <div class="firma-estudiante">
+        <div class="container-g-l-1">
+          <p><strong>Firma Recibido:</strong></p>
+          <p>COORDINADOR(A) NACIONAL DE SEMILLEROS U HOMOLOGO EN SEDE</p>
+        </div>
+      </div>  
+    </div>
+
+
+  </div>
+
+</body>
+
+</html>

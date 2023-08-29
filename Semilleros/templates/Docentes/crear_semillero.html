@@ -1,0 +1,564 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Breadcrumb -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="{% static 'css/USERS_SEMILLEROS/Breadcrumbs/style.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/USERS_SEMILLEROS/Users_Crear_Semillero/style.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}">
+    <title>SeedResearchTool</title>
+    {% block extra_styles %}
+    {% endblock %}
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <a class="navbar-brand" href="{% url 'Users:Users_home' %}">
+                <img src="{% static 'images/USERS_PROYECTOS/Users_Crear_Proyecto/Proyectos_Logo.png' %}" alt=""
+                style="width: 240px; height: 60px;">
+            </a>
+        </div>
+        <ul class="navbar-menu">
+            {% if user.is_authenticated and not user.usuario_administrador %}
+            <li class="navbar-item">
+                <a class="nav-link" href="{% url 'Users:Users_home' %}">HOME</a>
+            </li>
+            <li class="navbar-item dropdown">
+                <a class="nav-link" href="#">PROYECTOS</a>
+                <div class="dropdown-content">
+                    <a class="text-center" href="{% url 'Proyectos:crear_proyecto' %}">Crear Proyecto</a>
+                    <a class="text-center" href="{% url 'Proyectos:lista_proyectos' %}">Lista de Proyectos</a>
+                </div>
+            </li>
+            <li class="navbar-item dropdown">
+                <a class="nav-link" href="#">SEMILLEROS</a>
+                <div class="dropdown-content">
+                    <a class="text-center" href="{% url 'Semilleros:crear_semillero' %}">Crear Semillero</a>
+                    <a class="text-center" href="{% url 'Semilleros:lista_semilleros' %}">Lista de Semilleros</a>
+                </div>
+            </li>
+            {% endif %}
+        </ul>
+
+        <ul class="navbar-menu ml-auto">
+            {% if user.is_authenticated and not user.usuario_administrador %}
+            <li class="navbar-item dropdown">
+                <a class="nav-link" href="#">GRUPOS INVESTIGACION</a>
+                <div class="dropdown-content">
+                    <a class="text-center" href="{% url 'Users:Users_ver_grupos' %}">Ver Grupos</a>
+                    <a class="text-center" href="{% url 'Users:Users_editar_grupos_investigacion' %}">Editar Grupos</a>
+                </div>
+            </li>
+            <li class="navbar-item dropdown">
+                <a class="nav-link" href="#">PERFIL</a>
+                <div class="dropdown-content">
+                    <a class="text-center" href="{% url 'Users:Users_ver_perfil' %}">Ver Perfil</a>
+                    <a class="text-center" href="{% url 'Users:Users_editar_perfil' %}">Editar Perfil</a>
+                </div>
+            </li>
+            <li class="navbar-item">                
+                <a class="nav-link fa" style="font-size:26px" href="{% url 'Users:logout' %}">&#xf011;</a>
+            </li>
+            {% else %}
+            <li class="navbar-item">
+                <a class="nav-link" href="{% url 'Users:Users_login' %}">INICIAR SESION</a>
+            </li>
+            <li class="navbar-item">
+                <a class="nav-link"
+                    href="{% url 'Users:Users_consultar_identificacion' %}">REGISTRARSE</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="wrapper">
+        <ol class="breadcrumbs breadcrumbs--one" itemscope itemtype="http://schema.org/BreadcrumbList">
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a class="breadcrumb" href="{% url 'Users:Users_home' %}" itemprop="item">
+                <span itemprop="name">
+                <i class="material-icons" aria-hidden="true">home</i>
+                <span>INICIO</span>
+                </span>
+            </a>
+            <meta itemprop="position" content="1" />
+            </li>
+
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+            <a class="breadcrumb" href="{% url 'Semilleros:crear_semillero' %}" itemprop="item">
+                <span itemprop="name">
+                <i class="material-icons" aria-hidden="true">design_services</i>
+                <span>CREAR SEMILLERO</span>
+                </span>
+            </a>
+            <meta itemprop="position" content="2" />
+            </li>
+        </ol>
+    </div>
+
+    <br>
+    <br>
+    <br>
+
+    <form method="post" class="container">
+
+        {% csrf_token %}
+
+        <div class="container-c-p-1">
+        <div class="card-body">
+        <div class="row">
+
+            <div class="form-group">
+                <label for="nombre_semillero"><strong>Nombre de Semillero: *</strong></label>
+                <input type="text" class="form-control" name="nombre_semillero" value="{{ semillero.nombre_semillero }}" required>
+            </div>
+
+            <input type="hidden" name="facultad" value="{{ form.facultad.value }}">
+            <input type="hidden" name="programa" value="{{ form.programa.value }}">
+    
+            <div class="mb-3">
+                <label class="form-label"><strong>Grupo Investigacion: *</strong></label>
+                {{ form.grupo_investigacion }}
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label"><strong>Linea Investigacion: *</strong></label>
+                {{ form.linea_investigacion }}
+            </div>
+            
+            <div class="form-group">
+                <label for="tematica_estudio"><strong>Tematica de Estudio *</strong></label>
+                <input type="text" class="form-control" name="tematica_estudio" value="{{ semillero.tematica_estudio }}" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="justificacion_semillero"><strong>Justificacion Semillero *</strong></label>
+                <textarea rows="3" type="text" class="form-control" name="justificacion_semillero" value="{{ semillero.justificacion_semillero }}" required></textarea>
+            </div>
+        
+            <input type="hidden" name="nombre" value="{{ form.nombre.value }}">
+            <input type="hidden" name="identificacion" value="{{ form.identificacion.value }}">
+            <input type="hidden" name="telefono" value="{{ form.telefono.value }}">
+            <input type="hidden" name="correo" value="{{ form.correo.value }}">
+
+            <!-- Datos Docente -->
+            <div class="form-group">
+                <br>
+                <label for="lugar_expedicion"><strong>Lugar Expedicion ID *</strong></label>
+                <input type="text" class="form-control" name="lugar_expedicion" value="{{ semillero.lugar_expedicion }}" required>
+            </div>
+            
+            <div class="form-group">
+                <br>
+                <label for="fecha_nacimiento"><strong>Fecha de Nacimiento *</strong></label>
+                {{ form.fecha_nacimiento }}
+            </div>
+
+            <div class="form-group">
+                <br>
+                <label for="lugar_nacimiento"><strong>Lugar de Nacimiento *</strong></label>
+                <input type="text" class="form-control" name="lugar_nacimiento" value="{{ semillero.lugar_nacimiento }}" required>
+            </div>
+
+            <div class="form-group">
+                <br>
+                <label for="direccion"><strong>Direccion *</strong></label>
+                <input type="text" class="form-control" name="direccion" value="{{ semillero.direccion }}" required>
+            </div>
+
+            <div class="form-group">
+                <br>
+                <label for="nivel_formacion"><strong>Nivel de Formacion *</strong></label>
+                <input rows="3" type="text" class="form-control" name="nivel_formacion" value="{{ semillero.nivel_formacion }}" required>
+            </div>
+
+            <!-- Nivel de Ingles -->
+            <div class="form-group">
+                <br>
+                <div class="mb-3">
+                    <label for="nivel_ingles_habla"><strong>Nivel de Ingles (Habla) *</strong></label>
+                    {{ form.nivel_ingles_habla }}
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <div class="mb-3">
+                    <label for="nivel_ingles_lee"><strong>Nivel de Ingles (Lee) *</strong></label>
+                    {{ form.nivel_ingles_lee }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="mb-3">
+                    <label for="nivel_ingles_entiende"><strong>Nivel de Ingles (Entiende) *</strong></label>
+                    {{ form.nivel_ingles_entiende }}
+                </div>
+            </div>
+
+            <br>
+
+            <div class="form-group">
+                <div class="mb-3">
+                    <label for="nivel_ingles_escribe"><strong>Nivel de Ingles (Escribe) *</strong></label>
+                    {{ form.nivel_ingles_escribe }}
+                </div>
+            </div>
+
+            <!-- ¿Tiene CvLAC registrado en Colciencias? -->
+            <div class="form-group">
+                <div class="mb-3">
+                    <label class="form-label"><strong>¿Tiene CvLAC registrado en Colciencias? *</strong></label>
+                    {{ form.tiene_cvlac }}
+                </div>
+            </div>
+            <div class="additional-fields" style="display: none;">
+                {% if form.cvlac.value %}
+                    <label for="tematica"><strong>Ingrese su Cvlac *</strong></label>
+                    {{ form.cvlac }}
+                {% else %}
+                    <label for="tematica"><strong>Ingrese su Cvlac *</strong></label>
+                    {{ form.cvlac }}
+                {% endif %}
+            </div>
+
+            <!-- Es docente invesitgador -->
+            <div class="form-group">
+                <div class="mb-3">
+                    <label class="form-label"><strong>¿Es Docente Investigador? *</strong></label>
+                    {{ form.docente_investigador }}
+                </div>
+            </div>
+            <div class="form-group">
+                <table id="cursos-table">
+                    <thead>
+                        <tr>
+                            <th>Tematica</th>
+                            <th>Institución</th>
+                            <th>Horas</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ form.tematica }}</td>
+                            <td>{{ form.institucion }}</td>
+                            <td>{{ form.horas }}</td>
+                            <td>{{ form.fecha }}</td>
+
+                        </tr>
+                        <tr>
+                            <td>{{ form.tematica_2 }}</td>
+                            <td>{{ form.institucion_2 }}</td>
+                            <td>{{ form.horas_2 }}</td>
+                            <td>{{ form.fecha_2 }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ form.tematica_3 }}</td>
+                            <td>{{ form.institucion_3 }}</td>
+                            <td>{{ form.horas_3 }}</td>
+                            <td>{{ form.fecha_3 }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="proyectos-fields" style="display: none;">
+                <label for="proyectos"><strong>Proyectos de Investigación *</strong></label>
+                    {% for proyecto in proyectos %}
+                        <option value="{{ proyecto.id }}">{{ proyecto.titulo }}</option>
+                    {% endfor %}
+            </div>
+
+            <!-- Tiene Proyectos -->
+            <div class="form-group">
+                <div class="mb-3">
+                    <label class="form-label"><strong>¿Tiene Proyectos abiertos de Investigación?</strong></label>
+                    {{ form.tiene_proyectos }}
+                </div>
+            </div>
+            <div class="form-group">
+                <table id="semillero-proyecto">
+                    <thead>
+                        <tr>
+                            <th>Nombre Proyecto</th>
+                            <th>Institucion</th>
+                            <th>Tipo Vinculacion</th>
+                            <th>Año</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ form.Se_nombre_proyecto }}</td>
+                            <td>{{ form.Se_institucion }}</td>
+                            <td>{{ form.Se_tipo_vinculacion }}</td>
+                            <td>{{ form.Se_fecha }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ form.Se_nombre_proyecto_2 }}</td>
+                            <td>{{ form.Se_institucion_2 }}</td>
+                            <td>{{ form.Se_tipo_vinculacion_2 }}</td>
+                            <td>{{ form.Se_fecha_2 }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ form.Se_nombre_proyecto_3 }}</td>
+                            <td>{{ form.Se_institucion_3 }}</td>
+                            <td>{{ form.Se_tipo_vinculacion_3 }}</td>
+                            <td>{{ form.Se_fecha_3 }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+            <!-- Actividades Institucionales -->
+            <div class="form-group">
+                <div class="mb-3">
+                    <label class="form-label"><strong>¿Participa en Comité o Grupo de Trabajo?</strong></label>
+                    {{ form.actividades }}
+                </div>
+            </div>
+            <div class="form-group">
+                <table id="actividades-table">
+                    <thead>
+                        <tr>
+                            <th>Nombre Grupo / Comite</th>
+                            <th>Actividad O Tematica</th>
+                            <th>Tipo De Vinculacion (Rol)</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ form.nombre_grupo }}</td>
+                            <td>{{ form.actividad_tema }}</td>
+                            <td>{{ form.tipo_vinculacion }}</td>
+                            <td>{{ form.fecha_actividad }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ form.nombre_grupo_2 }}</td>
+                            <td>{{ form.actividad_tema_2 }}</td>
+                            <td>{{ form.tipo_vinculacion_2 }}</td>
+                            <td>{{ form.fecha_actividad_2 }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ form.nombre_grupo_3 }}</td>
+                            <td>{{ form.actividad_tema_3 }}</td>
+                            <td>{{ form.tipo_vinculacion_3 }}</td>
+                            <td>{{ form.fecha_actividad_3 }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        </div>
+        </div>
+
+        <br>
+        <br>
+
+        <div class="d-grid">
+            <button type="submit" class="btn-actividad">Crear Semillero</button>
+        </div>
+        
+        <br>
+        <br>
+
+    </form>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- SCRIPT - CvLAC -->
+    <script>
+        const tiene_cvlacSelect = document.querySelector('[name="tiene_cvlac"]');
+        const additionalFieldsContainer = document.querySelector('.additional-fields');
+
+        tiene_cvlacSelect.addEventListener('change', () => {
+            if (tiene_cvlacSelect.value === 'si') {
+                additionalFieldsContainer.style.display = 'block';
+            } else {
+                additionalFieldsContainer.style.display = 'none';
+            }
+        });
+    </script>
+
+    <!-- SCRIPT - Docente investigador / Curso formacion en investigacion -->
+    <script>
+        $(document).ready(function() {
+            const docenteInvestigadorSelect = document.getElementById('{{ form.docente_investigador.id_for_label }}');
+            const cursosTable = document.getElementById('cursos-table');
+            const proyectosContainer = $('.proyectos-fields');
+
+            docenteInvestigadorSelect.addEventListener('change', () => {
+                if (docenteInvestigadorSelect.value === 'no') {
+                    cursosTable.style.display = 'table';
+                    proyectosContainer.hide();
+                } else {
+                    cursosTable.style.display = 'none';
+                    proyectosContainer.show();
+                }
+            });
+
+            // Verificar estado inicial
+            if (docenteInvestigadorSelect.value === 'no') {
+                cursosTable.style.display = 'table';
+            } else {
+                cursosTable.style.display = 'none';
+            }
+            
+        });
+    </script>
+
+    <!-- SCRIPT - GRUPOS Y LINEAS DE INVESTIGACION DINAMICAS -->
+    <script>
+        const grupoInvestigacionSelect = document.getElementById('id_grupo_investigacion');
+        const lineaInvestigacionSelect = document.getElementById('id_linea_investigacion');
+
+        const opcionesLineasInvestigacion = {
+        'Aglalia': [
+            'Modelado y simulación',
+            'Nuevas tecnologías e inteligencia artificial',
+            'Sistemas de información e ingeniería de software'
+        ],
+        'ProCont': [
+            'Contabilidad social y ambiental',
+            'Contabilidad y gestión financiera',
+            'Estudios fiscales y gestión tributaria'
+        ],
+        'DehJüs': [
+            'Conflictos instituciones jurídicas y nuevas tendencias del derecho privado',
+            'Derecho público y justicia',
+            'Desarrollo humano salud mental y psicología forense',
+            'Genero sociedad y derechos humanos',
+        ],
+        'TES': [
+            'Bilinguismo',
+            'Infancia y desarrollo social',
+            'Neuropsicologia comportamiento y aprendizaje',
+            'Practica pedagógica investigativa',
+            'Psicologia educativa y evolutiva',
+            'Psicologia social y comunitaria',
+        ],
+        'GECAES': [
+            'Capital social y ambiental',
+            'Contabilidad y gestión financiera',
+            'Estudios fiscales y gestión tributaria',
+        ],
+        'Gestion e Innovacion': [
+            'Gestión e innovación',
+            'Innovación y gestión turística',
+        ],
+        'IC': [
+            'Ciudadanía genero y sociedad',
+            'Innovaciones sociales',
+        ],
+        'LyS': [
+            'Derecho y gestión de políticas publicas',
+            'Derecho y sociedad',
+            'Derecho y sujetos de especial protección constituciona',
+        ],
+        'Gisela': [
+            'Gestión organizacional, desarrollo y sociedad',
+            'Competitividad e innovacion en pymes',
+        ],
+        'LAW': [
+            'Mecanismos alternativos de solución de conflictos en particular la mediación interdisciplinaria y la conciliación',
+            'Propiedad intelectual',
+            'Práctica jurídica',
+            'Línea de investigación en educación inclusiva e interdisciplinar y de las nuevas tecnologías',
+        ],
+        'Business Intelligence': [
+            'Comercio y neogcios internacionales',
+            'Logistica nacional e internacional',
+        ],
+        'Americana Emprendedora': [
+            'Emprendimiento ecosistemas de emprendimiento e innovación',
+            'Emprendimiento de mujeres y comunidades',
+        ],
+        'PSI Context': [
+            'Desarrollo humano y problemáticas sociales',
+            'Salud y bienestar',
+        ],
+        'Engineeri': [
+            'Diseño y gestión de Sistemas productivos y logísticos',
+            'Innovación y gestión tecnológica',
+            'Modelado y simulación',
+            'Sistemas integrados de procesos y gestión',
+        ],
+        'SeHaT': [
+            'Emprendimiento e innovación',
+            'Salud Ocupacional',
+            'Seguridad Industrial',
+        ]
+        };
+
+        grupoInvestigacionSelect.addEventListener('change', (event) => {
+        const selectedOption = event.target.value;
+        const lineasInvestigacion = opcionesLineasInvestigacion[selectedOption];
+        lineaInvestigacionSelect.innerHTML = '';
+
+        lineasInvestigacion.forEach((linea) => {
+            const option = document.createElement('option');
+            option.value = linea;
+            option.text = linea;
+            lineaInvestigacionSelect.appendChild(option);
+        });
+        });
+    </script>
+
+    <!-- SCRIPT - Actividades -->
+    <script>
+        const docenteInvestigadorSelect = document.getElementById('{{ form.actividades.id_for_label }}');
+        const actividadesTable = document.getElementById('actividades-table');
+
+        docenteInvestigadorSelect.addEventListener('change', () => {
+            if (docenteInvestigadorSelect.value === 'si') {
+                actividadesTable.style.display = 'table';
+            } else {
+                actividadesTable.style.display = 'none';
+            }
+        });
+
+        // Verificar el valor inicial al cargar la página
+        if (docenteInvestigadorSelect.value === 'si') {
+            actividadesTable.style.display = 'table';
+        } else {
+            actividadesTable.style.display = 'none';
+        }
+    </script>
+
+    <!--- SCRIPT - Manejar Proyectos -->
+    <script>
+        const semilleroproyectoSelect = document.getElementById('{{ form.tiene_proyectos.id_for_label }}');
+        const semilleroproyectoTable = document.getElementById('semillero-proyecto');
+
+        semilleroproyectoSelect.addEventListener('change', () => {
+            if (semilleroproyectoSelect.value === 'si') {
+                semilleroproyectoTable.style.display = 'table';
+            } else {
+                semilleroproyectoTable.style.display = 'none';
+            }
+        });
+
+        // Verificar el valor inicial al cargar la página
+        if (semilleroproyectoSelect.value === 'si') {
+            semilleroproyectoTable.style.display = 'table';
+        } else {
+            semilleroproyectoTable.style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>

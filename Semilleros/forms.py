@@ -1,15 +1,25 @@
 from django import forms
-from .models import Semillero
+from .models import Semillero, InscripcionSemillero
 from Users.models import Usuario
 from django.forms import DateInput
+import datetime
+from django.core.validators import MaxValueValidator
+
+
 
 
 class SemilleroForm(forms.ModelForm):
+    nombre_semillero = forms.CharField(max_length=200)
     grupo_investigacion = forms.ChoiceField(choices=Usuario.GRUPOS_INVESTIGACION)
     linea_investigacion = forms.ChoiceField(choices=[])
     tematica_estudio = forms.CharField(max_length=100)
     justificacion_semillero = forms.CharField(widget=forms.Textarea, required=True)
     nivel_formacion = forms.CharField(max_length=200)
+
+    lugar_expedicion = forms.CharField(max_length=40)
+    fecha_nacimiento = forms.DateField(widget=DateInput(attrs={'type': 'date'}), required=False)
+    lugar_nacimiento = forms.CharField(max_length=40)
+    direccion = forms.CharField(max_length=40)
 
     NIVEL_INGLES = (
         ('bajo','Bajo'),
@@ -41,20 +51,60 @@ class SemilleroForm(forms.ModelForm):
     fecha_3 = forms.DateField(widget=DateInput(attrs={'type': 'date'}), required=False)
 
     TIENE_CVLAC = (
+        ('--', '--'),
         ('no', 'No'),
         ('si', 'Sí'),
     )
     tiene_cvlac = forms.ChoiceField(choices=TIENE_CVLAC)
 
     TIENE_PROYECTOS_CHOICES = (
+        ('--', '--'),
         ('no', 'No'),
         ('si', 'Sí'),
     )
     tiene_proyectos = forms.ChoiceField(choices=TIENE_PROYECTOS_CHOICES)
 
+    Se_nombre_proyecto = forms.CharField(max_length=200, required=False)
+    Se_institucion = forms.CharField(max_length=200, required=False)
+    Se_tipo_vinculacion = forms.CharField(max_length=200, required=False)
+    Se_fecha = forms.DateField(widget=DateInput(attrs={'type': 'date'}), required=False)
+    
+    Se_nombre_proyecto_2 = forms.CharField(max_length=200, required=False)
+    Se_institucion_2 = forms.CharField(max_length=200, required=False)
+    Se_tipo_vinculacion_2 = forms.CharField(max_length=200, required=False)
+    Se_fecha_2 = forms.DateField(widget=DateInput(attrs={'type': 'date'}), required=False)
+
+    Se_nombre_proyecto_3 = forms.CharField(max_length=200, required=False)
+    Se_institucion_3 = forms.CharField(max_length=200, required=False)
+    Se_tipo_vinculacion_3 = forms.CharField(max_length=200, required=False)
+    Se_fecha_3 = forms.DateField(widget=DateInput(attrs={'type': 'date'}), required=False)
+
+    ACTIVIDADES = (
+        ('--', '--'),
+        ('no', 'No'),
+        ('si', 'Sí'),
+    )
+    actividades = forms.ChoiceField(choices=ACTIVIDADES)
+    nombre_grupo = forms.CharField(max_length=200, required=False)
+    actividad_tema = forms.CharField(max_length=200, required=False)
+    tipo_vinculacion = forms.CharField(max_length=200, required=False)
+    fecha_actividad = forms.DateField(widget=DateInput(attrs={'type': 'date'}), required=False)
+
+    nombre_grupo_2 = forms.CharField(max_length=200, required=False)
+    actividad_tema_2 = forms.CharField(max_length=200, required=False)
+    tipo_vinculacion_2 = forms.CharField(max_length=200, required=False)
+    fecha_actividad_2 = forms.DateField(widget=DateInput(attrs={'type': 'date'}), required=False)
+
+    nombre_grupo_3 = forms.CharField(max_length=200, required=False)
+    actividad_tema_3 = forms.CharField(max_length=200, required=False)
+    tipo_vinculacion_3 = forms.CharField(max_length=200, required=False)
+    fecha_actividad_3 = forms.DateField(widget=DateInput(attrs={'type': 'date'}), required=False)
+
+
+
     class Meta:
         model = Semillero
-        fields = ['nombre_semillero', 'facultad', 'programa', 'grupo_investigacion', 'linea_investigacion', 'tematica_estudio', 'justificacion_semillero', 'nombre', 'identificacion', 'telefono', 'correo', 'cvlac', 'nivel_formacion','nivel_ingles_habla', 'nivel_ingles_lee', 'nivel_ingles_entiende', 'nivel_ingles_escribe', 'tiene_cvlac','docente_investigador','tematica','institucion','horas','fecha','tematica_2','institucion_2','horas_2','fecha_2','tematica_3','institucion_3','horas_3','fecha_3', 'tiene_proyectos']
+        fields = ['nombre_semillero', 'facultad', 'programa', 'grupo_investigacion', 'linea_investigacion', 'tematica_estudio', 'justificacion_semillero', 'nombre', 'identificacion', 'lugar_expedicion', 'fecha_nacimiento', 'lugar_nacimiento', 'direccion','telefono', 'correo', 'cvlac', 'nivel_formacion','nivel_ingles_habla', 'nivel_ingles_lee', 'nivel_ingles_entiende', 'nivel_ingles_escribe', 'tiene_cvlac','docente_investigador','tematica','institucion','horas','fecha','tematica_2','institucion_2','horas_2','fecha_2','tematica_3','institucion_3','horas_3','fecha_3', 'tiene_proyectos','actividades','nombre_grupo','actividad_tema','tipo_vinculacion','fecha_actividad', 'nombre_grupo_2','actividad_tema_2','tipo_vinculacion_2','fecha_actividad_2', 'nombre_grupo_3','actividad_tema_3','tipo_vinculacion_3','fecha_actividad_3','Se_nombre_proyecto','Se_institucion','Se_tipo_vinculacion','Se_fecha', 'Se_nombre_proyecto_2','Se_institucion_2','Se_tipo_vinculacion_2','Se_fecha_2', 'Se_nombre_proyecto_3','Se_institucion_3','Se_tipo_vinculacion_3','Se_fecha_3']
 
     # GRUPOS - LINEAS INVESTIGACION
     #-------------------------------------------------------------------------------------------------------------
@@ -161,4 +211,113 @@ class SemilleroForm(forms.ModelForm):
         else:
             return []
     #-------------------------------------------------------------------------------------------------------------
+
+
+# FORM INSCRIPCION A SEMILLERO - ESTUDIANTE
+class InscripcionSemilleroForm(forms.Form):
+    nombre_e = forms.CharField(max_length=100)
+    identificacion_e = forms.CharField(max_length=20)
+    telefono_e = forms.CharField(max_length=20)
+    correo_e = forms.EmailField(max_length=100)
+    programa_e = forms.CharField(max_length=100)
+
+    lugar_expedicion_e = forms.CharField(max_length=40)
+    fecha_nacimiento_e = forms.DateField(widget=DateInput(attrs={'type': 'date'}), required=False)
+    lugar_nacimiento_e = forms.CharField(max_length=40)
+    direccion_e = forms.CharField(max_length=40)
+
+    TIPO_SOLICITANTE_CHOICES = (
+        ('estudiante', 'Estudiante'),
+        ('egresado', 'Egresado'),
+        ('otro', 'Otro (indique cual)'),
+    )
+    tipo_solicitante = forms.ChoiceField(choices=TIPO_SOLICITANTE_CHOICES)
+    tipo_solicitante_otro = forms.CharField(max_length=100, required=False)
+
+    NIVEL_INGLES_E = (
+        ('bajo','Bajo'),
+        ('medio','Medio'),
+        ('alto','Alto'),
+    )
+    nivel_ingles_habla_e = forms.ChoiceField(choices=NIVEL_INGLES_E)
+    nivel_ingles_lee_e = forms.ChoiceField(choices=NIVEL_INGLES_E)
+    nivel_ingles_entiende_e = forms.ChoiceField(choices=NIVEL_INGLES_E)
+    nivel_ingles_escribe_e = forms.ChoiceField(choices=NIVEL_INGLES_E)
+
+    semestre_actual = forms.IntegerField(max_value=10, min_value=1)
+    año_ingreso = forms.DateField(widget=DateInput(attrs={'type': 'date'}), required=False)
+    fecha_grado = forms.DateField(widget=DateInput(attrs={'type': 'date'}), required=False)
+
+    CURSOS_INVES = (
+        ('--', '--'),
+        ('no', 'No'),
+        ('si', 'Sí'),
+    )
+    cursos_inves = forms.ChoiceField(choices=CURSOS_INVES)
+
+    tematica_e = forms.CharField(max_length=200, required=False)
+    institucion_e = forms.CharField(max_length=200, required=False)
+    horas_e = forms.CharField(max_length=3, required=False)
+    fecha_e = forms.DateField(widget=DateInput(attrs={'type': 'date'}), required=False)
+
+    tematica_e_2 = forms.CharField(max_length=200, required=False)
+    institucion_e_2 = forms.CharField(max_length=200, required=False)
+    horas_e_2 = forms.CharField(max_length=3, required=False)
+    fecha_e_2 = forms.DateField(widget=DateInput(attrs={'type': 'date'}), required=False)
+
+    TIENE_CVLAC_E = (
+        ('--', '--'),
+        ('no', 'No'),
+        ('si', 'Sí'),
+    )
+    tiene_cvlac_e = forms.ChoiceField(choices=TIENE_CVLAC_E)
+    cvlac_e = forms.URLField(required=False)
+    
+    PARTICIPA_PROYECTOS = (
+        ('--', '--'),
+        ('no', 'No'),
+        ('si', 'Sí'),
+    )
+    participa_proyectos = forms.ChoiceField(choices=PARTICIPA_PROYECTOS)
+
+    Se_nombre_proyecto_e = forms.CharField(max_length=200, required=False)
+    Se_institucion_e = forms.CharField(max_length=200, required=False)
+    Se_tipo_vinculacion_e = forms.CharField(max_length=200, required=False)
+    Se_fecha_e = forms.DateField(widget=DateInput(attrs={'type': 'date'}), required=False)
+    
+    Se_nombre_proyecto_e_2 = forms.CharField(max_length=200, required=False)
+    Se_institucion_e_2 = forms.CharField(max_length=200, required=False)
+    Se_tipo_vinculacion_e_2 = forms.CharField(max_length=200, required=False)
+    Se_fecha_e_2 = forms.DateField(widget=DateInput(attrs={'type': 'date'}), required=False)
+
+    Se_nombre_proyecto_e_3 = forms.CharField(max_length=200, required=False)
+    Se_institucion_e_3 = forms.CharField(max_length=200, required=False)
+    Se_tipo_vinculacion_e_3 = forms.CharField(max_length=200, required=False)
+    Se_fecha_e_3 = forms.DateField(widget=DateInput(attrs={'type': 'date'}), required=False)
+
+
+    ACTIVIDADES_E = (
+        ('--', '--'),
+        ('no', 'No'),
+        ('si', 'Sí'),
+    )
+    actividades_e = forms.ChoiceField(choices=ACTIVIDADES_E)
+    nombre_grupo_e = forms.CharField(max_length=200, required=False)
+    actividad_tema_e = forms.CharField(max_length=200, required=False)
+    tipo_vinculacion_e = forms.CharField(max_length=200, required=False)
+    fecha_actividad_e = forms.DateField(widget=DateInput(attrs={'type': 'date'}), required=False)
+
+    nombre_grupo_e_2 = forms.CharField(max_length=200, required=False)
+    actividad_tema_e_2 = forms.CharField(max_length=200, required=False)
+    tipo_vinculacion_e_2 = forms.CharField(max_length=200, required=False)
+    fecha_actividad_e_2 = forms.DateField(widget=DateInput(attrs={'type': 'date'}), required=False)
+
+    semillero_proyecto_interes = forms.CharField(max_length=200, required=False)
+    linea_sublinea = forms.CharField(max_length=200, required=False)
+    horas_semanales = forms.IntegerField(max_value=168, min_value=1)
+    
+    TIPO_SEMILLERO = (
+        ('unica','Fase Unica'),
+    )
+    tipo_semillero = forms.ChoiceField(choices=TIPO_SEMILLERO)
 

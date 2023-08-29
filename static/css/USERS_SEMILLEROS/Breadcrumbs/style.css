@@ -1,0 +1,87 @@
+/* SCSS variables */
+  
+  .breadcrumbs {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    font-size: 15px;
+    overflow: hidden;
+    z-index: 1;
+    position: absolute;
+    top: 90px;
+    left: 0;
+    right: 0;
+    padding: 10px;
+  }
+
+  .breadcrumbs li {
+    display: contents;
+  }
+  .breadcrumbs li .breadcrumb, .breadcrumbs li [itemprop=name] {
+    display: flex;
+    align-items: center;
+  }
+  .breadcrumbs li .breadcrumb {
+    position: relative;
+    color: #1300fd;
+    outline: none;
+  }
+  .breadcrumbs li .breadcrumb .material-icons {
+    font-size: 1.5em;
+    margin-right: 0.5rem;
+    opacity: 0.85;
+  }
+  .breadcrumbs li a.breadcrumb {
+    text-decoration: none;
+  }
+  .breadcrumbs li a.breadcrumb .material-icons {
+    transition: transform 150ms;
+  }
+  .breadcrumbs li a.breadcrumb:active .material-icons {
+    transform: scale(0.8);
+  }
+  
+  /* First variation */
+  .breadcrumbs.breadcrumbs--one {
+    padding: 0 0 0 1rem;
+    border-color: #93b4bd;
+
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+  }
+  
+  .breadcrumbs.breadcrumbs--one li .breadcrumb {
+    position: relative;
+    margin-left: -1rem;
+    margin-right: 1rem;
+  }
+  .breadcrumbs.breadcrumbs--one li [itemprop=name] {
+    padding: 0.5rem 0.5rem 0.5rem 2rem;
+  }
+  .breadcrumbs.breadcrumbs--one li a.breadcrumb {
+    text-decoration: none;
+    background: linear-gradient(to right, #ffffff 0%, #ffffff 50%);
+  }
+  .breadcrumbs.breadcrumbs--one li a.breadcrumb:hover, .breadcrumbs.breadcrumbs--one li a.breadcrumb:hover::after, .breadcrumbs.breadcrumbs--one li a.breadcrumb:focus, .breadcrumbs.breadcrumbs--one li a.breadcrumb:focus::after {
+    background: #1300fd;
+    color: #ffffff;
+  }
+  
+  .breadcrumbs.breadcrumbs--one li a.breadcrumb::after {
+    content: "";
+    display: block;
+    width: 1.5rem;
+    height: 1.5rem;
+    z-index: 1;
+    margin-right: -0.75rem;
+    background-color: #ffffff;
+    border: 3px solid #1300fd;
+    transform: rotate(45deg) skew(15deg, 15deg);
+    transform-origin: center;
+    clip-path: polygon(100% 0, 0 0, 100% 100%);
+    border-radius: 0 4px 0 0;
+  }
+  
+  .breadcrumbs.breadcrumbs--one li:first-child [itemprop=name] {
+    padding-left: 1.5rem;
+  }

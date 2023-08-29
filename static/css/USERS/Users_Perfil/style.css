@@ -49,7 +49,6 @@ body{
 /* ----------------------------- */
 
 /* ------------- NAVAR ----------------- */
-/* Navbar styles */
 .navbar {
   background-color: #ffffff;
   padding: 10px;
@@ -80,18 +79,47 @@ body{
 }
 
 .navbar-item a {
-  color: #000000;
+  color: #101010;
   text-decoration: none;
   font-size: 16px;
   transition: color 0.3s ease;
 }
 
 .navbar-item a:hover {
-  color: #a8d1e3;
+  color: #004f62;
 }
 
-/* ------------------------------------- */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 200px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
 
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown-content a:hover {
+  background-color: #eeeeee;
+}
+
+.navbar-item.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.ajuste-izquierda {
+  margin-left: 30px;
+}
+/*--------------------------------------------------*/
 .container-g-l {
   background-color: #ffffff; /* Color de fondo deseado */
   padding: 20px;

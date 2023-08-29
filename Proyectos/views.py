@@ -245,7 +245,7 @@ def descargar_pdf(request, proyecto_id):
     portafolios = Portafolio.objects.filter(proyecto=proyecto).order_by('id')
 
     # Renderizar la vista HTML con los datos del proyecto y productos
-    html = render_to_string('detalle_proyecto_pdf.html', {'proyecto': proyecto, 'productos': productos, 'actividades': actividades, 'portafolios':portafolios})
+    html = render_to_string('Proyectos/detalle_proyecto_pdf.html', {'proyecto': proyecto, 'productos': productos, 'actividades': actividades, 'portafolios':portafolios})
 
     # Crear el objeto HttpResponse con el tipo de contenido apropiado
     response = HttpResponse(content_type='application/pdf')

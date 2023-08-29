@@ -1,0 +1,235 @@
+/* Google Font Link */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins" , sans-serif;
+}
+
+body{
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background-image: url('/static/images/USERS_SEMILLEROS/Users_Crear_Semillero/');
+    background-repeat: no-repeat;
+    background-size: 50%;
+  }
+
+
+/* ------------- NAVAR ----------------- */
+.navbar {
+  background-color: #1300fd;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  z-index: 9999;
+}
+
+.navbar-brand img {
+  width: 150px;
+  height: 50px;
+}
+
+.navbar-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.navbar-item {
+  margin-right: 20px;
+}
+
+.navbar-item a {
+  padding: 16px;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.navbar-item a:hover {
+  color: #c0aa02;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 180px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 15px;
+  text-decoration: none;
+  display: block;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown-content a:hover {
+  background-color: #eeeeee;
+}
+
+.navbar-item.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.ajuste-izquierda {
+  margin-left: 20px;
+}
+/* ------------------------------------- */
+
+  
+/* -------------- CARDS --------------- */
+.card-title {
+    color: #fff;
+}
+
+
+/* ------------------------------------- */
+
+/* Estilos para el campo "Grupo Investigacion" */
+.mb-3 label[for="id_grupo_investigacion"] {
+    font-weight: bold;
+    color: #333;
+}
+
+.mb-3 select#id_grupo_investigacion {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #9c9b9b;
+}
+
+/* Estilos para el campo "Linea Investigacion" */
+.mb-3 label[for="id_linea_investigacion"] {
+    font-weight: bold;
+    color: #333;
+}
+
+.mb-3 select#id_linea_investigacion {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #555;
+}
+
+/* ------------------------------------- */
+.container-c-p {
+    background-color: #1300fd; /* Color de fondo deseado */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.container-c-p-1 {
+    background-color: #f2f2f1; /* Color de fondo deseado */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.container-c-p-2 {
+    background-color: #dcdcdc; /* Color de fondo deseado */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.container-c-p h2.card-title,
+.container-c-p h6.card-title {
+    color: #fff; /* Color blanco */
+}
+
+/* ------------------------------------- */
+
+/* Estilos para el contenedor de las actividades */
+.card.mb-4 {
+    background-color: #1300fd;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para el título de las actividades */
+.card.mb-4 h2.card-title {
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Estilos para el subtítulo de las actividades */
+.card.mb-4 h6.card-title {
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+}
+
+/* ------------------------------------- */
+
+/* Estilos para los campos de entrada en actividades */
+.card.mb-4 input[type="text"],
+.card.mb-4 textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #555;
+}
+
+.card.mb-4 textarea {
+  resize: vertical; /* Permite redimensionar verticalmente el textarea */
+}
+
+/* Estilos para las etiquetas (labels) en actividades */
+.card.mb-4 label {
+  font-weight: bold;
+  color: #333;
+}
+
+/* ------------------------------------- */
+.btn-actividad {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #1300fd; /* Color de fondo deseado */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+  }
+  
+  .btn-actividad:hover {
+    background-color: #ffffff; /* Color de fondo deseado al pasar el cursor */
+    color: #1300fd;
+  }
+  
+/* ------------------------------------- */
+
+.firmas {
+  display: flex;
+}
+
+.firma-estudiante {
+  flex: 1; 
+  margin-right: 30px;
+}
+
+.firma-docente {
+  flex: 1;
+}

@@ -727,7 +727,7 @@ def Users_E_registro_exitoso(request):
     return render(request, 'Estudiantes/Users_E_registro_exitoso.html')
 
 
-# LOGIN - INICIAR SESION - ESTUDIANTES
+# LOGIN - INICIAR SESION
 def Users_E_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -735,10 +735,28 @@ def Users_E_login(request):
         user_e = authenticate(request, username=username, password=password)
         if user_e is not None:
             login(request, user_e)
-            return redirect('Users:Users_home')
+            return redirect('Users:Users_E_home')
         else:
             error_message = "Nombre de usuario o contraseña incorrectos. Por favor, inténtalo de nuevo."
             return render(request, 'Estudiantes/Users_E_login.html', {'error_message': error_message})
     else:
         message = request.GET.get('message')
         return render(request, 'Estudiantes/Users_E_login.html', {'message': message, 'error_message': None})
+
+
+# PAGINA HOME
+@login_required
+def Users_E_home(request):
+    if not request.user.is_authenticated:
+        messages.error(request, 'Debes iniciar sesión para acceder a esta página.')
+        print(messages)
+        return redirect('Pagina_Principal')
+    
+    return render(request, 'Estudiantes/Users_E_home.html')
+
+
+# LOGIN - CERRAR SESION
+@login_required
+def Users_E_cerrar_sesion (request):
+    logout(request)
+    return render(request, 'Estudiantes/Users_E_login.html')

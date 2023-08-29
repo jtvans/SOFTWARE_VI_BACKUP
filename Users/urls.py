@@ -44,5 +44,6 @@ urlpatterns = [
     path('Users_E_registro_usuario/<str:nombre>/<str:identificacion>/<str:correo>/<str:programa>/<str:telefono>/', views.Users_E_registro_usuario, name='Users_E_registro_usuario'),
     path('Users_E_registro_exitoso/', views.Users_E_registro_exitoso, name='Users_E_registro_exitoso'),
     path('Users_E_login/', views.Users_E_login, name='Users_E_login'),
-
+    path('Users_E_home', views.Users_E_home, name='Users_E_home'),
+    path('Users_E_cerrar_sesion/', views.Users_E_cerrar_sesion, name='Users_E_cerrar_sesion'),
 ]

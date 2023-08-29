@@ -1,0 +1,356 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Breadcrumb -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="{% static 'css/USERS_ESTUDIANTES/Breadcrumbs/style.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/USERS_ESTUDIANTES/Users_E_Home/style.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}">
+    <title>SeedResearchTool</title>
+    {% block extra_styles %}
+    {% endblock %}
+</head>
+
+<body>
+
+     <!-- Navbar -->
+     <nav class="navbar">
+        <div class="navbar-brand">
+            <a class="navbar-brand" href="{% url 'Users:Users_E_home' %}">
+                <img src="{% static 'images/USERS_PROYECTOS/Users_Crear_Proyecto/Proyectos_Logo.png' %}" alt=""
+                style="width: 240px; height: 60px;">
+            </a>
+        </div>
+        <ul class="navbar-menu">
+            {% if user.is_authenticated and not user.usuario_administrador %}
+            <li class="navbar-item">
+                <a class="nav-link" href="{% url 'Users:Users_E_home' %}">HOME</a>
+            </li>
+            <li class="navbar-item dropdown">
+                <a class="nav-link" href="#">SEMILLEROS</a>
+                <div class="dropdown-content">
+                    <a class="text-center" href="{% url 'Semilleros:ver_semilleros_estudiante' %}">Inscribirse a un Semillero</a>
+                    <a class="text-center" href="#">Ver Mis Inscripciones</a>
+                </div>
+            </li>
+            {% endif %}
+        </ul>
+
+        <ul class="navbar-menu ml-auto">
+            {% if user.is_authenticated and not user.usuario_administrador %}
+            <li class="navbar-item dropdown">
+                <a class="nav-link" href="#">PERFIL</a>
+                <div class="dropdown-content">
+                    <a class="text-center" href="#">Ver Perfil</a>
+                    <a class="text-center" href="#">Editar Perfil</a>
+                </div>
+            </li>
+            <li class="navbar-item ajuste-izquierda">                
+                <a class="nav-link fa" style="font-size:26px" href="{% url 'Users:Users_E_cerrar_sesion' %}">&#xf011;</a>
+            </li>
+            {% else %}
+            <li class="navbar-item">
+                <a class="nav-link" href="{% url 'Users:Users_E_login' %}">INICIAR SESION</a>
+            </li>
+            <li class="navbar-item">
+                <a class="nav-link"
+                    href="{% url 'Users:Users_E_consultar_identificacion' %}">REGISTRARSE</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="wrapper">
+        <ol class="breadcrumbs breadcrumbs--one" itemscope itemtype="http://schema.org/BreadcrumbList">
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="breadcrumb" href="{% url 'Users:Users_E_home' %}" itemprop="item">
+                    <span itemprop="name">
+                    <i class="material-icons" aria-hidden="true">home</i>
+                    <span>INICIO</span>
+                    </span>
+                </a>
+                <meta itemprop="position" content="1" />
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="breadcrumb" href="{% url 'Semilleros:ver_semilleros_estudiante' %}" itemprop="item">
+                    <span itemprop="name">
+                    <i class="material-icons" aria-hidden="true">biotech</i>
+                    <span>SEMILLEROS</span>
+                    </span>
+                </a>
+                <meta itemprop="position" content="2" />
+            </li>
+        </ol>
+    </div>
+
+    <br>
+    <br>
+
+    <hr>
+    <h1 class="text-center">Lista de Semilleros Disponibles</h1>
+    <hr>
+    <br>
+    <div class="container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-danger">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- HUMANIDADES --->
+        {% if 'derecho' in semillero.programa|lower %}
+        <ul>
+            <hr>
+            <h2> HUMANIDADES Y CIENCIAS SOCIALES </h2>
+            <hr>
+            {% for semillero in semilleros_disponibles %}
+                {% if 'empresa' in semillero.programa|lower %}
+                    <p></strong>{{ semillero.nombre_semillero }} - <strong>{{ semillero.nombre }}</strong></p>
+                    <a href="{% url 'Semilleros:detalle_semillero_estudiante' semillero.id %}">
+                    {% csrf_token %}
+                        CONSULTAR
+                    </a></button>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% if 'psicologia' in semillero.programa|lower %}
+        <ul>
+            <hr>
+            <h2> HUMANIDADES Y CIENCIAS SOCIALES </h2>
+            <hr>
+            {% for semillero in semilleros_disponibles %}
+                {% if 'psicologia' in semillero.programa|lower %}
+                    <p></strong>{{ semillero.nombre_semillero }} - <strong>{{ semillero.nombre }}</strong></p>
+                    <a href="{% url 'Semilleros:detalle_semillero_estudiante' semillero.id %}">
+                    {% csrf_token %}
+                        CONSULTAR
+                    </a></button>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% if 'comunicacion' in semillero.programa|lower %}
+        <ul>
+            <hr>
+            <h2> HUMANIDADES Y CIENCIAS SOCIALES </h2>
+            <hr>
+            {% for semillero in semilleros_disponibles %}
+                {% if 'comunicaicon' in semillero.programa|lower %}
+                    <p></strong>{{ semillero.nombre_semillero }} - <strong>{{ semillero.nombre }}</strong></p>
+                    <a href="{% url 'Semilleros:detalle_semillero_estudiante' semillero.id %}">
+                    {% csrf_token %}
+                        CONSULTAR
+                    </a></button>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% if 'higiene' in semillero.programa|lower %}
+        <ul>
+            <hr>
+            <h2> HUMANIDADES Y CIENCIAS SOCIALES </h2>
+            <hr>
+            {% for semillero in semilleros_disponibles %}
+                {% if 'higiene' in semillero.programa|lower %}
+                    <p></strong>{{ semillero.nombre_semillero }} - <strong>{{ semillero.nombre }}</strong></p>
+                    <a href="{% url 'Semilleros:detalle_semillero_estudiante' semillero.id %}">
+                    {% csrf_token %}
+                        CONSULTAR
+                    </a></button>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% if 'comunicación' in semillero.programa|lower %}
+        <ul>
+            <hr>
+            <h2> HUMANIDADES Y CIENCIAS SOCIALES </h2>
+            <hr>
+            {% for semillero in semilleros_disponibles %}
+                {% if 'comunicación' in semillero.programa|lower %}
+                    <p></strong>{{ semillero.nombre_semillero }} - <strong>{{ semillero.nombre }}</strong></p>
+                    <a href="{% url 'Semilleros:detalle_semillero_estudiante' semillero.id %}">
+                    {% csrf_token %}
+                        CONSULTAR
+                    </a></button>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <!-- ADMINISTRACION --->
+        {% if 'administracion' in usuario_e.programa|lower %}
+        <ul>
+            <hr>
+            <h2> CIENCIAS ADMINISTRATIVAS, ECONOMICAS Y CONTABLES </h2>
+            <hr>
+            {% for semillero in semilleros_disponibles %}
+                {% if 'empresa' in semillero.programa|lower %}
+                    <p></strong>{{ semillero.nombre_semillero }} - <strong>{{ semillero.nombre }}</strong></p>
+                    <a href="{% url 'Semilleros:detalle_semillero_estudiante' semillero.id %}">
+                        {% csrf_token %}
+                        CONSULTAR
+                    </a>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% if 'turistica' in usuario_e.programa|lower %}
+        <ul>
+            <hr>
+            <h2> CIENCIAS ADMINISTRATIVAS, ECONOMICAS Y CONTABLES </h2>
+            <hr>
+            {% for semillero in semilleros_disponibles %}
+                {% if 'turistica' in semillero.programa|lower %}
+                    <p></strong>{{ semillero.nombre_semillero }} - <strong>{{ semillero.nombre }}</strong></p>
+                    <a href="{% url 'Semilleros:detalle_semillero_estudiante' semillero.id %}">
+                        {% csrf_token %}
+                        CONSULTAR
+                    </a>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% if 'hotelera' in usuario_e.programa|lower %}
+        <ul>
+            <hr>
+            <h2> CIENCIAS ADMINISTRATIVAS, ECONOMICAS Y CONTABLES </h2>
+            <hr>
+            {% for semillero in semilleros_disponibles %}
+                {% if 'hotelera' in semillero.programa|lower %}
+                    <p></strong>{{ semillero.nombre_semillero }} - <strong>{{ semillero.nombre }}</strong></p>
+                    <a href="{% url 'Semilleros:detalle_semillero_estudiante' semillero.id %}">
+                        {% csrf_token %}
+                        CONSULTAR
+                    </a>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% if 'contaduria' in usuario_e.programa|lower %}
+        <ul>
+            <hr>
+            <h2> CIENCIAS ADMINISTRATIVAS, ECONOMICAS Y CONTABLES </h2>
+            <hr>
+            {% for semillero in semilleros_disponibles %}
+                {% if 'contaduria' in semillero.programa|lower %}
+                    <button class="btn btn-primary">
+                        <a href="{% url 'Semilleros:detalle_semillero_estudiante' semillero.id %}">
+                            {% csrf_token %}
+                            CONSULTAR
+                        </a>
+                    </button>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% if 'negocios' in usuario_e.programa|lower %}
+        <ul>
+            <hr>
+            <h2> CIENCIAS ADMINISTRATIVAS, ECONOMICAS Y CONTABLES </h2>
+            <hr>
+            {% for semillero in semilleros_disponibles %}
+                {% if 'negocios' in semillero.programa|lower %}
+                    <p></strong>{{ semillero.nombre_semillero }} - <strong>{{ semillero.nombre }}</strong></p>
+                    <a href="{% url 'Semilleros:detalle_semillero_estudiante' semillero.id %}">
+                        {% csrf_token %}
+                        CONSULTAR
+                    </a>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <!-- LICENCIATURA --->
+        {% if 'licenciatura' in usuario_e.programa|lower %}
+        <ul>
+            <hr>
+            <h2> EDUCACION </h2>
+            <hr>
+            {% for semillero in semilleros_disponibles %}
+                {% if 'infantil' in semillero.programa|lower %}
+                    <p></strong>{{ semillero.nombre_semillero }} - <strong>{{ semillero.nombre }}</strong></p>
+                    <a href="{% url 'Semilleros:detalle_semillero_estudiante' semillero.id %}">
+                        {% csrf_token %}
+                        CONSULTAR
+                    </a>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% if 'licenciatura' in usuario_e.programa|lower %}
+        <ul>
+            <hr>
+            <h2> EDUCACION </h2>
+            <hr>
+            {% for semillero in semilleros_disponibles %}
+                {% if 'bilingüe' in semillero.programa|lower %}
+                    <p></strong>{{ semillero.nombre_semillero }} - <strong>{{ semillero.nombre }}</strong></p>
+                    <a href="{% url 'Semilleros:detalle_semillero_estudiante' semillero.id %}">
+                        {% csrf_token %}
+                        CONSULTAR
+                    </a>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        {% endif %}
+        
+        <!-- SISTEMAS --->
+        {% if 'sistemas' in usuario_e.programa|lower%}
+        <ul>
+            <hr>
+            <h2> INGENIERIA </h2>
+            <h5> {{ usuario_e.programa }} </h5>
+            <hr>
+            {% for semillero in semilleros_disponibles %}
+                {% if 'sistemas' in semillero.programa|lower %}
+                    <p></strong>{{ semillero.nombre_semillero }} - <strong>{{ semillero.nombre }}</strong></p>
+                    <p><a href="{% url 'Semilleros:detalle_semillero_estudiante' semillero.id %}">
+                        {% csrf_token %}
+                        CONSULTAR
+                    </a>
+                    </p>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% if 'industrial' in usuario_e.programa|lower %}
+        <ul>
+            <hr>
+            <h2> INGENIERIA </h2>
+            <h5> {{ usuario_e.programa }} </h5>
+            <hr>
+            {% for semillero in semilleros_disponibles %}
+                {% if 'industrial' in semillero.programa|lower %}
+                    <p></strong>{{ semillero.nombre_semillero }} - <strong>{{ semillero.nombre }}</strong></p>
+                    <p><a href="{% url 'Semilleros:detalle_semillero_estudiante' semillero.id %}">
+                        {% csrf_token %}
+                        CONSULTAR
+                    </a>
+                    </p>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        {% endif %}
+        
+    </div>
+
+    <br>
+
+
+</body>
+
+</html>

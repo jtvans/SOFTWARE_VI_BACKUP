@@ -114,7 +114,6 @@ class Producto(models.Model):
 
 # --------------------------------------------- PORTAFOLIO ACTIVIDADES ------------------------------------------
 
-
 class Portafolio(models.Model):
     proyecto = models.ForeignKey(Proyecto, on_delete=models.CASCADE)
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)

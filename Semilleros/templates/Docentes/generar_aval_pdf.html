@@ -1,0 +1,94 @@
+<!--generar_aval_pdf.html -->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/USERS_SEMILLEROS/Users_Crear_Semillero/style.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}">
+  <title>SeedResearchTool</title>
+</head>
+
+<body>
+
+    <br>
+    <br>
+    <br>
+
+    <div class="logo-image">
+        <img src="static/images/USERS_SEMILLEROS/Americana_Logo.png" alt="Imagen 1" width="200" height="50">
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <div class="text-center" style="text-align: center;">
+        <div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+            <div class="text-center" style="font-size: 20px;">
+                <strong>CONVOCATORIA 2023</strong>
+                <strong>SEMILLERO DE INVESTIGACION</strong>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <br>
+
+    <div class="text-right" style="font-size: 12px;">
+        Barranquilla, {% now "Y-m-d" %}
+    </div>
+
+    <br>
+    <br>
+
+    <div style="font: 15px;">
+        <p>Señores</p>
+        <p>Vicerrectoría de Investigación</p>
+        <p>Coordinación Institucional Semilleros de Investigación</p>
+        <p>Asunto: Carta de aval Convocatoria 2023</p>
+
+        <br>
+
+        Por medio del presente, manifiesto que el estudiante <span><strong>{{estudiante.nombre_e }}</strong></span>,
+        identificado con cédula de ciudadanía No. <span><strong>{{ estudiante.identificacion_e }}</span></strong>, expedida en {{ estudiante.lugar_expedicion_e }}, y
+        perteneciente al programa académico <span><strong>{{ estudiante.programa_e }}</strong></span>, tiene mi aval para el
+        ingreso al Semillero de Investigación <span><strong>{{ estudiante.semillero_proyecto_interes }}</strong></span>, por lo cual solicito que sea tenido en cuenta para su formalización.
+
+        <p>De la misma forma, certifico que el joven avalado cumple con los requisitos exigidos en la
+        presente convocatoria, tiene las competencias necesarias y el pleno conocimiento de los
+        compromisos adquiridos al momento de ingresar al Semillero de Investigación.</p>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <br>
+    <br>
+
+    <div style="font: 15px;">
+        <p>Firma: <strong>{{ semillero.nombre }}</p></strong>
+        <p>C.C <strong>{{ semillero.identificacion }}</p></strong>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <div class="footer">
+        <img src="static/images/USERS_SEMILLEROS/Americana_Pie_Pagina.png" alt="Pie de página" width="100%">
+    </div>
+
+</body>
+</html>
