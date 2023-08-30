@@ -78,7 +78,6 @@ class Semillero(models.Model):
         ('si', 'Sí'),
     )
     tiene_proyectos = models.CharField(max_length=2, choices=TIENE_PROYECTOS_CHOICES, default='no')
-    proyectos = models.ManyToManyField(Proyecto, blank=True)
 
     Se_nombre_proyecto = models.CharField(max_length=200, blank=True)
     Se_institucion = models.CharField(max_length=200, blank=True)
@@ -188,7 +187,6 @@ class InscripcionSemillero(models.Model):
         ('si', 'Sí'),
     )
     participa_proyectos = models.CharField(max_length=2, choices=PARTICIPA_PROYECTOS, default='no')
-    proyectos = models.ManyToManyField(Proyecto, blank=True)
 
     Se_nombre_proyecto_e = models.CharField(max_length=200, blank=True)
     Se_institucion_e = models.CharField(max_length=200, blank=True)
@@ -227,4 +225,25 @@ class InscripcionSemillero(models.Model):
         ('unica','Fase Unica'),
     )
     tipo_semillero = models.CharField(max_length=20, choices=TIPO_SEMILLERO)
+
+
+# ACTIVIDADES DEL SEMILLERO
+class ActividadesSemillero(models.Model):
+    user_e = models.ForeignKey(Usuario_Estudiante, on_delete=models.CASCADE)
+    semillero = models.ForeignKey(Semillero, on_delete=models.CASCADE)
+    inscripcion = models.ForeignKey(InscripcionSemillero, on_delete=models.CASCADE)
+
+    nombre_estuidante_actividad_e = models.CharField(max_length=100)
+    identificacion_estuidante_actividad_e = models.CharField(max_length=20)
+
+    nombre_actividad_e = models.CharField(max_length=200, blank=True)
+    descripcion_actividad_e = models.CharField(max_length=200, blank=True)
+    fecha_actividad_inicio_e = models.DateField(blank=True, null=True, default=None)
+    fecha_actividad_final_e = models.DateField(blank=True, null=True, default=None)
+    lugar_actividad_e = models.CharField(max_length=200, blank=True)
+    ciudad_actividad_e = models.CharField(max_length=200, blank=True)
+
+    participantes_actividad_e = models.PositiveIntegerField(default=0, validators=[MaxValueValidator(10)])
+    adjunto_actividad_e = models.FileField(upload_to ="Adjuntos_Actividades_E/", blank=True, null=True)
+
 

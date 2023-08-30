@@ -1,3 +1,7 @@
+<!-- ver_mis_semilleros.html -->
+
+
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -20,8 +24,10 @@
     {% endblock %}
 </head>
 
-    <!-- Navbar -->
-    <nav class="navbar">
+<body>
+
+     <!-- Navbar -->
+     <nav class="navbar">
         <div class="navbar-brand">
             <a class="navbar-brand" href="{% url 'Users:Users_E_home' %}">
                 <img src="{% static 'images/USERS_PROYECTOS/Users_Crear_Proyecto/Proyectos_Logo.png' %}" alt=""
@@ -71,13 +77,22 @@
     <div class="wrapper">
         <ol class="breadcrumbs breadcrumbs--one" itemscope itemtype="http://schema.org/BreadcrumbList">
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-            <a class="breadcrumb" href="{% url 'Users:Users_E_home' %}" itemprop="item">
-                <span itemprop="name">
-                <i class="material-icons" aria-hidden="true">home</i>
-                <span>INICIO</span>
-                </span>
-            </a>
-            <meta itemprop="position" content="1" />
+                <a class="breadcrumb" href="{% url 'Users:Users_E_home' %}" itemprop="item">
+                    <span itemprop="name">
+                    <i class="material-icons" aria-hidden="true">home</i>
+                    <span>INICIO</span>
+                    </span>
+                </a>
+                <meta itemprop="position" content="1" />
+            </li>
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+                <a class="breadcrumb" href="{% url 'Semilleros:ver_mis_semilleros' %}" itemprop="item">
+                    <span itemprop="name">
+                    <i class="material-icons" aria-hidden="true">biotech</i>
+                    <span>SEMILLEROS INSCRITOS</span>
+                    </span>
+                </a>
+                <meta itemprop="position" content="2" />
             </li>
         </ol>
     </div>
@@ -85,57 +100,20 @@
     <br>
     <br>
     <br>
-
-    <br>
-    <h1 class="display-7 text-center">SeedResearchTool</h1>
-    <br>
-    <br>
-    <br>
-
-    <!-- Acciones Semilleros -->
-    <section class="articles">
-        <article>
-          <div class="article-wrapper">
-            <figure>
-              <img src="{% static 'images/USERS_SEMILLEROS/Consultar_Semilleros.png' %}" alt="" />
-            </figure>
-            <div class="article-body">
-              <h2>INSCRIPCION, CONSULTAS</h2>
-              <p>
-                Realiza inscripcion a los semilleros deseados, consulta estado de tu inscripcion. Consultar Fechas.
-              </p>
-              <a href="{% url 'Semilleros:ver_semilleros_estudiante' %}" class="read-more">
-                IR <span class="sr-only">about this is some title</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-                </svg>
-              </a>
+    <hr>
+    <h2 class="text-center">MIS SEMILLEROS</h2>
+    <hr>
+    <div class="container" style="text-align: center;">
+        <div class="container-c-p">
+            <div class="container-c-p-1">
+                <ul style="font-size: 25px;">
+                    {% for semillero in semilleros_inscritos %}
+                        <li><a href="{% url 'Semilleros:detalle_semillero_estudiante' semillero.id %}">{{ semillero.nombre_semillero }}</a></li>
+                        <br>
+                    {% endfor %}
+                </ul>
             </div>
-          </div>
-        </article>
-
-        <article>
-          <div class="article-wrapper">
-            <figure>
-                <img src="{% static 'images/USERS_SEMILLEROS/Mis_Semilleros.jpg' %}" alt="" />
-            </figure>
-            <div class="article-body">
-              <h2>GESTION DE ACTIVIDADES</h2>
-              <p>
-                Consulta el estado de tus actividades de semillerista. Realiza el cargue de las evidencias de tus actividades de semillerista.
-              </p>
-              <a href="{% url 'Semilleros:ver_mis_semilleros' %}" class="read-more">
-                IR <span class="sr-only">about this is some title</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-                </svg>
-              </a>
-            </div>
-          </div>
-        </article>
-    </section>
-    <br>
-    <!-- ----------------------- -->
-
+        </div>
+    </div>
 </body>
 </html>

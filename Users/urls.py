@@ -39,11 +39,21 @@ urlpatterns = [
     path('Admin_porcentaje_general/', views.Admin_porcentaje_general, name='Admin_porcentaje_general'),
     path('Admin_aprobar_proyecto/<int:proyecto_id>/<int:usuario_id>/', views.Admin_aprobar_proyecto, name='Admin_aprobar_proyecto'),
 
-    # Usuario -----------------------------------------------------------------------------------
+    # Usuario Estudiante -----------------------------------------------------------------------------------
     path('Users_E_consultar_identificacion/', views.Users_E_consultar_identificacion, name='Users_E_consultar_identificacion'),
     path('Users_E_registro_usuario/<str:nombre>/<str:identificacion>/<str:correo>/<str:programa>/<str:telefono>/', views.Users_E_registro_usuario, name='Users_E_registro_usuario'),
     path('Users_E_registro_exitoso/', views.Users_E_registro_exitoso, name='Users_E_registro_exitoso'),
     path('Users_E_login/', views.Users_E_login, name='Users_E_login'),
     path('Users_E_home', views.Users_E_home, name='Users_E_home'),
     path('Users_E_cerrar_sesion/', views.Users_E_cerrar_sesion, name='Users_E_cerrar_sesion'),
+
+
+    # Usuario Semilelro -----------------------------------------------------------------------------------
+    path('Admin_Semi_home', views.Admin_Semi_home, name='Admin_Semi_home'),
+    path('Admin_Semi_registro_usuario/', views.Admin_Semi_registro_usuario, name='Admin_Semi_registro_usuario'),
+    path('Admin_Semi_registro_exitoso/', views.Admin_Semi_registro_exitoso, name='Admin_Semi_registro_exitoso'),
+    path('Admin_Semi_login/', views.Admin_Semi_login, name='Admin_Semi_login'),
+    path('Admin_Semi_logout/', views.Admin_Semi_cerrar_sesion, name='Admin_Semi_logout'),
+
+
 ]

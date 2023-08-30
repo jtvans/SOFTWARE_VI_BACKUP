@@ -42,7 +42,7 @@
                 <div class="dropdown-content">
                     <a class="text-center" href="{% url 'Semilleros:ver_semilleros_estudiante' %}">Inscribirse a un
                         Semillero</a>
-                    <a class="text-center" href="#">Ver Mis Inscripciones</a>
+                    <a class="text-center" href="{% url 'Semilleros:ver_mis_semilleros' %}">Ver Mis Inscripciones</a>
                 </div>
             </li>
             {% endif %}
@@ -114,75 +114,187 @@
         <h1>{{ semillero.nombre_semillero }}</h1>
         <hr>
     </div>
-
     <div class="container">
-        <h3><strong>Datos del Docente</strong></h3>
-        <p><strong>Docente Coordinador del Semillero:</strong> {{ semillero.nombre }}</p>
-        <p><strong>Correo:</strong> {{ semillero.correo }}</p>
-        <p><strong>Telefono:</strong> {{ semillero.telefono }}</p>
-        <br>
+        <div class="container-c-p">
+            <div class="container-c-p-1">
+                <h3><strong>Datos del Docente</strong></h3>
+                <p><strong>Docente Coordinador del Semillero:</strong> {{ semillero.nombre }}</p>
+                <p><strong>Correo:</strong> {{ semillero.correo }}</p>
+                <p><strong>Telefono:</strong> {{ semillero.telefono }}</p>
+                <br>
 
-        <h3><strong>Informacion del Semillero</strong></h3>
-        <p><strong>Tematica:</strong> {{ semillero.tematica_estudio }}</p>
-        <p><strong>Facultad:</strong> {{ semillero.facultad }}</p>
-        <p><strong>Programa:</strong> {{ semillero.programa }}</p>
-        <p><strong>Linea de Invesitgacion:</strong> {{ semillero.linea_investigacion }}</p>
+                <h3><strong>Informacion del Semillero</strong></h3>
+                <p><strong>Tematica:</strong> {{ semillero.tematica_estudio }}</p>
+                <p><strong>Facultad:</strong> {{ semillero.facultad }}</p>
+                <p><strong>Programa:</strong> {{ semillero.programa }}</p>
+                <p><strong>Linea de Invesitgacion:</strong> {{ semillero.linea_investigacion }}</p>
 
 
-        {% if semillero.tiene_proyectos == 'si' %}
-        <br>
-            <p><strong>Proyectos de Investigacion Abiertos:</strong> {{ semillero.tiene_proyectos }}</p>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Nombre Proyecto</th>
-                        <th>Institucion</th>
-                        <th>Tipo Vinculacion</th>
-                        <th>Año</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% if semillero.Se_nombre_proyecto_1 %}
-                    <tr>
-                        <td>{{ semillero.Se_nombre_proyecto }}</td>
-                        <td>{{ semillero.Se_institucion }}</td>
-                        <td>{{ semillero.Se_tipo_vinculacion }}</td>
-                        <td>{{ semillero.Se_fecha }}</td>
-                    </tr>
+                {% if semillero.tiene_proyectos == 'si' %}
+                <br>
+                    <p><strong>Proyectos de Investigacion Abiertos:</strong> {{ semillero.tiene_proyectos }}</p>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nombre Proyecto</th>
+                                <th>Institucion</th>
+                                <th>Tipo Vinculacion</th>
+                                <th>Año</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if semillero.Se_nombre_proyecto_1 %}
+                            <tr>
+                                <td>{{ semillero.Se_nombre_proyecto }}</td>
+                                <td>{{ semillero.Se_institucion }}</td>
+                                <td>{{ semillero.Se_tipo_vinculacion }}</td>
+                                <td>{{ semillero.Se_fecha }}</td>
+                            </tr>
+                            {% endif %}
+
+                            {% if semillero.Se_nombre_proyecto_2 %}
+                            <tr>
+                                <td>{{ semillero.Se_nombre_proyecto_2 }}</td>
+                                <td>{{ semillero.Se_institucion_2 }}</td>
+                                <td>{{ semillero.Se_tipo_vinculacion_2 }}</td>
+                                <td>{{ semillero.Se_fecha_2 }}</td>
+                            </tr>
+                            {% endif %}
+
+                            {% if semillero.Se_nombre_proyecto_3 %}
+                            <tr>
+                                <td>{{ semillero.Se_nombre_proyecto_3 }}</td>
+                                <td>{{ semillero.Se_institucion_3 }}</td>
+                                <td>{{ semillero.Se_tipo_vinculacion_3 }}</td>
+                                <td>{{ semillero.Se_fecha_3 }}</td>
+                            </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                {% endif %}
+
+                <br>
+                
+                {% if datos_e.estado_e %}
+                    <div class="d-grid">
+                        <button type="submit" class="btn-actividad" id="mostrar-formulario">Agregar Actividad</button>
+                    </div>
+
+                    <br>
+
+                    <div id="formulario-container" style="display: none;">
+                        <div class="container">
+                            <form method="post" class="container-c-p" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="container-c-p-1">
+                                    
+                                <input type="hidden" name="nombre_estuidante_actividad_e" value="{{ actividades_form.nombre_estuidante_actividad_e.value }}">
+                                <input type="hidden" name="identificacion_estuidante_actividad_e" value="{{ actividades_form.identificacion_estuidante_actividad_e.value }}">
+
+                                <div class="form-group">
+                                    <label for="{{ actividades_form.nombre_actividad_e.id_for_label }}"><strong>Nombre Actividad:</strong></label>
+                                    {{ actividades_form.nombre_actividad_e }}
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="{{ actividades_form.descripcion_actividad_e.id_for_label }}"><strong>Descripcion Actividad:</strong></label>
+                                    {{ actividades_form.descripcion_actividad_e }}
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="{{ actividades_form.fecha_actividad_inicio_e.id_for_label }}"><strong>Fecha Inicio:</strong></label>
+                                    {{ actividades_form.fecha_actividad_inicio_e }}
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="{{ actividades_form.fecha_actividad_final_e.id_for_label }}"><strong>Fecha Finalizacion:</strong></label>
+                                    {{ actividades_form.fecha_actividad_final_e }}
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="{{ actividades_form.lugar_actividad_e.id_for_label }}"><strong>Lugar/Sitio Actividad:</strong></label>
+                                    {{ actividades_form.lugar_actividad_e }}
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="{{ actividades_form.ciudad_actividad_e.id_for_label }}"><strong>Lugar/Sitio Actividad:</strong></label>
+                                    {{ actividades_form.ciudad_actividad_e }}
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="{{ actividades_form.participantes_actividad_e.id_for_label }}"><strong>Lugar/Sitio Actividad:</strong></label>
+                                    {{ actividades_form.participantes_actividad_e }}
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="{{ actividades_form.adjunto_actividad_e.id_for_label }}"><strong>Lugar/Sitio Actividad:</strong></label>
+                                    {{ actividades_form.adjunto_actividad_e }}
+                                </div>
+
+                                <div class="d-grid center">
+                                    <button type="submit" class="btn-actividad">Registrar Actividad</button>
+                                </div>
+                                
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <br>
+                    <br>
+                    <br>
+
+                    <div class="container">
+                        <div class="container-c-p-1">
+                            <h2><strong>Actividades Registradas</strong></h2>
+                            <ul>
+                                {% for actividad in datos_e.actividadessemillero_set.all %}
+                                    <li class="container-c-p-1">
+                                        <P><strong>Nombre:</strong> {{ actividad.nombre_actividad_e }}</P>
+                                        <p><strong>Inicio:</strong> {{ actividad.fecha_actividad_inicio_e }}</p>
+                                        <p><strong>Finalizacion:</strong> {{ actividad.fecha_actividad_final_e }}</p>
+                                        {% if actividad.adjunto_actividad_e %}
+                                            <p><a href="{{ actividad.adjunto_actividad_e.url }}" download>EVIDENCIA</a></p>
+                                        {% endif %}
+                                    </li>
+                                    <br>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                {% else %}
+                    <br>
+                    {% if existe_inscripcion %}
+                        <p><strong style="font-size: 25px;">YA ENVIASTE TU SOLICITUD DE INSCRIPCION!</strong></p>
+                        <p><strong>Espera la aceptación por parte del Docente.</strong></p>
+                    {% else %}
+                        <a href="{% url 'Semilleros:formulario_inscripcion_semillero' semillero.id %}">
+                            <button class="btn btn-primary">Iniciar Inscripcion</button>
+                        </a>
                     {% endif %}
-
-                    {% if semillero.Se_nombre_proyecto_2 %}
-                    <tr>
-                        <td>{{ semillero.Se_nombre_proyecto_2 }}</td>
-                        <td>{{ semillero.Se_institucion_2 }}</td>
-                        <td>{{ semillero.Se_tipo_vinculacion_2 }}</td>
-                        <td>{{ semillero.Se_fecha_2 }}</td>
-                    </tr>
-                    {% endif %}
-
-                    {% if semillero.Se_nombre_proyecto_3 %}
-                    <tr>
-                        <td>{{ semillero.Se_nombre_proyecto_3 }}</td>
-                        <td>{{ semillero.Se_institucion_3 }}</td>
-                        <td>{{ semillero.Se_tipo_vinculacion_3 }}</td>
-                        <td>{{ semillero.Se_fecha_3 }}</td>
-                    </tr>
-                    {% endif %}
-                </tbody>
-            </table>
-        {% endif %}
-
-        <br>
-
-        {% if existe_inscripcion %}
-            <p>YA ENVIASTE TU SOLICITUD DE INSCRIPCION.</p>
-            <p>Espera la aceptación por parte del Docente.</p>
-        {% else %}
-            <a href="{% url 'Semilleros:formulario_inscripcion_semillero' semillero.id %}">
-                <button class="btn btn-primary">Iniciar Inscripcion</button>
-            </a>
-        {% endif %}
+                {% endif %}
+                
+                
+            </div>
+        </div>
     </div>
+
+    <!-- ACTIVIDAD -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const mostrarFormularioBtn = document.getElementById("mostrar-formulario");
+            const formularioContainer = document.getElementById("formulario-container");
+        
+            mostrarFormularioBtn.addEventListener("click", function () {
+                if (formularioContainer.style.display === "none") {
+                    formularioContainer.style.display = "block";
+                } else {
+                    formularioContainer.style.display = "none";
+                }
+            });
+        });
+    </script>
+        
 
 </body>
 </html>

@@ -760,3 +760,84 @@ def Users_E_home(request):
 def Users_E_cerrar_sesion (request):
     logout(request)
     return render(request, 'Estudiantes/Users_E_login.html')
+
+
+
+#----------------- // ----------------- USUARIO ADMINISTRADOR SEMILLERO  ----------------- \\ -----------------
+
+# PAGINA HOME
+@login_required
+def Admin_Semi_home(request):
+    if not request.user.is_authenticated:
+        messages.error(request, 'Debes iniciar sesión para acceder a esta página.')
+        print(messages)
+        return redirect('Pagina_Principal')
+    
+    return render(request, 'Vicerrectoria_Admin_Semi/Admin_Semi_Home.html')
+
+
+# ADMINISTRADOR SEMILLERO - CREAR USUARIO 
+CONTRASENA_ADMIN_SEMI = "1450065"
+def Admin_Semi_registro_usuario(request):
+    if request.method == 'POST':
+        nombre = request.POST.get('nombre')
+        identificacion = request.POST.get('identificacion')
+        correo = request.POST.get('correo')
+        clave = request.POST.get('clave')
+        confirmar_clave = request.POST.get('confirmar_clave')
+
+        if Usuario_Administrador.objects.filter(identificacion=identificacion).exists():
+            message = "Ya cuentas con un usuario registrado. Inicia sesión."
+            query_params = QueryDict(mutable=True)
+            query_params['message'] = message
+            return HttpResponseRedirect(f"/users/Admin_Semi_login/?{query_params.urlencode()}")
+        
+
+        if clave == confirmar_clave and clave == CONTRASENA_ADMIN_SEMI:
+            user_admin = User.objects.create_user(username=identificacion.lower(), password=clave)
+
+            usuario_administrador = Usuario_Administrador(user_admin=user_admin, nombre=nombre, identificacion=identificacion, correo=correo.lower(), clave=clave)
+            usuario_administrador.save()
+
+            # Iniciar sesión después del registro
+            user_admin = authenticate(username=identificacion.lower(), password=clave)
+            if user_admin is not None:
+                login(request, user_admin)
+                return redirect('Users:Admin_Semi_registro_exitoso')
+            else:
+                return HttpResponse('Error al iniciar sesión')
+        else:
+            error_message = "Contraseña incorrecta o las contraseñas no coinciden. Por favor, inténtalo de nuevo."
+            return render(request, 'Vicerrectoria_Admin_Semi/Admin_Semi_registro_usuario.html', {'error_message': error_message})
+    
+    return render(request, 'Vicerrectoria_Admin_Semi/Admin_Semi_registro_usuario.html')
+
+
+# ADMINISTRADOR SEMILLERO - USUARIO CREADO
+def Admin_Semi_registro_exitoso(request):
+    return render(request, 'Vicerrectoria_Admin_Semi/Admin_Semi_registro_exitoso.html')
+
+
+# ADMINISTRADOR SEMILLERO - LOGIN - INICIAR SESION
+def Admin_Semi_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user_admin = authenticate(request, username=username, password=password)
+        if user_admin is not None:
+            login(request, user_admin)
+            return redirect('Users:Admin_Semi_home')
+        else:
+            error_message = "Credenciales Administrador Incorrectas, inténtalo de nuevo."
+            return render(request, 'Vicerrectoria_Admin_Semi/Admin_Semi_login.html', {'error_message': error_message})
+
+    return render(request, 'Vicerrectoria_Admin_Semi/Admin_Semi_login.html')
+
+
+# ADMINISTRADOR SEMILLERO - LOGIN - CERRAR SESION
+@login_required
+def Admin_Semi_cerrar_sesion (request):
+    logout(request)
+    return render(request, 'Vicerrectoria_Admin_Semi/Admin_Semi_Pagina_Principal.html')
+

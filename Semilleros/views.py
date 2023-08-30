@@ -1,5 +1,5 @@
-from .models import Semillero, InscripcionSemillero
-from .forms import SemilleroForm, InscripcionSemilleroForm
+from .models import Semillero, InscripcionSemillero, ActividadesSemillero
+from .forms import SemilleroForm, InscripcionSemilleroForm, ActividadesSemilleroForm
 from Users.models import User
 from Users.models import Usuario_Estudiante
 from Proyectos.models import Proyecto
@@ -155,6 +155,26 @@ def generar_aval(request, estudiante_id, semillero_id):
 
     return response
 
+
+# ACTIVIDADES DE SEMILLERO
+@login_required
+def ver_actividades_semillero(request):
+    actividades = ActividadesSemillero.objects.all()
+    return render(request, 'Docentes/ver_actividades_semillero.html', {'actividades': actividades})
+
+
+# DETALLES ACTIVIDADES DE SEMILLERO
+@login_required
+def ver_detalle_actividad_semillero(request, actividad_id):
+    try:
+        actividad = get_object_or_404(ActividadesSemillero, pk=actividad_id)
+    except Semillero.DoesNotExist:
+        return render(request, 'error_pages/Users_Pagina_Error.html', status=404)
+    
+    
+    return render(request, 'Docentes/ver_detalle_actividad_semillero.html', {'actividad': actividad} )
+
+
 #----------------- // ----------------- SEMILLERO - ESTUDIANTES ----------------- \\ -----------------
 
 # VER SEMILLEROS
@@ -166,15 +186,70 @@ def ver_semilleros_estudiante(request):
     return render(request, 'Estudiantes/ver_semilleros_estudiante.html', {'semilleros_disponibles': semilleros_disponibles, 'usuario_e': usuario_e})
 
 
+# VER SEMILLEROS INSCRITOS
+@login_required
+def ver_mis_semilleros(request):
+    usuario_e = request.user.usuario_estudiante
+    inscripciones = InscripcionSemillero.objects.filter(user_e=usuario_e)
+    semilleros_inscritos = [inscripcion.semillero for inscripcion in inscripciones]
+    
+    return render(request, 'Estudiantes/ver_mis_semilleros.html', {'usuario_e': usuario_e, 'semilleros_inscritos': semilleros_inscritos})
+
 
 # DETALLES DEL SEMIERRO - ESTUDIANTE
 @login_required
 def detalle_semillero_estudiante(request, semillero_id):
-    semillero = Semillero.objects.get(pk=semillero_id)
+    semillero = get_object_or_404(Semillero, pk=semillero_id)
     usuario_estudiante = request.user.usuario_estudiante
     existe_inscripcion = InscripcionSemillero.objects.filter(semillero=semillero, user_e=usuario_estudiante).exists()
 
-    return render(request, 'Estudiantes/detalle_semillero_estudiante.html', {'semillero': semillero, 'existe_inscripcion': existe_inscripcion})
+    if existe_inscripcion:
+        datos_e = InscripcionSemillero.objects.get(semillero=semillero, user_e=usuario_estudiante)
+        actividades_permiso = datos_e.estado_e
+
+        if request.method == 'POST':
+            actividades_form = ActividadesSemilleroForm(request.POST)
+            if actividades_form.is_valid():
+                nueva_actividad = actividades_form.save(commit=False)
+                nueva_actividad.user_e = usuario_estudiante
+                nueva_actividad.semillero = semillero
+                nueva_actividad.inscripcion = datos_e
+                nueva_actividad.save()
+
+                if 'adjunto_actividad_e' in request.FILES:
+                    nueva_actividad.adjunto_actividad_e = request.FILES['adjunto_actividad_e']
+                    nueva_actividad.save()
+                return redirect('Semilleros:detalle_semillero_estudiante', semillero_id=semillero.id)
+
+        else:
+            nombre_estuidante_actividad_e = usuario_estudiante.nombre
+            identificacion_estuidante_actividad_e = usuario_estudiante.identificacion
+
+            initial_data = {
+                'nombre_estuidante_actividad_e': nombre_estuidante_actividad_e,
+                'identificacion_estuidante_actividad_e': identificacion_estuidante_actividad_e,
+            }
+            actividades_form = ActividadesSemilleroForm(initial=initial_data)
+
+            return render(request, 'Estudiantes/detalle_semillero_estudiante.html', {
+                'semillero': semillero,
+                'existe_inscripcion': existe_inscripcion,
+                'datos_e': datos_e,
+                'actividades_permiso': actividades_permiso,
+                'actividades_form': actividades_form
+            })
+
+    else:
+        datos_e = None
+        actividades_permiso = False
+        actividades_form = None
+
+    return render(request, 'Estudiantes/detalle_semillero_estudiante.html', {
+        'semillero': semillero,
+        'existe_inscripcion': existe_inscripcion,
+        'datos_e': datos_e,
+        'actividades_permiso': actividades_permiso,
+    })
 
 
 # INSCRIBIRSE A UN SEMILLERO (formulario_inscripcion_semillero)
@@ -280,3 +355,5 @@ def formulario_inscripcion_semillero(request, semillero_id):
 
     return render(request, 'Estudiantes/formulario_inscripcion_semillero.html', {'semillero': semillero, 'form': form})
 
+
+#

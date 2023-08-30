@@ -40,7 +40,7 @@
                 <a class="nav-link" href="#">SEMILLEROS</a>
                 <div class="dropdown-content">
                     <a class="text-center" href="{% url 'Semilleros:ver_semilleros_estudiante' %}">Inscribirse a un Semillero</a>
-                    <a class="text-center" href="#">Ver Mis Inscripciones</a>
+                    <a class="text-center" href="{% url 'Semilleros:ver_mis_semilleros' %}">Ver Mis Inscripciones</a>
                 </div>
             </li>
             {% endif %}
