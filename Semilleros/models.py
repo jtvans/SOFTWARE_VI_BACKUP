@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
-from Proyectos.models import Proyecto
 from Users.models import Usuario_Estudiante
+from Proyectos.models import Proyecto
 
 from django.shortcuts import render, redirect
 from django.core.validators import MaxValueValidator
@@ -13,6 +13,7 @@ from django.core.validators import MaxValueValidator
 # SEMILLEROS
 class Semillero(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    #proyectos = models.ManyToManyField(Proyecto, blank=True)
 
     # INFORMACIÓN GENERAL DEL SEMILLERO
     fecha_inscripcion = models.DateField(auto_now_add=True)
@@ -52,6 +53,7 @@ class Semillero(models.Model):
         ('no', 'No'),
     )
     docente_investigador = models.CharField(max_length=2, choices=DOCENTE_INVESTIGADOR, default='si')
+
     tematica = models.CharField(max_length=200, blank=True)
     institucion = models.CharField(max_length=200, blank=True)
     horas = models.CharField(max_length=200, blank=True)
@@ -114,6 +116,10 @@ class Semillero(models.Model):
     actividad_tema_3 = models.CharField(max_length=200, blank=True)
     tipo_vinculacion_3 = models.CharField(max_length=200, blank=True)
     fecha_actividad_3 = models.DateField(blank=True, null=True, default=None)
+
+    aprobacion = models.BooleanField(default=False)
+    aprobacion_firma = models.CharField(max_length=200, blank=True)
+    aprobado_fecha = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return self.nombre
@@ -219,6 +225,8 @@ class InscripcionSemillero(models.Model):
     fecha_actividad_e_2 = models.DateField(blank=True, null=True, default=None)
 
     semillero_proyecto_interes = models.CharField(max_length=100, blank=True)
+    proyecto_interes = models.ForeignKey(Proyecto, on_delete=models.SET_NULL, blank=True, null=True)
+
     linea_sublinea = models.CharField(max_length=100, blank=True)
     horas_semanales = models.PositiveIntegerField(default=1, validators=[MaxValueValidator(168)])
     TIPO_SEMILLERO = (

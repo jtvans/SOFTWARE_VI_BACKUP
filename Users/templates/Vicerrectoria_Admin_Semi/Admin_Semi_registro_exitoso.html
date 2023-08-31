@@ -1,0 +1,14 @@
+{% extends 'layouts/Admin_base.html' %}
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <form method="POST">
+        {% csrf_token %}
+        <h1 class="mb-4">¡Registro Administrador exitoso!</h1>
+        <p>Administrador registrado</p>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

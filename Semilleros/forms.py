@@ -313,6 +313,8 @@ class InscripcionSemilleroForm(forms.Form):
     fecha_actividad_e_2 = forms.DateField(widget=DateInput(attrs={'type': 'date'}), required=False)
 
     semillero_proyecto_interes = forms.CharField(max_length=200, required=False)
+    proyecto_interes = forms.CharField(max_length=200, required=False)
+
     linea_sublinea = forms.CharField(max_length=200, required=False)
     horas_semanales = forms.IntegerField(max_value=168, min_value=1)
     

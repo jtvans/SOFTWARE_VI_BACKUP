@@ -1,0 +1,5 @@
+plataforma: xpell
+Empresa: grupo cuation
+
+bingoparatodos.online/studiaton/
+bingoparatodos.online/studiaton/login

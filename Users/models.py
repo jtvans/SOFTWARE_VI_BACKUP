@@ -419,10 +419,13 @@ class Usuario_Estudiante(models.Model):
 
 # USUARIO ADMIN SEMILELRO
 class Usuario_Adminin_Semi(models.Model):
-    user_e = models.OneToOneField(User, on_delete=models.CASCADE, related_name='usuario_admin_semi')
+    user_admin_s = models.OneToOneField(User, on_delete=models.CASCADE, related_name='usuario_admin_semi')
     nombre = models.CharField(max_length=100)
     identificacion = models.CharField(max_length=20, unique=True)
     correo = models.EmailField(max_length=100)
+    clave = models.CharField(max_length=100)
+    cargo = models.CharField(max_length=100)
+    
 
     def __str__(self):
         return self.nombre

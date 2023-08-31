@@ -1,7 +1,7 @@
 from .models import Semillero, InscripcionSemillero, ActividadesSemillero
 from .forms import SemilleroForm, InscripcionSemilleroForm, ActividadesSemilleroForm
 from Users.models import User
-from Users.models import Usuario_Estudiante
+from Users.models import Usuario_Estudiante, Usuario
 from Proyectos.models import Proyecto
 
 
@@ -257,12 +257,19 @@ def detalle_semillero_estudiante(request, semillero_id):
 def formulario_inscripcion_semillero(request, semillero_id):
     semillero = Semillero.objects.get(pk=semillero_id)
     usuario_estudiante = request.user.usuario_estudiante
+    usuario_docente = semillero.usuario
+    proyectos_docente = Proyecto.objects.filter(usuario=usuario_docente)
 
     if request.method == 'POST':
         form = InscripcionSemilleroForm(request.POST)
         if form.is_valid():
             tipo_solicitante = form.cleaned_data['tipo_solicitante']
             tipo_solicitante_otro = form.cleaned_data['tipo_solicitante_otro'] if tipo_solicitante == 'otro' else ''
+            
+            proyecto_interes_id = form.cleaned_data['proyecto_interes']
+            proyecto_interes = None
+            if proyecto_interes_id:
+                proyecto_interes = Proyecto.objects.get(pk=proyecto_interes_id)
 
             InscripcionSemillero.objects.create(
                 semillero = semillero,
@@ -330,6 +337,7 @@ def formulario_inscripcion_semillero(request, semillero_id):
 
                 #
                 semillero_proyecto_interes = semillero.nombre_semillero,
+                proyecto_interes = proyecto_interes,
                 linea_sublinea = semillero.linea_investigacion,
                 horas_semanales = form.cleaned_data['horas_semanales'],
                 tipo_semillero = form.cleaned_data['tipo_semillero'],
@@ -353,7 +361,39 @@ def formulario_inscripcion_semillero(request, semillero_id):
         }
         form = InscripcionSemilleroForm(initial=initial_data)
 
-    return render(request, 'Estudiantes/formulario_inscripcion_semillero.html', {'semillero': semillero, 'form': form})
+    return render(request, 'Estudiantes/formulario_inscripcion_semillero.html', {'semillero': semillero, 'form': form, 'proyectos_docente': proyectos_docente})
 
 
-#
+
+#----------------- // ----------------- SEMILLERO - ADMINISTRACION ----------------- \\ -----------------
+
+# VER SEMILLEROS
+@login_required
+def ver_semilleros_admin(request):
+    semilleros = Semillero.objects.all()
+    return render(request, 'AdminSemilleros/ver_semilleros_admin.html', {'semilleros': semilleros})
+
+
+# VER SEMILLERO
+def detalle_semillero_admin(request, semillero_id):
+    semillero = get_object_or_404(Semillero, id=semillero_id)
+    return render(request, 'AdminSemilleros/detalle_semillero_admin.html', {'semillero': semillero})
+
+
+# APROBAR SEMILLERO
+@login_required
+def aprobar_semillero(request, semillero_id):
+
+    semillero = get_object_or_404(Semillero, id=semillero_id)
+    
+    if request.method == 'POST':
+        semillero.aprobacion = True
+        aprobacion_firma = request.user.usuario_admin_semi.nombre
+
+        print("Nombre del usuario administrador:", aprobacion_firma)
+
+        semillero.aprobacion_firma = aprobacion_firma
+        semillero.aprobado_fecha = date.today()
+        semillero.save()
+        return redirect('Semilleros:detalle_semillero_admin', semillero_id=semillero_id)
+    return render(request, 'AdminSemilleros/detalle_semillero_admin.html', {'semillero': semillero})

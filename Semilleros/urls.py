@@ -20,4 +20,10 @@ urlpatterns = [
     path('detalle-semillero/<int:semillero_id>/', views.detalle_semillero_estudiante, name='detalle_semillero_estudiante'),
     path('inscribirse-semillero/<int:semillero_id>/', views.formulario_inscripcion_semillero, name='formulario_inscripcion_semillero'),
     path('mis-semilleros/', views.ver_mis_semilleros, name='ver_mis_semilleros'),
+
+    # ADMIN
+    path('ver-semilleros-admin/', views.ver_semilleros_admin, name='ver_semilleros_admin'),
+    path('detalle-semillero-admin/<int:semillero_id>/', views.detalle_semillero_admin, name='detalle_semillero_admin'),
+    path('aprobar-semillero/<int:semillero_id>/', views.aprobar_semillero, name='aprobar_semillero'),
+    
 ]

@@ -53,7 +53,7 @@ urlpatterns = [
     path('Admin_Semi_registro_usuario/', views.Admin_Semi_registro_usuario, name='Admin_Semi_registro_usuario'),
     path('Admin_Semi_registro_exitoso/', views.Admin_Semi_registro_exitoso, name='Admin_Semi_registro_exitoso'),
     path('Admin_Semi_login/', views.Admin_Semi_login, name='Admin_Semi_login'),
-    path('Admin_Semi_logout/', views.Admin_Semi_cerrar_sesion, name='Admin_Semi_logout'),
+    path('Admin_Semi_cerrar_sesion/', views.Admin_Semi_cerrar_sesion, name='Admin_Semi_cerrar_sesion'),
 
 
 ]
