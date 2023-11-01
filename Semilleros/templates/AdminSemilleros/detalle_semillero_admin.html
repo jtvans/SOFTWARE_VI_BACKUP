@@ -113,11 +113,12 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"><strong>Editar Perfil</strong></h5>
+                <h5 class="modal-title" id="exampleModalLabel"><strong>Semillero</strong></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <strong>¿ Confirmar Datos ?</strong>
+                <strong>¿ Confirmar Aprobacion del Semillero ?</strong>
+                <p style="color: red;"><strong>Advertencia: Esta accion no se podra deshacer.</strong></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -125,57 +126,294 @@
             </div>
         </div>
     </div>
-</div>
+  </div>
 
 
   <div class="container text-center">
     <div class="container-c-p">
       <div class="container-c-p-1">
-        <h2> Opciones del Semilleros </h2>
+        <h2> OPCIONES DE SEMILLERO </h2>
       </div>
     </div>
   </div>
+
   <br>
+  <br>
+
   <div class="container text-center">
     <div class="container-c-p">
       <div class="container-c-p-1">
+        <h3>Aprobacion</h3>
         <p>Nombre del semillero: {{ semillero.nombre_semillero }}</p>
         <p>Nombre del usuario: {{ semillero.nombre }}</p>
-        <p>Estado: {{ semillero.aprobacion }}</p>
+
+        {% if semillero.aprobacion %}
+          <p>Estado: <span style="color: green;">Aprobado</span></p>
+        {% else %}
+          <p>Estado: <span style="color: orange;">Pendiente</span></p>
+        {% endif %}
+
         <form method="post" action="{% url 'Semilleros:aprobar_semillero' semillero.id %}" id="editarPerfilForm">
           {% csrf_token %}
-          <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">Guardar Cambios</button>
+          <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">Aprobar</button>
         </form>
       </div>
     </div>
   </div>
 
+  <br>
+  <br>
 
+  <div class="container text-center">
+    <div class="container-c-p">
+      <div class="container-c-p-1">
+        <h3>Detalles del Semillero</h3>
+
+        <div class="container-title">
+          <hr>
+          <h2 class="centered-title">INFORMACIÓN GENERAL DEL SEMILLERO</h2>
+          <hr>
+        </div>
+    
+        <div class="container-g-l-1">
+          <p><strong>Nombre Semillero:</strong> {{ semillero.nombre_semillero }}</p>
+          <p><strong>Fecha Inscripcion:</strong> {{ semillero.fecha_inscripcion }}</p>
+          <p><strong>Facultad:</strong> {{ semillero.facultad }}</p>
+          <p><strong>Programa:</strong> {{ semillero.programa }}</p>
+          <p><strong>Grupo De Investigacion:</strong> {{ semillero.grupo_investigacion }}</p>
+          <p><strong>Linea De Investigacion:</strong> {{ semillero.linea_investigacion }}</p>
+          <p><strong>Tematica:</strong> {{ semillero.tematica_estudio }}</p>
+          <p><strong>Justificación:</strong> {{ semillero.justificacion_semillero }}</p>
+        </div>
+    
+        <hr>
+        <div class="container-title">
+          <h2 class="centered-title">COORDINADOR DEL SEMILLERO</h2>
+        </div>
+        <hr>
+    
+        <div class="container-g-l-1">
+          <p><strong>Nombre:</strong> {{ semillero.nombre }}</p>
+          <p><strong>Identificacion:</strong> {{ semillero.identificacion }}</p>
+          <p><strong>Lugar Expedicion:</strong> {{ semillero.lugar_expedicion }}</p>
+          <p><strong>Fecha Nacimiento:</strong> {{ semillero.fecha_nacimiento }}</p>
+          <p><strong>Lugar Nacimiento:</strong> {{ semillero.lugar_nacimiento }}</p>
+          <p><strong>Direccion Residencia:</strong> {{ semillero.direccion }}</p>
+          <p><strong>Telefono:</strong> {{ semillero.telefono }}</p>
+          <p><strong>Correo:</strong> {{ semillero.correo }}</p>
+          <p><strong>CvLAC:</strong> {{ semillero.cvlac }}</p>
+          <p><strong>Nivel De Formacion:</strong> {{ semillero.nivel_formacion }}</p>
+          <h3 class="centered-title">Nivel De Ingles</h3>
+          <p><strong>Habla:</strong> {{ semillero.nivel_ingles_habla }}</p>
+          <p><strong>Lee:</strong> {{ semillero.nivel_ingles_lee }}</p>
+          <p><strong>Entiende:</strong> {{ semillero.nivel_ingles_entiende }}</p>
+          <p><strong>Escribe:</strong> {{ semillero.nivel_ingles_escribe }}</p>
+          <br>
+        </div>
+    
+        <div class="container-title">
+          <hr>
+          <h2 class="centered-title">CURSOS DE FORMACIÓN EN INVESTIGACIÓN</h2>
+          <hr>
+        </div>
+    
+        <div class="container-g-l-1">
+          <p><strong>Docente Investigador:</strong> {{ semillero.docente_investigador }}</p>
+          {% if semillero.docente_investigador == 'si' %}
+          <div class="container-title">
+            <p class="centered-title"><strong>Proyectos De investigacion:</strong></p>
+          </div>
+          {% for proyecto in proyectos_docente %}
+          <li>{{ proyecto.titulo }}</li>
+          {% endfor %}
+          {% else %}
+          {% if semillero.docente_investigador == 'no' %}
+          <div class="container-title">
+            <p class="centered-title"><strong>Cursos registrados</strong></p>
+          </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Tematica</th>
+                <th>Institución</th>
+                <th>Horas</th>
+                <th>Fecha</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{ semillero.tematica }}</td>
+                <td>{{ semillero.institucion }}</td>
+                <td>{{ semillero.horas }}</td>
+                <td>{{ semillero.fecha }}</td>
+              </tr>
+              <tr>
+                <td>{{ semillero.tematica_2 }}</td>
+                <td>{{ semillero.institucion_2 }}</td>
+                <td>{{ semillero.horas_2 }}</td>
+                <td>{{ semillero.fecha_2 }}</td>
+              </tr>
+              <tr>
+                <td>{{ semillero.tematica_3 }}</td>
+                <td>{{ semillero.institucion_3 }}</td>
+                <td>{{ semillero.horas_3 }}</td>
+                <td>{{ semillero.fecha_3 }}</td>
+              </tr>
+            </tbody>
+          </table>
+          {% endif %}
+          {% endif %}
+        </div>
+    
+        <br>
+    
+        <div class="container-g-l-1">
+          <p><strong>Proyectos de Investigacion Abiertos:</strong> {{ semillero.tiene_proyectos }}</p>
+          {% if semillero.tiene_proyectos == 'si' %}
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Nombre Proyecto</th>
+                <th>Institucion</th>
+                <th>Tipo Vinculacion</th>
+                <th>Año</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{ semillero.Se_nombre_proyecto }}</td>
+                <td>{{ semillero.Se_institucion }}</td>
+                <td>{{ semillero.Se_tipo_vinculacion }}</td>
+                <td>{{ semillero.Se_fecha }}</td>
+              </tr>
+              <tr>
+                <td>{{ semillero.Se_nombre_proyecto_2 }}</td>
+                <td>{{ semillero.Se_institucion_2 }}</td>
+                <td>{{ semillero.Se_tipo_vinculacion_2 }}</td>
+                <td>{{ semillero.Se_fecha_2 }}</td>
+              </tr>
+              <tr>
+                <td>{{ semillero.Se_nombre_proyecto_3 }}</td>
+                <td>{{ semillero.Se_institucion_3 }}</td>
+                <td>{{ semillero.Se_tipo_vinculacion_3 }}</td>
+                <td>{{ semillero.Se_fecha_3 }}</td>
+              </tr>
+            </tbody>
+          </table>
+          {% endif %}
+    
+        </div>
+    
+        <br>
+    
+        <div class="container-title">
+          <hr>
+          <h2 class="centered-title">ACTIVIDADES INTER E INTRA INSTITUCIONALES</h2>
+          <hr>
+        </div>
+        <div class="container-g-l-1">
+          <p><strong>Participa en Comité o Grupo de Trabajo:</strong> {{ semillero.actividades }}</p>
+          {% if semillero.actividades == 'si' %}
+          <div class="form-group">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Nombre Grupo / Comite</th>
+                  <th>Actividad O Tematica</th>
+                  <th>Tipo De Vinculacion (Rol)</th>
+                  <th>Fecha</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{ semillero.nombre_grupo }}</td>
+                  <td>{{ semillero.actividad_tema }}</td>
+                  <td>{{ semillero.tipo_vinculacion }}</td>
+                  <td>{{ semillero.fecha_actividad }}</td>
+                </tr>
+                <tr>
+                  <td>{{ semillero.nombre_grupo_2 }}</td>
+                  <td>{{ semillero.actividad_tema_2 }}</td>
+                  <td>{{ semillero.tipo_vinculacion_2 }}</td>
+                  <td>{{ semillero.fecha_actividad_2 }}</td>
+                </tr>
+                <tr>
+                  <td>{{ semillero.nombre_grupo_3 }}</td>
+                  <td>{{ semillero.actividad_tema_3 }}</td>
+                  <td>{{ semillero.tipo_vinculacion_3 }}</td>
+                  <td>{{ semillero.fecha_actividad_3 }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          {% endif %}
+        </div>
+    
+        <br>
+        <br>
+    
+        <div class="container-title">
+          <hr>
+          <h2 class="centered-title">ESTUDIANTES INSCRITOS</h2>
+          <hr>
+        </div>
+    
+        <div class="container-g-l-1"> 
+          <table class="table text-center">
+            <thead>
+              <tr>
+                <th>Estudiante</th>
+                <th>AVAL</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for estudiante in estudiantes_inscritos %}
+                <tr>
+                  {% if estudiante.estado_e %}
+                    <td>{{ estudiante.nombre_e }}</td>
+                  {% endif %}
+                  <td>
+                    <form method="post" action="{% url 'Semilleros:generar_aval_admin_semi' semillero.id estudiante.id %}">
+                      {% csrf_token %}
+                        {% if estudiante.estado_e %}
+                        <button type="submit" class="btn btn-primary">Ver Aval</button>
+                        {% endif %}
+                    </form>
+                  </td>
+                </tr>
+              {% empty %}
+                <tr>
+                  <td colspan="2">Ningún estudiante inscrito.</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+ 
+  <!-- SCRIPT - Modal Confirmacion -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- SCRIPT - Modal Confirmacion -->
   <script>
     document.addEventListener("DOMContentLoaded", function () {
         const guardarCambiosBtn = document.getElementById("guardarCambiosBtn");
         const editarPerfilForm = document.getElementById("editarPerfilForm");
 
         guardarCambiosBtn.addEventListener("click", function () {
-            // Forzar la validación del formulario antes de enviarlo
             if (editarPerfilForm.reportValidity()) {
                 const formData = new FormData(editarPerfilForm);
-
                 fetch("{% url 'Semilleros:aprobar_semillero' semillero.id %}", {
                     method: "POST",
                     body: formData
                 })
                 .then(data => {
                     console.log(data);
-
-                    // Cerrar el modal
                     const modal = new bootstrap.Modal(document.getElementById("exampleModal"));
                     modal.hide();
-
-                    // Redirigir después de cerrar el modal
                     window.location.href = "{% url 'Semilleros:detalle_semillero_admin' semillero.id %}";
                 })
                 .catch(error => {

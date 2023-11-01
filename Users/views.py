@@ -1,15 +1,18 @@
 # Modelos
 from .models import Usuario, Usuario_Administrador, Usuario_Estudiante, Usuario_Adminin_Semi, LineaInvestigacion, LineaInvestigacion_2, LineaInvestigacion_3
 from Proyectos.models import Proyecto, Producto, Portafolio
+from Semilleros.models import Semillero, InscripcionSemillero, ActividadesSemillero
 
 #Componentes 1
 import requests
 from datetime import date
+from datetime import datetime
+from django.db.models import Q
 from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
-from django.http import HttpResponseRedirect, QueryDict, HttpResponse
+from django.http import HttpResponseRedirect, QueryDict, HttpResponse, JsonResponse
 
 # Componentes 2
 from django.views.decorators.csrf import csrf_exempt
@@ -20,6 +23,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Count, F, FloatField, Sum
 
 
+import json
+from django.template.loader import render_to_string
+import pdfkit
 #----------------- // ----------------- // ----------------- // ----------------- PAGINA PRINCIPAL ----------------- \\ ----------------- \\ ----------------- \\ -----------------
 
 # PAGINA PRINCIPAL
@@ -120,10 +126,78 @@ def Users_registro_exitoso(request):
     return render(request, 'Docentes/Users_registro_exitoso.html')
 
 
+
 # PAGINA HOME
 @login_required
 def Users_home(request):
-    return render(request, 'Docentes/Users_home.html')
+    usuario = request.user.usuario
+
+    proyectos = Proyecto.objects.filter(usuario=request.user)
+    semilleristas = InscripcionSemillero.objects.filter(semillero__usuario=request.user, estado_e=True)
+    postulantes = InscripcionSemillero.objects.filter(semillero__usuario=request.user, estado_e=False)
+
+    correcciones = Portafolio.objects.filter(proyecto__usuario=request.user)
+    notificacion_correcciones = False
+    for correccion in correcciones:
+        if (
+            (correccion.avance_1_observacion and not correccion.avance_1_correcciones_realizadas) or
+            (correccion.avance_2_observacion and not correccion.avance_2_correcciones_realizadas) or
+            (correccion.avance_3_observacion and not correccion.avance_3_correcciones_realizadas)
+        ):
+            notificacion_correcciones = True
+            break
+
+
+    cant_proyectos = proyectos.count()
+    cant_productos = Producto.objects.filter(proyecto__in=proyectos).count()
+
+    cant_evidencias = Portafolio.objects.filter(
+        proyecto__usuario=request.user
+    ).exclude(
+        Q(avance_1_nombre='') & Q(avance_2_descripcion='') & Q(avance_3_descripcion='')
+    ).count()
+
+    cant_productos_completados = Portafolio.objects.filter(
+        proyecto__usuario=request.user,
+        avance_3_estado="Aceptado"
+    ).count()
+
+    cant_semilleros_aprobados = Semillero.objects.filter(usuario=request.user, aprobacion=True).count()
+    cant_estudiantes_aprobados = InscripcionSemillero.objects.filter(semillero__usuario=request.user, estado_e=True).count()
+    cant_estudiantes_inscritos = InscripcionSemillero.objects.filter(semillero__usuario=request.user).count()
+    cant_actividades_semillero = ActividadesSemillero.objects.filter(semillero__usuario=request.user).count()
+
+    acti_semilleros = ActividadesSemillero.objects.filter(semillero__usuario=request.user)
+
+    notificacion_semillero = False
+    for act_sem in acti_semilleros:
+        if act_sem.nombre_actividad_e:
+            notificacion_semillero = True
+            break
+
+
+    context = {
+        'usuario': usuario,
+        'proyectos': proyectos,
+        'semilleristas': semilleristas,
+        'postulantes': postulantes,
+        'acti_semilleros': acti_semilleros,
+        'correcciones': correcciones,
+
+        'notificacion_correcciones': notificacion_correcciones,
+        'notificacion_semillero': notificacion_semillero,
+        'cant_proyectos': cant_proyectos,
+        'cant_productos': cant_productos,
+        'cant_evidencias': cant_evidencias,
+        'cant_productos_completados': cant_productos_completados,
+        'cant_semilleros_aprobados': cant_semilleros_aprobados,
+        'cant_estudiantes_inscritos': cant_estudiantes_inscritos,
+        'cant_estudiantes_aprobados': cant_estudiantes_aprobados,
+        'cant_actividades_semillero': cant_actividades_semillero,
+    }
+    return render(request, 'Docentes/Users_home.html', context)
+
+
 
 
 # LOGIN - INICIAR SESION
@@ -156,7 +230,38 @@ def Users_ver_perfil(request):
     usuario = request.user.usuario
     facultad = usuario.facultad
 
-    # Mapear la facultad a un valor personalizado
+    grupo_imagenes = {
+        "Aglalia": "images_groups/G1.png",
+        "ProCont": "images_groups/G2.png",
+        "DehJüs": "images_groups/G3.png",
+        "TES": "images_groups/G4.png",
+        "GECAES": "images_groups/G5.png",
+        "Gestion e Innovacion": "images_groups/G6.png",
+        "IC": "images_groups/G7.png",
+        "LyS": "images_groups/G8.png",
+        "Gisela": "images_groups/G9.png",
+        "LAW": "images_groups/G10.png",
+        "Business Intelligence": "images_groups/G11.png",
+        "Americana Emprendedora": "images_groups/G12.png",
+        "PSI Context": "images_groups/G13.png",
+        "Engineeri": "images_groups/G14.png",
+        "SeHaT": "images_groups/G15.png",
+    }
+    if usuario.grupo_investigacion in grupo_imagenes:
+        imagen_grupo_1 = grupo_imagenes[usuario.grupo_investigacion]
+    else:
+        imagen_grupo_1 = None
+
+    if usuario.grupo_investigacion_2 in grupo_imagenes:
+        imagen_grupo_2 = grupo_imagenes[usuario.grupo_investigacion_2]
+    else:
+        imagen_grupo_2 = None
+
+    if usuario.grupo_investigacion_3 in grupo_imagenes:
+        imagen_grupo_3 = grupo_imagenes[usuario.grupo_investigacion_3]
+    else:
+        imagen_grupo_3 = None
+
     if facultad == 'Ciencias_Admin':
         facultad_personalizada = 'CIENCIAS ADMINISTRATIVAS, ECONOMICAS Y CONTABLES'
     elif facultad == 'Humanidades':
@@ -171,6 +276,9 @@ def Users_ver_perfil(request):
     context = {
         'usuario': usuario,
         'facultad_personalizada': facultad_personalizada,
+        'imagen_grupo_1': imagen_grupo_1,
+        'imagen_grupo_2': imagen_grupo_2,
+        'imagen_grupo_3': imagen_grupo_3,
     }
     return render(request, 'Docentes/Users_ver_perfil.html', context)
 
@@ -207,9 +315,47 @@ def Users_editar_perfil(request):
 @login_required
 def Users_ver_grupos(request):
     usuario = request.user.usuario
+
+    grupo_imagenes = {
+        "Aglalia": "images_groups/G1.png",
+        "ProCont": "images_groups/G2.png",
+        "DehJüs": "images_groups/G3.png",
+        "TES": "images_groups/G4.png",
+        "GECAES": "images_groups/G5.png",
+        "Gestion e Innovacion": "images_groups/G6.png",
+        "IC": "images_groups/G7.png",
+        "LyS": "images_groups/G8.png",
+        "Gisela": "images_groups/G9.png",
+        "LAW": "images_groups/G10.png",
+        "Business Intelligence": "images_groups/G11.png",
+        "Americana Emprendedora": "images_groups/G12.png",
+        "PSI Context": "images_groups/G13.png",
+        "Engineeri": "images_groups/G14.png",
+        "SeHaT": "images_groups/G15.png",
+    }
+
+    if usuario.grupo_investigacion in grupo_imagenes:
+        imagen_grupo_1 = grupo_imagenes[usuario.grupo_investigacion]
+    else:
+        imagen_grupo_1 = None
+
+    if usuario.grupo_investigacion_2 in grupo_imagenes:
+        imagen_grupo_2 = grupo_imagenes[usuario.grupo_investigacion_2]
+    else:
+        imagen_grupo_2 = None
+
+    if usuario.grupo_investigacion_3 in grupo_imagenes:
+        imagen_grupo_3 = grupo_imagenes[usuario.grupo_investigacion_3]
+    else:
+        imagen_grupo_3 = None
+
     context = {
         'usuario': usuario,
+        'imagen_grupo_1': imagen_grupo_1,
+        'imagen_grupo_2': imagen_grupo_2,
+        'imagen_grupo_3': imagen_grupo_3,
     }
+
     return render(request, 'Docentes/Users_ver_grupos.html', context)
 
 
@@ -466,14 +612,17 @@ def aceptar_estado(request, portafolio_id, avance_numero):
 
     if str(avance_numero) == '1':
         portafolio.avance_1_estado = 'Aceptado'
+        portafolio.avance_1_observacion = ""
         messages.success(request, "La evidencia fue aceptada exitosamente.")
 
     elif str(avance_numero) == '2':
         portafolio.avance_2_estado = 'Aceptado'
+        portafolio.avance_2_observacion = ""
         messages.success(request, "La evidencia fue aceptada exitosamente.")
         
     elif str(avance_numero) == '3':
         portafolio.avance_3_estado = 'Aceptado'
+        portafolio.avance_3_observacion = ""
         messages.success(request, "La evidencia fue aceptada exitosamente.")
         
     portafolio.save()
@@ -496,13 +645,19 @@ def enviar_correcciones(request, portafolio_id, avance_numero):
         portafolio = get_object_or_404(Portafolio, id=portafolio_id)
         corrections_message = request.POST.get('corrections_message')
         
-        # Guardar las correcciones y observaciones en el modelo Portafolio
-        if avance_numero == '1':
+        if str(avance_numero) == '1':
             portafolio.avance_1_observacion = corrections_message
-            portafolio.save()
-        # Similarmente para otros avances
-        
-        messages.success(request, "Correcciones enviadas exitosamente.")
+            portafolio.avance_1_estado = 'Correcciones Requeridas'
+
+        if str(avance_numero) == '2':
+            portafolio.avance_2_observacion = corrections_message
+            portafolio.avance_2_estado = 'Correcciones Requeridas'
+
+        if str(avance_numero) == '3':
+            portafolio.avance_3_observacion = corrections_message
+            portafolio.avance_3_estado = 'Correcciones Requeridas'
+
+        portafolio.save()
         
     return redirect('Users:Admin_ver_portafolio', proyecto_id=portafolio.proyecto.id, usuario_id=portafolio.proyecto.usuario.id)
 
@@ -518,14 +673,17 @@ def eliminar_estado(request, portafolio_id, avance_numero):
 
     if str(avance_numero) == '1':
         portafolio.avance_1_estado = 'No Revisado'
+        portafolio.avance_1_observacion = ""
         messages.warning(request, "Se eliminó la revisión de la Evidencia 1")
 
     elif str(avance_numero) == '2':
         portafolio.avance_2_estado = 'No Revisado'
+        portafolio.avance_2_observacion = ""
         messages.warning(request, "Se eliminó la revisión de la Evidencia 2")
         
     elif str(avance_numero) == '3':
         portafolio.avance_3_estado = 'No Revisado'
+        portafolio.avance_3_observacion = ""
         messages.warning(request, "Se eliminó la revisión de la Evidencia 3")
         
     portafolio.save()
@@ -539,6 +697,7 @@ def eliminar_estado(request, portafolio_id, avance_numero):
     }
 
     return render(request, 'Vicerrectoria_Admin/Admin_ver_portafolio.html', context)
+
 
 # PORCENTAJE DE CUMPLIMIENTO - DOCENTE
 @login_required
@@ -650,6 +809,230 @@ def Admin_porcentaje_general(request):
 
     
     return render(request, 'Vicerrectoria_Admin/Admin_porcentaje_general.html', {'porcentaje_general': porcentaje_general,'usuarios': usuarios, 'proyectos': proyectos, 'porcentaje_general_malo': porcentaje_general_malo, 'porcentaje_general_medio': porcentaje_general_medio, 'porcentaje_general_aceptable': porcentaje_general_aceptable, 'porcentaje_general_bueno': porcentaje_general_bueno})
+
+
+#----------------- //  INFORMES  \\ -----------------
+@login_required
+def Admin_informes(request):
+     return render(request, 'Vicerrectoria_Admin/Admin_informes.html')
+
+@login_required
+def Admin_informe_facultad_programa(request):
+    if request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest' and request.method == 'GET':
+        facultad_seleccionada = request.GET.get('facultad')
+        programa_seleccionado = request.GET.get('programa')
+        fecha_inicio = request.GET.get('fecha_inicio')
+        fecha_fin = request.GET.get('fecha_fin')
+        identificacion = request.GET.get('identificacion')
+
+        usuarios = User.objects.filter(usuario__facultad=facultad_seleccionada)
+
+        # Filtrar por Programa
+        if programa_seleccionado:
+            usuarios = usuarios.filter(usuario__Programa=programa_seleccionado)
+
+        # Filtrar por Fecha
+        if fecha_inicio and fecha_fin:
+            proyectos = Proyecto.objects.filter(
+                usuario__in=usuarios,
+                fecha_inscripcion__range=[fecha_inicio, fecha_fin]
+            )
+        else:
+            proyectos = Proyecto.objects.filter(usuario__in=usuarios)
+
+        # Filtrar por Identificacion
+        if identificacion:
+            usuarios = usuarios.filter(usuario__identificacion=identificacion)
+
+        data = []
+        for usuario in usuarios:
+            usuario_info = {'nombre': usuario.usuario.nombre, 'identificacion': usuario.usuario.identificacion}
+
+            proyectos_usuario = proyectos.filter(usuario=usuario)
+            proyectos_info = []
+
+            for proyecto in proyectos_usuario:
+                proyecto_info = {'titulo': proyecto.titulo}
+                productos_proyecto = Producto.objects.filter(proyecto=proyecto)
+
+                categorias = set()
+                tipos = set()
+                for producto in productos_proyecto:
+                    categorias.add(producto.categoria)
+                    tipos.add(producto.tipo_producto)
+
+                proyecto_info['categorias'] = list(categorias)
+                proyecto_info['tipos'] = list(tipos)
+
+                proyectos_info.append(proyecto_info)
+
+            data.append({'usuario': usuario_info, 'proyectos': proyectos_info})
+
+        response_data = {
+            'data': data,
+        }
+        return JsonResponse(response_data)
+    else:
+        cont_users_Ing = User.objects.filter(usuario__facultad='Ingenieria').count()
+        cont_users_Hum = User.objects.filter(usuario__facultad='Humanidades').count()
+        cont_users_Adm = User.objects.filter(usuario__facultad='Ciencias_Admin').count()
+        cont_users_Edu = User.objects.filter(usuario__facultad='Educacion').count()
+        cont_total_users =  cont_users_Ing + cont_users_Hum + cont_users_Adm + cont_users_Edu
+        
+        Cont_Users_Facultad = {
+            'cont_users_Ing': cont_users_Ing,
+            'cont_users_Hum': cont_users_Hum,
+            'cont_users_Adm': cont_users_Adm,
+            'cont_users_Edu': cont_users_Edu,
+            'cont_total_users': cont_total_users,
+        }
+
+        return render(request, 'Vicerrectoria_Admin/Admin_informe_facultad_programa.html', Cont_Users_Facultad)
+
+
+""" #BACKUP 1
+# Informe Admin_informe_categoria_producto
+@login_required
+def Admin_informe_categoria_producto(request):
+    if request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest' and request.method == 'GET':
+        categoria_seleccionada = request.GET.get('categoria')
+
+        productos = Producto.objects.filter(categoria=categoria_seleccionada)
+
+        productos_por_usuario = {}
+        tipos_por_usuario = {}
+
+        for producto in productos:
+            usuario = producto.proyecto.usuario
+            if usuario in productos_por_usuario:
+                productos_por_usuario[usuario] += 1
+                tipos_por_usuario[usuario].append(producto.tipo_producto)
+            else:
+                productos_por_usuario[usuario] = 1
+                tipos_por_usuario[usuario] = [producto.tipo_producto]
+
+        resultados = []
+        for usuario, cantidad_productos in productos_por_usuario.items():
+            resultados.append({
+                'nombre': usuario.usuario.nombre,
+                'identificacion': usuario.usuario.identificacion,
+                'cantidad_productos': cantidad_productos,
+                'tipos_productos': ', '.join(tipos_por_usuario[usuario]),
+            })
+
+        response_data = {
+            'data': resultados,
+        }
+
+        return JsonResponse(response_data)
+    else:
+        return render(request, 'Vicerrectoria_Admin/Admin_informe_categoria_producto.html')
+"""
+
+
+""" BACUP 2 - ESTADOS
+@login_required
+def Admin_informe_categoria_producto(request):
+    if request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest' and request.method == 'GET':
+        categoria_seleccionada = request.GET.get('categoria')
+
+        productos = Producto.objects.filter(categoria=categoria_seleccionada)
+
+        # Crear una lista de tipos de productos según el estado
+        tipos_no_iniciados = []
+        tipos_justificados = []
+        tipos_iniciados = []
+        tipos_en_progreso = []
+        tipos_completados = []
+
+        for producto in productos:
+            if producto.estado_3 == "Completado":
+                tipos_completados.append(producto.tipo_producto)
+            elif producto.estado_2 == "En progreso":
+                tipos_en_progreso.append(producto.tipo_producto)
+            elif producto.estado_1 == "Iniciado":
+                tipos_iniciados.append(producto.tipo_producto)
+            elif producto.estado_0_justificado == "Justificado":
+                tipos_justificados.append(producto.tipo_producto)
+            else:
+                tipos_no_iniciados.append(producto.tipo_producto)
+
+        # Crear una lista de resultados
+        resultados = []
+        for producto in productos:
+            resultado = {
+                "nombre": producto.tipo_producto,
+                "No Iniciado": "X" if producto.estado_0 == "No Iniciado" else "",
+                "Justificado": "X" if producto.estado_0_justificado == "Justificado" else "",
+                "Iniciado": "X" if producto.estado_1 == "Iniciado" else "",
+                "En Progreso": "X" if producto.estado_2 == "En Progreso" else "",
+                "Completado": "X" if producto.estado_3 == "Completado" else "",
+            }
+            resultados.append(resultado)
+
+        response_data = {
+            'data': resultados,
+        }
+
+
+        return JsonResponse(response_data)
+    else:
+        return render(request, 'Vicerrectoria_Admin/Admin_informe_categoria_producto.html')
+"""
+
+
+# Informe Admin_informe_categoria_producto
+@login_required
+def Admin_informe_categoria_producto(request):
+    if request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest' and request.method == 'GET':
+        categoria_seleccionada = request.GET.get('categoria')
+
+        if categoria_seleccionada == 'General':
+            # Obtener todos los productos sin importar la categoría
+            productos = Producto.objects.all()
+        else:
+            productos = Producto.objects.filter(categoria=categoria_seleccionada)
+
+        productos_por_usuario = {}
+        tipos_por_usuario = {}
+        no_iniciados_por_usuario = {}
+        #cant_no_iniciados_por_usuario = {}
+
+        for producto in productos:
+            usuario = producto.proyecto.usuario
+            if usuario in productos_por_usuario:
+                productos_por_usuario[usuario] += 1
+                tipos_por_usuario[usuario].append(producto.tipo_producto)
+                if producto.estado_0 == "No Iniciado":
+                    no_iniciados_por_usuario[usuario].append(producto.tipo_producto)
+                    #cant_no_iniciados_por_usuario[usuario] += 1
+            else:
+                productos_por_usuario[usuario] = 1
+                tipos_por_usuario[usuario] = [producto.tipo_producto]
+                no_iniciados_por_usuario[usuario] = []
+                #if producto.estado_0 == "No Iniciado":
+                    #cant_no_iniciados_por_usuario[usuario] = 1
+
+        resultados = []
+        for usuario, cantidad_productos in productos_por_usuario.items():
+            resultados.append({
+                'nombre': usuario.usuario.nombre,
+                'identificacion': usuario.usuario.identificacion,
+                'cantidad_productos': cantidad_productos,
+                'tipos_productos': ', '.join(tipos_por_usuario[usuario]),
+                'no_iniciados': ', '.join(no_iniciados_por_usuario[usuario]),
+                #'cant_no_iniciados': cant_no_iniciados_por_usuario.get(usuario, 0),
+            })
+
+        response_data = {
+            'data': resultados,
+        }
+
+        return JsonResponse(response_data)
+    else:
+        return render(request, 'Vicerrectoria_Admin/Admin_informe_categoria_producto.html')
+
+
 
 
 

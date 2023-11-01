@@ -1,0 +1,330 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}">
+    <title>SeedResearchTool</title>
+
+    <style>
+        hr {
+            width: 60%;
+            margin: 0 auto;
+            border: 1px solid #000000;
+        }
+
+        #facultad-selector {
+            font-size: 16px;
+            padding: 10px;
+        }
+
+        #informe-facultad-container {
+            margin-top: 20px;
+        }
+
+        /* -------------------------- Tabla Facultad ------------------------------- */
+        .table-informe {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 50px;
+        }
+
+        .table-informe th,
+        .table-informe td {
+            text-align: center;
+            padding: 10px;
+            border: 2px solid #000000;
+            font-size: 10px;
+        }
+        /*-- N° --*/
+        .table-informe th:nth-child(1),
+        .table-informe td:nth-child(1) {
+            width: 1%;
+            padding: 0px;
+        }
+        /*-- Nombre --*/
+        .table-informe th:nth-child(2),
+        .table-informe td:nth-child(2) {
+            width: 10%;
+            padding: 0px;
+        }
+        /*-- Identificacion --*/
+        .table-informe th:nth-child(3),
+        .table-informe td:nth-child(3) {
+            width: 4%;
+            padding: 0px;
+        }
+        /*-- Proyectos --*/
+        .table-informe th:nth-child(4),
+        .table-informe td:nth-child(4) {
+            width: 20%;
+            padding: 0px;
+        }
+        /*-- Categoria --*/
+        .table-informe th:nth-child(5),
+        .table-informe td:nth-child(5) {
+            width: 20%;
+            padding: 0px;
+        }
+        /*-- Tipo --*/
+        .table-informe th:nth-child(6),
+        .table-informe td:nth-child(6) {
+            width: 40%;
+            padding: 0px;
+        }
+        /*-- Total C --*/
+        .table-informe th:nth-child(7),
+        .table-informe td:nth-child(7) {
+            width: 1%;
+            padding: 0px;
+        }
+        /*-- Total P --*/
+        .table-informe th:nth-child(8),
+        .table-informe td:nth-child(8) {
+            width: 1%;
+            padding: 0px;
+        }
+
+    </style>
+</head>
+
+<body>
+    
+    <br>
+    <hr>
+    <br>
+
+    <!-- Cantidad de Docentes por facultad -->
+    <div class="container" style="width: 50%;">
+        <div style="text-align: center;">
+            <h3>Docentes Registrados Por Facultad</h3>
+            <div style="text-align: center;">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; border: 1px solid rgb(187, 187, 187);">Ingeniería</th>
+                    <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; border: 1px solid rgb(187, 187, 187);">Humanidades</th>
+                    <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; border: 1px solid rgb(187, 187, 187);">Ciencias</th>
+                    <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; border: 1px solid rgb(187, 187, 187);">Educación</th>
+                    <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; border: 1px solid rgb(187, 187, 187);">Docentes/Investigadores</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; border: 1px solid rgb(187, 187, 187);">{{ cont_users_Ing }}</td>
+                    <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; border: 1px solid rgb(187, 187, 187);">{{ cont_users_Hum }}</td>
+                    <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; border: 1px solid rgb(187, 187, 187);">{{ cont_users_Adm }}</td>
+                    <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; border: 1px solid rgb(187, 187, 187);">{{ cont_users_Edu }}</td>
+                    <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; border: 1px solid rgb(187, 187, 187);">{{ cont_total_users }}</td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <hr>
+    <br>
+
+    <div class="container text-center">
+        <h3>INFORME FACULTAD Y PROGRAMAS</h3>
+        <div class="row-5">
+            <div class="col-md-3 mx-auto">
+                <select class="form-control text-center" id="facultad-selector">
+                    <option>* Seleccione *</option>
+                    <option value="Humanidades">Humanidades</option>
+                    <option value="Ciencias_Admin">Ciencias Administrativas</option>
+                    <option value="Ingenieria">Ingenieria</option>
+                    <option value="Educacion">Educación</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    
+    <br>
+
+    <div class="container">
+        <h4>Busqueda Avanzada</h4><br>
+        <div class="row">
+            <!-- ID -->
+            <div class="col">
+                <input type="text" class="form-control" id="identificacion" name="identificacion" placeholder="Identificacion">
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-primary" id="buscar-btn">Buscar</button>
+            </div>
+
+            <!-- Programa -->
+            <div class="col">
+                <select id="programa-selector" name="programa" class="form-control" style="text-align: center;">
+                </select>
+            </div>
+            <div class="col">
+                <button id="aplicar-filtro-btn" type="button" class="btn btn-primary">Buscar</button>
+            </div>
+
+            <!-- Fecha -->
+            <div class="col">
+                <input type="date" class="form-control" id="fecha-inicio" name="fecha-inicio">
+            </div>
+            <div class="col">
+                <input type="date" class="form-control" id="fecha-fin" name="fecha-fin">
+            </div>
+        </div>
+    </div>
+
+    <div id="informe-facultad-container">
+    </div>
+
+    <br>
+    <br>
+
+    <!-- SCRIPTS-SECTION -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Informe dinámico por FACULTAD y PROGRAMA -->
+    <script>
+        $(document).ready(function() {
+            const facultadSelector = $('#facultad-selector');
+            const programaSelector = $('#programa-selector');
+            const informeContainer = $('#informe-facultad-container');
+            const fechaInicioInput = $('#fecha-inicio');
+            const fechaFinInput = $('#fecha-fin');
+            const identificacionInput = $('#identificacion');
+            const buscarButton = $('#buscar-btn');
+            const aplicarFiltroButton = $('#aplicar-filtro-btn'); // Nuevo botón
+
+            // Función para cargar las opciones del select de programas
+            function cargarProgramas(facultad) {
+                // Aquí puedes definir las opciones de programas según la facultad seleccionada
+                const opcionesPrograma = {
+                    'Humanidades': ['Derecho', 'Psicologia', 'Comunicacion Social', 'Tecnología en Higiene y Seguridad en el Trabajo'],
+                    'Ciencias_Admin': ['Administración de Empresas - Modalidad Presencial', 'Administración de Empresas - Modalidad Virtual', 'Administración Turística y Hotelera', 'Contaduría Pública - Modalidad Presencial', 'Contaduría Pública - Modalidad Virtual', 'Negocios Internacionales - Modalidad Presencial', 'Negocios Internacionales - Modalidad Virtual'],
+                    'Ingenieria': ['Ingeniería de Sistemas', 'Ingeniería Industrial - Modalidad Presencial', 'Ingeniería Industrial - Modalidad Virtual'],
+                    'Educacion': ['Licenciatura en Educación Bilingüe', 'Licenciatura en Educación Infantil']
+                };
+
+                // Limpiar las opciones anteriores
+                programaSelector.empty();
+
+                // Obtener las opciones de programas para la facultad seleccionada
+                const programas = opcionesPrograma[facultad];
+
+                // Llenar el select de programas con las opciones correspondientes
+                programas.forEach(function(programa) {
+                    programaSelector.append($('<option>', {
+                        value: programa,
+                        text: programa
+                    }));
+                });
+            }
+
+            function actualizarInforme() {
+                let rowNum = 1;
+
+                const fechaInicio = fechaInicioInput.val();
+                const fechaFin = fechaFinInput.val();
+                const selectedFacultad = facultadSelector.val();
+                const selectedPrograma = programaSelector.val();
+                const identificacion = identificacionInput.val();
+
+                // Realizar la solicitud AJAX al servidor solo si se ha seleccionado un programa
+                if (selectedPrograma) {
+                    $.ajax({
+                        url: '/users/Admin-informe-facultad-programa/',
+                        type: 'GET',
+                        data: {
+                            'facultad': selectedFacultad,
+                            'programa': selectedPrograma,
+                            'fecha_inicio': fechaInicio,
+                            'fecha_fin': fechaFin,
+                            'identificacion': identificacion
+                        },
+                        success: function(data) {
+                            informeContainer.empty();
+                            if (data.data.length > 0) {
+                                const table = $('<table class="table-informe"><thead><tr><th>N°</th><th>Nombre</th><th>Identificación</th><th>Proyectos</th><th>Categorías</th><th>Tipos</th><th>Total C.</th></tr></thead><tbody></tbody></table>');
+                                const tbody = table.find('tbody');
+
+                                data.data.forEach(function(info) {
+                                    const usuario = info.usuario;
+                                    const proyectos = info.proyectos;
+
+                                    const row = $('<tr><td>' + rowNum + '</td><td>' + usuario.nombre + '</td><td>' + usuario.identificacion + '</td><td></td><td></td><td></td><td></td></tr>');
+                                    tbody.append(row);
+                                    rowNum++;
+
+                                    if (proyectos.length > 0) {
+                                        const proyectosHTML = '<ul>' + proyectos.map(function(proyecto) {
+                                            return '<li>' + proyecto.titulo + '</li><br>';
+                                        }).join('</li>') + '</ul>';
+                                        row.find('td:eq(3)').html(proyectosHTML);
+
+                                        const categoriasHTML = '<ul>' + proyectos.map(function(proyecto) {
+                                            return '<li>' + proyecto.categorias.join(', ') + '</li><br>';
+                                        }).join('</li>') + '</ul>';
+                                        row.find('td:eq(4)').html(categoriasHTML);
+
+                                        const tiposHTML = '<ul>' + proyectos.map(function(proyecto) {
+                                            return '<li>' + proyecto.tipos.join(', ') + '</li><br>';
+                                        }).join('</li>') + '</ul>';
+                                        row.find('td:eq(5)').html(tiposHTML);
+                                    } else {
+                                        row.find('td:eq(3)').text('N/A');
+                                        row.find('td:eq(4)').text('N/A');
+                                        row.find('td:eq(5)').text('N/A');
+                                    }
+                                });
+                                informeContainer.append(table);
+                            } else {
+                                informeContainer.html('<p style="text-align: center;">No se encontraron usuarios para la facultad y programa seleccionados.</p>');
+                            }
+                        },
+                        error: function() {
+                            informeContainer.html('<p style="text-align: center;">Error al cargar el informe.</p>');
+                        }
+                    });
+                }
+            }
+
+            // Escucha cambios en el selector de facultades
+            facultadSelector.on('change', function() {
+                cargarProgramas(facultadSelector.val());
+                actualizarInforme();
+            });
+
+            // Escucha cambios en los campos de fecha
+            fechaInicioInput.on('change', function() {
+                actualizarInforme();
+            });
+
+            fechaFinInput.on('change', function() {
+                actualizarInforme();
+            });
+
+            // Agregar manejo de clic al botón de búsqueda
+            buscarButton.on('click', function() {
+                actualizarInforme();
+            });
+
+            // Agregar manejo de clic al botón "Aplicar filtro"
+            aplicarFiltroButton.on('click', function() {
+                actualizarInforme();
+            });
+
+            // Llamar a cargarProgramas al inicio para cargar las opciones iniciales
+            cargarProgramas(facultadSelector.val());
+        });
+    </script>
+
+
+
+</body>
+</html>

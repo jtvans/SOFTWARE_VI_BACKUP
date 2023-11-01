@@ -1,0 +1,94 @@
+.table-students {
+    width: 100%;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.table-actividades {
+    width: 100%;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.table-proyectos-abiertos {
+    width: 100%;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.table-proyectos {
+    width: 100%;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.btn-sm {
+    font-size: 12px;
+    padding: 5px 10px;
+}
+
+.semilleros-link {
+    color: #000000;
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-all;
+  }
+  
+
+
+
+@media (max-width: 968px) {
+    .btn-sm {
+        font-size: 10px;
+        padding: 5px 5px;
+    }
+
+    .table-students {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        font-size: 12px;
+    }
+    .table-students th,
+    .table-students td {
+        font-size: 12px;
+        padding: 0px;
+    }
+
+    .table-actividades {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        font-size: 12px;
+    }
+    .table-actividades th,
+    .table-actividades td {
+        font-size: 12px;
+        padding: 0px;
+    }
+
+    .table-proyectos-abiertos {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        font-size: 12px;
+    }
+    .table-proyectos-abiertos th,
+    .table-proyectos-abiertos td {
+        font-size: 12px;
+        padding: 0px;
+    }
+
+    .table-proyectos {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        font-size: 12px;
+    }
+    .table-proyectos th,
+    .table-proyectos td {
+        font-size: 12px;
+        padding: 0px;
+    }
+}

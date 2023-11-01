@@ -111,7 +111,7 @@
                     <h2> HUMANIDADES Y CIENCIAS SOCIALES </h2>
                     <hr>
                     {% for semillero in semilleros_disponibles %}
-                        {% if 'empresa' in semillero.programa|lower %}
+                        {% if 'empresa' in semillero.programa|lower and semillero.aprobacion %}
                             <p></strong>{{ semillero.nombre_semillero }} - <strong>{{ semillero.nombre }}</strong></p>
                             <a href="{% url 'Semilleros:detalle_semillero_estudiante' semillero.id %}">
                             {% csrf_token %}
@@ -127,7 +127,7 @@
                     <h2> HUMANIDADES Y CIENCIAS SOCIALES </h2>
                     <hr>
                     {% for semillero in semilleros_disponibles %}
-                        {% if 'psicologia' in semillero.programa|lower %}
+                        {% if 'psicologia' in semillero.programa|lower and semillero.aprobacion %}
                             <p></strong>{{ semillero.nombre_semillero }} - <strong>{{ semillero.nombre }}</strong></p>
                             <a href="{% url 'Semilleros:detalle_semillero_estudiante' semillero.id %}">
                             {% csrf_token %}
@@ -143,7 +143,7 @@
                     <h2> HUMANIDADES Y CIENCIAS SOCIALES </h2>
                     <hr>
                     {% for semillero in semilleros_disponibles %}
-                        {% if 'comunicaicon' in semillero.programa|lower %}
+                        {% if 'comunicaicon' in semillero.programa|lower and semillero.aprobacion %}
                             <p></strong>{{ semillero.nombre_semillero }} - <strong>{{ semillero.nombre }}</strong></p>
                             <a href="{% url 'Semilleros:detalle_semillero_estudiante' semillero.id %}">
                             {% csrf_token %}
@@ -159,7 +159,7 @@
                     <h2> HUMANIDADES Y CIENCIAS SOCIALES </h2>
                     <hr>
                     {% for semillero in semilleros_disponibles %}
-                        {% if 'higiene' in semillero.programa|lower %}
+                        {% if 'higiene' in semillero.programa|lower and semillero.aprobacion %}
                             <p></strong>{{ semillero.nombre_semillero }} - <strong>{{ semillero.nombre }}</strong></p>
                             <a href="{% url 'Semilleros:detalle_semillero_estudiante' semillero.id %}">
                             {% csrf_token %}
@@ -175,7 +175,7 @@
                     <h2> HUMANIDADES Y CIENCIAS SOCIALES </h2>
                     <hr>
                     {% for semillero in semilleros_disponibles %}
-                        {% if 'comunicación' in semillero.programa|lower %}
+                        {% if 'comunicación' in semillero.programa|lower and semillero.aprobacion %}
                             <p></strong>{{ semillero.nombre_semillero }} - <strong>{{ semillero.nombre }}</strong></p>
                             <a href="{% url 'Semilleros:detalle_semillero_estudiante' semillero.id %}">
                             {% csrf_token %}
@@ -193,7 +193,7 @@
                     <h2> CIENCIAS ADMINISTRATIVAS, ECONOMICAS Y CONTABLES </h2>
                     <hr>
                     {% for semillero in semilleros_disponibles %}
-                        {% if 'empresa' in semillero.programa|lower %}
+                        {% if 'empresa' in semillero.programa|lower and semillero.aprobacion %}
                             <p></strong>{{ semillero.nombre_semillero }} - <strong>{{ semillero.nombre }}</strong></p>
                             <a href="{% url 'Semilleros:detalle_semillero_estudiante' semillero.id %}">
                                 {% csrf_token %}
@@ -209,7 +209,7 @@
                     <h2> CIENCIAS ADMINISTRATIVAS, ECONOMICAS Y CONTABLES </h2>
                     <hr>
                     {% for semillero in semilleros_disponibles %}
-                        {% if 'turistica' in semillero.programa|lower %}
+                        {% if 'turistica' in semillero.programa|lower and semillero.aprobacion %}
                             <p></strong>{{ semillero.nombre_semillero }} - <strong>{{ semillero.nombre }}</strong></p>
                             <a href="{% url 'Semilleros:detalle_semillero_estudiante' semillero.id %}">
                                 {% csrf_token %}
@@ -225,7 +225,7 @@
                     <h2> CIENCIAS ADMINISTRATIVAS, ECONOMICAS Y CONTABLES </h2>
                     <hr>
                     {% for semillero in semilleros_disponibles %}
-                        {% if 'hotelera' in semillero.programa|lower %}
+                        {% if 'hotelera' in semillero.programa|lower and semillero.aprobacion %}
                             <p></strong>{{ semillero.nombre_semillero }} - <strong>{{ semillero.nombre }}</strong></p>
                             <a href="{% url 'Semilleros:detalle_semillero_estudiante' semillero.id %}">
                                 {% csrf_token %}
@@ -241,7 +241,7 @@
                     <h2> CIENCIAS ADMINISTRATIVAS, ECONOMICAS Y CONTABLES </h2>
                     <hr>
                     {% for semillero in semilleros_disponibles %}
-                        {% if 'contaduria' in semillero.programa|lower %}
+                        {% if 'contaduria' in semillero.programa|lower and semillero.aprobacion %}
                             <button class="btn btn-primary">
                                 <a href="{% url 'Semilleros:detalle_semillero_estudiante' semillero.id %}">
                                     {% csrf_token %}
@@ -258,7 +258,7 @@
                     <h2> CIENCIAS ADMINISTRATIVAS, ECONOMICAS Y CONTABLES </h2>
                     <hr>
                     {% for semillero in semilleros_disponibles %}
-                        {% if 'negocios' in semillero.programa|lower %}
+                        {% if 'negocios' in semillero.programa|lower and semillero.aprobacion %}
                             <p></strong>{{ semillero.nombre_semillero }} - <strong>{{ semillero.nombre }}</strong></p>
                             <a href="{% url 'Semilleros:detalle_semillero_estudiante' semillero.id %}">
                                 {% csrf_token %}
@@ -276,7 +276,7 @@
                     <h2> EDUCACION </h2>
                     <hr>
                     {% for semillero in semilleros_disponibles %}
-                        {% if 'infantil' in semillero.programa|lower %}
+                        {% if 'infantil' in semillero.programa|lower and semillero.aprobacion %}
                             <p></strong>{{ semillero.nombre_semillero }} - <strong>{{ semillero.nombre }}</strong></p>
                             <a href="{% url 'Semilleros:detalle_semillero_estudiante' semillero.id %}">
                                 {% csrf_token %}
@@ -292,7 +292,7 @@
                     <h2> EDUCACION </h2>
                     <hr>
                     {% for semillero in semilleros_disponibles %}
-                        {% if 'bilingüe' in semillero.programa|lower %}
+                        {% if 'bilingüe' in semillero.programa|lower and semillero.aprobacion %}
                             <p></strong>{{ semillero.nombre_semillero }} - <strong>{{ semillero.nombre }}</strong></p>
                             <a href="{% url 'Semilleros:detalle_semillero_estudiante' semillero.id %}">
                                 {% csrf_token %}
@@ -304,14 +304,14 @@
                 {% endif %}
                 
                 <!-- SISTEMAS --->
-                {% if 'sistemas' in usuario_e.programa|lower%}
+                {% if 'sistemas' in usuario_e.programa|lower %}
                 <ul>
                     <hr>
                     <h2> INGENIERIA </h2>
                     <h5> {{ usuario_e.programa }} </h5>
                     <hr>
                     {% for semillero in semilleros_disponibles %}
-                        {% if 'sistemas' in semillero.programa|lower %}
+                        {% if 'sistemas' in semillero.programa|lower and semillero.aprobacion %}
                             <p></strong>{{ semillero.nombre_semillero }} - <strong>{{ semillero.nombre }}</strong></p>
                             <p><a href="{% url 'Semilleros:detalle_semillero_estudiante' semillero.id %}">
                                 {% csrf_token %}
@@ -329,7 +329,7 @@
                     <h5> {{ usuario_e.programa }} </h5>
                     <hr>
                     {% for semillero in semilleros_disponibles %}
-                        {% if 'industrial' in semillero.programa|lower %}
+                        {% if 'industrial' in semillero.programa|lower and semillero.aprobacion %}
                             <p></strong>{{ semillero.nombre_semillero }} - <strong>{{ semillero.nombre }}</strong></p>
                             <p><a href="{% url 'Semilleros:detalle_semillero_estudiante' semillero.id %}">
                                 {% csrf_token %}
@@ -342,11 +342,56 @@
                 {% endif %}
             </div>
         </div>
+
+        <br>
+        <br>
+
+
+        <!-- EMPRENDIMIENTO --->
+        <div class="form-group">
+            <h3 for="pertenece-emprendimiento">Pertenece a Emprendimiento?</h3>
+            <select class="form-control" name="pertenece_emprendimiento" id="pertenece-emprendimiento" style="width: 10%;">
+                <option value="no">No</option>
+                <option value="si">Sí</option>
+            </select>
+        </div>
+        <br>
+        <div id="emprendimiento-section" class="container-c-p">
+            <div class="container-c-p-1">                
+                <hr>
+                <h2> SEMILLEROS PARA EL AREA DE EMPRENDIMIENTO </h2>
+                <hr>
+                {% for semillero in semilleros_disponibles %}
+                    {% if semillero.aprobacion %}
+                        <p></strong>{{ semillero.nombre_semillero }} - <strong>{{ semillero.nombre }}</strong></p>
+                        <a href="{% url 'Semilleros:detalle_semillero_estudiante' semillero.id %}">
+                        {% csrf_token %}
+                            CONSULTAR
+                        </a></button>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+
     </div>
 
     <br>
 
+    <!-- PARA MANEJAR SI ES DE EMPRENDIMIENTO -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#emprendimiento-section").hide();
+
+            $("#pertenece-emprendimiento").change(function () {
+                if ($(this).val() === "si") {
+                    $("#emprendimiento-section").show();
+                } else {
+                    $("#emprendimiento-section").hide();
+                }
+            });
+        });
+    </script>
 
 </body>
-
 </html>

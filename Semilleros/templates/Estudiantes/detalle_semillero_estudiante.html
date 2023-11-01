@@ -143,7 +143,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% if semillero.Se_nombre_proyecto_1 %}
+                            {% if semillero.Se_nombre_proyecto %}
                             <tr>
                                 <td>{{ semillero.Se_nombre_proyecto }}</td>
                                 <td>{{ semillero.Se_institucion }}</td>
@@ -192,40 +192,40 @@
                                 <input type="hidden" name="identificacion_estuidante_actividad_e" value="{{ actividades_form.identificacion_estuidante_actividad_e.value }}">
 
                                 <div class="form-group">
-                                    <label for="{{ actividades_form.nombre_actividad_e.id_for_label }}"><strong>Nombre Actividad:</strong></label>
+                                    <label for="{{ actividades_form.nombre_actividad_e.id_for_label }}" requiered><strong>Nombre Actividad:</strong></label>
                                     {{ actividades_form.nombre_actividad_e }}
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="{{ actividades_form.descripcion_actividad_e.id_for_label }}"><strong>Descripcion Actividad:</strong></label>
+                                    <label for="{{ actividades_form.descripcion_actividad_e.id_for_label }}" requiered><strong>Descripcion Actividad:</strong></label>
                                     {{ actividades_form.descripcion_actividad_e }}
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="{{ actividades_form.fecha_actividad_inicio_e.id_for_label }}"><strong>Fecha Inicio:</strong></label>
+                                    <label for="{{ actividades_form.fecha_actividad_inicio_e.id_for_label }}" requiered><strong>Fecha Inicio:</strong></label>
                                     {{ actividades_form.fecha_actividad_inicio_e }}
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="{{ actividades_form.fecha_actividad_final_e.id_for_label }}"><strong>Fecha Finalizacion:</strong></label>
+                                    <label for="{{ actividades_form.fecha_actividad_final_e.id_for_label }}" requiered><strong>Fecha Finalizacion:</strong></label>
                                     {{ actividades_form.fecha_actividad_final_e }}
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="{{ actividades_form.lugar_actividad_e.id_for_label }}"><strong>Lugar/Sitio Actividad:</strong></label>
+                                    <label for="{{ actividades_form.lugar_actividad_e.id_for_label }}" requiered><strong>Lugar/Sitio Actividad:</strong></label>
                                     {{ actividades_form.lugar_actividad_e }}
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="{{ actividades_form.ciudad_actividad_e.id_for_label }}"><strong>Ciudad:</strong></label>
+                                    <label for="{{ actividades_form.ciudad_actividad_e.id_for_label }}" requiered><strong>Ciudad:</strong></label>
                                     {{ actividades_form.ciudad_actividad_e }}
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="{{ actividades_form.participantes_actividad_e.id_for_label }}"><strong>Participantes:</strong></label>
+                                    <label for="{{ actividades_form.participantes_actividad_e.id_for_label }}" requiered><strong>Participantes:</strong></label>
                                     {{ actividades_form.participantes_actividad_e }}
                                 </div>
-
+                                
                                 <div class="form-group">
                                     <label for="{{ actividades_form.adjunto_actividad_e.id_for_label }}"><strong>Adjuntar Evidencia:</strong></label>
                                     {{ actividades_form.adjunto_actividad_e }}

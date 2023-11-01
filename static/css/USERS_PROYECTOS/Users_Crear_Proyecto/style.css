@@ -19,8 +19,8 @@ body{
 
 /* ------------- NAVAR ----------------- */
 .navbar {
+  width: 100%;
   background-color: #6300cd;
-  padding: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -29,6 +29,7 @@ body{
   left: 0;
   right: 0;
   z-index: 9999;
+  padding: 0;
 }
 
 .navbar-brand img {
@@ -44,7 +45,7 @@ body{
 }
 
 .navbar-item {
-  margin-right: 20px;
+  padding-left: 55px;
 }
 
 .navbar-item a {
@@ -85,6 +86,7 @@ body{
 .navbar-item.dropdown:hover .dropdown-content {
   display: block;
 }
+
 /* ------------------------------------- */
   
 /* -------------- CARDS --------------- */
@@ -217,3 +219,30 @@ body{
   }
   
 /* ------------------------------------- */
+
+/*-------------------------------------------------------------------------------------------------------*/
+/* RESPONSIVE */
+@media (max-width: 968px) {
+  .navbar-item {
+    padding-left: 0px;
+  }
+  .navbar-item a {
+    padding: 13px;
+    font-size: 14px;
+  }
+}
+
+/*Reducir/Aumentar - Navbar*/
+@media (max-width: 1280px) {
+  .navbar-item {
+    padding-left: 0px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .navbar-item {
+    padding-left: 150px;
+  }
+}
+
+/*----------------------------------------------------------------------------------------------------*/

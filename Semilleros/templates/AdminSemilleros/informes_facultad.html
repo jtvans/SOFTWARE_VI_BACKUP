@@ -1,0 +1,362 @@
+<!-- INFORMES -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Breadcrumb -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="{% static 'css/ADMIN_SEMILLEROS/Breadcrumbs/style.css' %}">
+
+  <link rel="stylesheet" href="{% static 'css/ADMIN_SEMILLEROS/style.css' %}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}">
+  <title>SeedResearchTool</title>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-brand" href="{% url 'Users:Admin_Semi_home' %}">
+        <img src="{% static 'images/USERS_PROYECTOS/Users_Crear_Proyecto/Proyectos_Logo.png' %}" alt=""
+          style="width: 240px; height: 60px;">
+      </a>
+    </div>
+    <ul class="navbar-menu">
+      {% if user.is_authenticated and not user.usuario_administrador %}
+      <li class="navbar-item">
+        <a class="nav-link" href="{% url 'Users:Admin_Semi_home' %}">HOME</a>
+      </li>
+      <li class="navbar-item dropdown">
+        <a class="nav-link" href="#">SEMILLEROS</a>
+        <div class="dropdown-content">
+          <a class="text-center" href="#">Inscribirse a un Semillero</a>
+          <a class="text-center" href="#">Ver Mis Inscripciones</a>
+        </div>
+      </li>
+      {% endif %}
+    </ul>
+
+    <ul class="navbar-menu ml-auto">
+      {% if user.is_authenticated and not user.usuario_administrador %}
+      <li class="navbar-item dropdown">
+        <a class="nav-link" href="#">PERFIL</a>
+        <div class="dropdown-content">
+          <a class="text-center" href="#">Ver Perfil</a>
+          <a class="text-center" href="#">Editar Perfil</a>
+        </div>
+      </li>
+      <li class="navbar-item ajuste-izquierda">
+        <a class="nav-link fa" style="font-size:26px" href="{% url 'Users:Admin_Semi_cerrar_sesion' %}">&#xf011;</a>
+      </li>
+      {% else %}
+      <li class="navbar-item">
+        <a class="nav-link" href="{% url 'Users:Admin_Semi_login' %}">INICIAR SESION</a>
+      </li>
+      <li class="navbar-item">
+        <a class="nav-link" href="{% url 'Users:Admin_Semi_registro_usuario' %}">REGISTRARSE</a>
+      </li>
+      {% endif %}
+    </ul>
+  </nav>
+
+  <!-- Breadcrumb -->
+  <div class="wrapper">
+    <ol class="breadcrumbs breadcrumbs--one" itemscope itemtype="http://schema.org/BreadcrumbList">
+      <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+        <a class="breadcrumb" href="{% url 'Users:Admin_Semi_home' %}" itemprop="item">
+          <span itemprop="name">
+            <i class="material-icons" aria-hidden="true">home</i>
+            <span>INICIO</span>
+          </span>
+        </a>
+        <meta itemprop="position" content="1" />
+      </li>
+      <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+        <a class="breadcrumb" href="{% url 'Semilleros:informes_semi' %}" itemprop="item">
+          <span itemprop="name">
+            <i class="material-icons" aria-hidden="true">summarize</i>
+            <span>INFORMES</span>
+          </span>
+        </a>
+        <meta itemprop="position" content="2" />
+      </li>
+      <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+        <a class="breadcrumb" href="{% url 'Semilleros:informes_facultad' %}" itemprop="item">
+          <span itemprop="name">
+            <i class="material-icons" aria-hidden="true">loyalty</i>
+            <span>INFORMES FACULTAD</span>
+          </span>
+        </a>
+        <meta itemprop="position" content="2" />
+      </li>
+    </ol>
+  </div>
+
+  <br>
+  <br>
+  <br>
+  <br>
+
+  <div class="container">
+    <div class="container-c-p">
+      <div class="container-c-p-1">
+        <h1><strong>INFORMACION GENERAL</strong></h1>
+        <br>
+        <h5><strong>Total de Estudiantes:</strong> {{ Total_Estudiantes }}</h5>
+        <h5><strong>Total de Estudiantes Inscritos:</strong> {{ Total_Estudiantes_Inscritos }}</h5>
+        <h5><strong>Total de Semilleristas:</strong> {{ Total_Semilleristas }}</h5>
+        <br>
+
+        <!-- HUMANIDADES --->
+        <ul>
+          <div class="container-c-p-1">
+            <h2> HUMANIDADES Y CIENCIAS SOCIALES </h2>
+            <button id="boton-humanidades" class="btn btn-secondary">Ver</button>
+          </div>
+          <div class="container-c-p-1" id="c-humanidades" style="display: none;">
+            {% for semillero in semilleros %}
+              {% if semillero.facultad == 'Humanidades' %}
+                <p></strong>{{ semillero.nombre_semillero }} - <strong>{{ semillero.nombre }}</strong></p>
+                <a href="#">
+                  {% csrf_token %}
+                  CONSULTAR
+                  <br>
+                </a>
+              {% endif %}
+            {% endfor %}
+          </div>
+          <br>
+        </ul>
+
+        <br>
+        <br>
+
+        <!-- ADMINISTRACION --->
+        <ul>
+          <div class="container-c-p-1">
+            <h2> CIENCIAS ADMINISTRATIVAS, ECONOMICAS Y CONTABLES <span></span></h2>
+            <button id="boton-administracion" class="btn btn-secondary">Ver</button>
+          </div>
+          <div class="container-c-p-1" id="c-administracion" style="display: none;">
+            {% for semillero in semilleros %}
+              {% if semillero.facultad == 'Ciencias_Admin' %}
+                <p></strong>{{ semillero.nombre_semillero }} - <strong>{{ semillero.nombre }}</strong></p>
+                <a href="#">
+                  {% csrf_token %}
+                  CONSULTAR
+                  <br>
+                </a>
+              {% endif %}
+            {% endfor %}
+          </div>
+          <br>
+        </ul>
+
+        <br>
+        <br>
+
+        <!-- LICENCIATURA --->
+        <ul>
+          <div class="container-c-p-1">
+            <h2> EDUCACION </h2>
+            <button id="boton-licenciatura" class="btn btn-secondary">Ver</button>
+          </div>
+          <div class="container-c-p-1" id="c-licenciatura" style="display: none;">
+            {% for semillero in semilleros %}
+              {% if semillero.facultad == 'Educacion' %}
+                <p></strong>{{ semillero.nombre_semillero }} - <strong>{{ semillero.nombre }}</strong></p>
+                <a href="#">
+                  {% csrf_token %}
+                  CONSULTAR
+                  <br>
+                </a>
+              {% endif %}
+            {% endfor %}
+          </div>
+          <br>
+        </ul>
+
+        <br>
+        <br>
+
+        <!-- INGENIERIA --->
+        <ul>
+            <div class="container-c-p-1">
+            <h2> INGENIERIA </h2>
+            <button id="boton-ingenieria" class="btn btn-secondary">Ver</button>
+            </div>
+            <div class="container-c-p-1" id="c-ingenieria" style="display: none;">
+            {% for semillero in semilleros %}
+                {% if semillero.facultad == 'Ingenieria' %}
+                <p></strong>{{ semillero.nombre_semillero }} - <strong>{{ semillero.nombre }}</strong></p>
+                <a href="{% url 'Semilleros:detalle_semillero_admin' semillero.id %}">
+                    {% csrf_token %}
+                    VER
+                    <br>
+                </a>
+                {% endif %}
+            {% endfor %}
+
+            <br>
+            <br>
+
+
+            <h3>TOTAL ESTUDIANTES</h3>
+            <table class="table text-center" style="width: 80%;">
+                <thead>
+                    <tr>
+                        <th style="width: 10%;"><p><strong>N°</strong></p></th>
+                        <th><p><strong>Estudiante</strong></p></th>
+                        <th><p><strong>Identificacion</strong></p></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user_e in Total_E %}
+                    <tr>
+                        <td><p>{{forloop.counter }}</p></td>
+                        <td><p>{{user_e.nombre}}</p></td>
+                        <td><p>{{user_e.identificacion}}</p></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <br>
+            <br>
+            <h3>TOTAL ESTUDIANTES INSCRITOS</h3>
+            <table class="table text-center" style="width: 80%;">
+                <thead>
+                    <tr>
+                        <th style="width: 10%;"><p><strong>N°</strong></p></th>
+                        <th><p><strong>Estudiante</strong></p></th>
+                        <th><p><strong>Identificacion</strong></p></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user_e in Total_E_I %}
+                    <tr>
+                        <td><p>{{forloop.counter }}</p></td>
+                        <td><p>{{user_e.nombre}}</p></td>
+                        <td><p>{{user_e.identificacion}}</p></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <br>
+            <br>
+            <h3>TOTAL SEMILLERISTAS</h3><!--FACULTAD-->
+            <table class="table text-center" style="width: 80%;">
+                <thead>
+                    <tr>
+                        <th style="width: 10%;"><p><strong>N°</strong></p></th>
+                        <th><p><strong>Estudiante</strong></p></th>
+                        <th><p><strong>Identificacion</strong></p></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user_e in Semilleristas_Ingenieria %}
+                        {% if user_e.estado_e %}
+                            <tr>
+                                <td><p>{{forloop.counter }}</p></td>
+                                <td><p>{{user_e.nombre_e}}</p></td>
+                                <td><p>{{user_e.identificacion_e}}</p></td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            </div>
+            <br>
+        </ul>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPT Para Mostrar Informacion -->
+  <!--Humanidades-->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const Humanidades = document.getElementById('c-humanidades');
+        const botonVer = document.getElementById('boton-humanidades');
+    
+        botonVer.addEventListener('click', function () {
+            if (Humanidades.style.display === 'none') {
+                Humanidades.style.display = 'block';
+                botonVer.textContent = 'Ocultar';
+            } else {
+                Humanidades.style.display = 'none';
+                botonVer.textContent = 'Ver';
+            }
+        });
+    });
+    </script>
+
+    <!--Administracion-->
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const Administracion = document.getElementById('c-administracion');
+        const botonVer = document.getElementById('boton-administracion');
+    
+        botonVer.addEventListener('click', function () {
+            if (Administracion.style.display === 'none') {
+                Administracion.style.display = 'block';
+                botonVer.textContent = 'Ocultar';
+            } else {
+                Administracion.style.display = 'none';
+                botonVer.textContent = 'Ver';
+            }
+        });
+    });
+    </script>
+
+    <!--Licenciatura-->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const Licenciatura = document.getElementById('c-licenciatura');
+            const botonVer = document.getElementById('boton-licenciatura');
+        
+            botonVer.addEventListener('click', function () {
+                if (Licenciatura.style.display === 'none') {
+                    Licenciatura.style.display = 'block';
+                    botonVer.textContent = 'Ocultar';
+                } else {
+                    Licenciatura.style.display = 'none';
+                    botonVer.textContent = 'Ver';
+                }
+            });
+        });
+    </script>
+
+    <!--Ingenieria-->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const Ingenieria = document.getElementById('c-ingenieria');
+            const botonVer = document.getElementById('boton-ingenieria');
+        
+            botonVer.addEventListener('click', function () {
+                if (Ingenieria.style.display === 'none') {
+                    Ingenieria.style.display = 'block';
+                    botonVer.textContent = 'Ocultar';
+                } else {
+                    Ingenieria.style.display = 'none';
+                    botonVer.textContent = 'Ver';
+                }
+            });
+        });
+    </script>
+    
+
+</body>
+</html>

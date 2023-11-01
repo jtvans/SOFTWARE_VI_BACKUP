@@ -231,6 +231,25 @@ def ver_plan_trabajo(request, proyecto_id):
     return render(request, 'Proyectos/ver_plan_trabajo.html', {'proyecto': proyecto, 'productos': productos, 'categorias': categorias})
 
 
+# DESCARGAR PLAN DE TRABAJO PDF
+@login_required
+def descargar_plan_trabajo(request, proyecto_id):
+    try:
+        proyecto = Proyecto.objects.get(pk=proyecto_id, usuario=request.user)
+    except Proyecto.DoesNotExist:
+        return render(request, 'error_pages/Users_Pagina_Error.html', status=404)
+    
+    productos = Producto.objects.filter(proyecto=proyecto)
+
+    html = render_to_string('Proyectos/ver_plan_trabajo_pdf.html', {'proyecto': proyecto, 'productos': productos})
+
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="Plan De Trabajo - Productos.pdf"'
+
+    pisa.CreatePDF(html, dest=response)
+    return response
+
+
 # DESCARGAR PDF DE PROYECTO.
 @login_required
 def descargar_pdf(request, proyecto_id):
@@ -400,7 +419,7 @@ def avance_estado_1(request, proyecto_id, producto_id):
             )
 
             # Cambiar el estado
-            producto.estado_0 = "Iniciado"
+            producto.estado_0 = ""
             producto.estado_1 = "Iniciado"
             producto.save()
 
@@ -491,6 +510,8 @@ def avance_estado_2(request, proyecto_id, producto_id):
             )
 
             # Cambiar el estado a "En Progreso"
+            producto.estado_0 = ""
+            producto.estado_1 = ""
             producto.estado_2 = "En Progreso"
             producto.save()
 
@@ -578,6 +599,9 @@ def avance_estado_3(request, proyecto_id, producto_id):
             )
 
             # Cambiar el estado a "En Progreso"
+            producto.estado_0 = ""
+            producto.estado_1 = ""
+            producto.estado_2 = ""
             producto.estado_3 = "Completado"
             producto.save()
 

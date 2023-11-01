@@ -1,0 +1,742 @@
+<!-- Informe dinámico por FACULTAD -->
+<script>
+    $(document).ready(function() {
+        const facultadSelector = $('#facultad-selector');
+        const informeContainer = $('#informe-facultad-container');
+
+        facultadSelector.on('change', function() {
+            let rowNum = 1;
+            
+            const selectedFacultad = facultadSelector.val();
+            $.ajax({
+                url: '/users/Admin-informe-por-facultad/',
+                type: 'GET',
+                data: { 'facultad': selectedFacultad },
+                success: function(data) {
+                    informeContainer.empty();
+                    if (data.data.length > 0) {
+                        const table = $('<table class="table-informe"><thead><tr><th>#</th><th>Nombre</th><th>Identificación</th><th>Proyectos</th><th>Categorías</th><th>Tipos</th></tr></thead><tbody></tbody></table>');
+                        const tbody = table.find('tbody');
+                        data.data.forEach(function(info) {
+                            const usuario = info.usuario;
+                            const proyectos = info.proyectos;
+
+                            const row = $('<tr><td>' + rowNum + '</td><td>' + usuario.nombre + '</td><td>' + usuario.identificacion + '</td><td></td><td></td><td></td></tr>');
+                            tbody.append(row);
+                            rowNum++;
+
+                            if (proyectos.length > 0) {
+                                const proyectosHTML = '<ul>' + proyectos.map(function(proyecto) {
+                                    return '<li>' + proyecto.titulo + '</li><br>';
+                                }).join('</li>') + '</ul>';
+                                row.find('td:eq(3)').html(proyectosHTML);
+
+                                const categoriasHTML = '<ul>' + proyectos.map(function(proyecto) {
+                                    return '<li>' + proyecto.categorias.join(', ') + '</li><br>';
+                                }).join('</li>') + '</ul>';
+                                row.find('td:eq(4)').html(categoriasHTML);
+
+                                const tiposHTML = '<ul>' + proyectos.map(function(proyecto) {
+                                    return '<li>' + proyecto.tipos.join(', ') + '</li><br>';
+                                }).join('</li>') + '</ul>';
+                                row.find('td:eq(5)').html(tiposHTML);
+                            } else {
+                                row.find('td:eq(3)').text('N/A');
+                                row.find('td:eq(4)').text('N/A');
+                                row.find('td:eq(5)').text('N/A');
+                            }
+                        });
+                        informeContainer.append(table);
+                    } else {
+                        informeContainer.html('<p style="text-align: center;"style="text-align: center;">No se encontraron usuarios para la facultad seleccionada.</p>');
+                    }
+                },
+                error: function() {
+                    informeContainer.html('<p style="text-align: center;">Error al cargar el informe.</p>');
+                }
+            });
+        });
+    });
+</script>
+
+---------------------------------------------------------------------------
+
+<!-- Informe dinámico por FACULTAD --> Sin Listas
+<script>
+    $(document).ready(function () {
+        const facultadSelector = $('#facultad-selector');
+        const informeContainer = $('#informe-facultad-container');
+
+        facultadSelector.on('change', function () {
+            let rowNum = 1;
+            const selectedFacultad = facultadSelector.val();
+            $.ajax({
+                url: '/users/Admin-informe-por-facultad/',
+                type: 'GET',
+                data: { 'facultad': selectedFacultad },
+                success: function (data) {
+                    informeContainer.empty();
+                    if (data.data.length > 0) {
+                        const table = $('<table class="table-informe"><thead><tr><th>#</th><th>Nombre</th><th>Identificación</th><th>Proyectos</th><th>Categorías</th><th>Tipos</th><th>Total C.</th><th>Total T.</th></tr></thead><tbody></tbody></table>');
+                        const tbody = table.find('tbody');
+                        data.data.forEach(function (info) {
+                            const usuario = info.usuario;
+                            const proyectos = info.proyectos;
+
+                            const row = $('<tr><td>' + rowNum + '</td><td>' + usuario.nombre + '</td><td>' + usuario.identificacion + '</td><td class="proyectos-cell"></td><td></td><td></td><td></td><td></td></tr>');
+                            tbody.append(row);
+                            rowNum++;
+
+                            let totalCategorias = 0;
+                            let totalTipos = 0;
+
+                            if (proyectos.length > 0) {
+                                const proyectosContainer = $('<div class="proyectos-container"></div>');
+                                proyectos.forEach(function (proyecto) {
+                                    totalCategorias += proyecto.categorias.length;
+                                    totalTipos += proyecto.tipos.length;
+
+                                    const proyectoHTML = '<p>' + proyecto.titulo + '</p><hr>';
+                                    proyectosContainer.append(proyectoHTML);
+                                });
+                                row.find('td.proyectos-cell').html(proyectosContainer);
+                                
+                                const categoriasHTML = '<p>' + proyectos.map(function (proyecto) {
+                                    return '<p>' + proyecto.categorias.join(', ') + '</p><hr>';
+                                }).join('</p>') + '</p>';
+                                row.find('td:eq(4)').html(categoriasHTML);
+
+                                const tiposHTML = '<p>' + proyectos.map(function (proyecto) {
+                                    return '<p>' + proyecto.tipos.join(', ') + '</p><hr>';
+                                }).join('</p>') + '</p>';
+                                row.find('td:eq(5)').html(tiposHTML);
+                            } else {
+                                row.find('td.proyectos-cell').text('N/A');
+                                row.find('td:eq(4)').text('N/A');
+                                row.find('td:eq(5)').text('N/A');
+                            }
+
+                            row.find('td:eq(6)').text(totalCategorias);
+                            row.find('td:eq(7)').text(totalTipos);
+                        });
+                        informeContainer.append(table);
+                    } else {
+                        informeContainer.html('<p style="text-align: center;"> No se encontraron usuarios para la facultad seleccionada.</p>');
+                    }
+                },
+                error: function () {
+                    informeContainer.html('<p style="text-align: center;">Error al cargar el informe.</p>');
+                }
+            });
+        });
+    });
+</script>
+
+
+---------------------------------------------------------------------------
+FACULTAD Y PROGRAMA
+
+#----------------- //  VIEWS.PY  \\ -----------------
+@login_required
+def Admin_informe(request):
+    if request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest' and request.method == 'GET':
+        facultad_seleccionada = request.GET.get('facultad')
+        fecha_inicio = request.GET.get('fecha_inicio')
+        fecha_fin = request.GET.get('fecha_fin')
+        identificacion = request.GET.get('identificacion')
+
+        usuarios = User.objects.filter(usuario__facultad=facultad_seleccionada)
+
+        if fecha_inicio and fecha_fin:
+            proyectos = Proyecto.objects.filter(usuario__in=usuarios, fecha_inscripcion__range=[fecha_inicio, fecha_fin])
+        else:
+            proyectos = Proyecto.objects.filter(usuario__in=usuarios)
+        
+        if identificacion:
+            usuarios = usuarios.filter(usuario__identificacion=identificacion)
+
+        data = []
+        for usuario in usuarios:
+            usuario_info = {'nombre': usuario.usuario.nombre, 'identificacion': usuario.usuario.identificacion}
+
+            proyectos_usuario = proyectos.filter(usuario=usuario)
+            proyectos_info = []
+
+            for proyecto in proyectos_usuario:
+                proyecto_info = {'titulo': proyecto.titulo}
+                productos_proyecto = Producto.objects.filter(proyecto=proyecto)
+
+                categorias = set()
+                tipos = set()
+                for producto in productos_proyecto:
+                    categorias.add(producto.categoria)
+                    tipos.add(producto.tipo_producto)
+
+                proyecto_info['categorias'] = list(categorias)
+                proyecto_info['tipos'] = list(tipos)
+
+                proyectos_info.append(proyecto_info)
+
+            data.append({'usuario': usuario_info, 'proyectos': proyectos_info})
+
+        response_data = {
+            'data': data,
+        }
+
+        return JsonResponse(response_data)
+    else:
+        cont_users_Ing = User.objects.filter(usuario__facultad='Ingenieria').count()
+        cont_users_Hum = User.objects.filter(usuario__facultad='Humanidades').count()
+        cont_users_Adm = User.objects.filter(usuario__facultad='Ciencias_Admin').count()
+        cont_users_Edu = User.objects.filter(usuario__facultad='Educacion').count()
+        
+        Cont_Users_Facultad = {
+            'cont_users_Ing': cont_users_Ing,
+            'cont_users_Hum': cont_users_Hum,
+            'cont_users_Adm': cont_users_Adm,
+            'cont_users_Edu': cont_users_Edu,
+        }
+
+        return render(request, 'Vicerrectoria_Admin/Admin_informe.html', Cont_Users_Facultad)
+
+
+#----------------- //  HTML+SCRIPT  \\ -----------------
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}">
+        <title>SeedResearchTool</title>
+
+        <style>
+            hr {
+                width: 60%;
+                margin: 0 auto;
+                border: 1px solid #000000;
+            }
+
+            #facultad-selector {
+                font-size: 16px;
+                padding: 10px;
+            }
+
+            #informe-facultad-container {
+                margin-top: 20px;
+            }
+
+
+            <!--------------------------------Tabla Facultad---------------------------------->
+            .table-informe {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 50px;
+            }
+
+            .table-informe th,
+            .table-informe td {
+                text-align: center;
+                padding: 10px;
+                border: 2px solid #000000;
+                font-size: 10px;
+            }
+            <!--N°-->
+            .table-informe th:nth-child(1),
+            .table-informe td:nth-child(1) {
+                width: 1%;
+                padding: 0px;
+            }
+            <!--Nombre-->
+            .table-informe th:nth-child(2),
+            .table-informe td:nth-child(2) {
+                width: 10%;
+                padding: 0px;
+            }
+            <!--Identificacion-->
+            .table-informe th:nth-child(3),
+            .table-informe td:nth-child(3) {
+                width: 4%;
+                padding: 0px;
+            }
+            <!--Proyectos-->
+            .table-informe th:nth-child(4),
+            .table-informe td:nth-child(4) {
+                width: 20%;
+                padding: 0px;
+            }
+            <!--Categoria-->
+            .table-informe th:nth-child(5),
+            .table-informe td:nth-child(5) {
+                width: 20%;
+                padding: 0px;
+            }
+            <!--Tipo-->
+            .table-informe th:nth-child(6),
+            .table-informe td:nth-child(6) {
+                width: 40%;
+                padding: 0px;
+            }<!--Total C-->
+            .table-informe th:nth-child(7),
+            .table-informe td:nth-child(7) {
+                width: 1%;
+                padding: 0px;
+            }
+            <!--Total P-->
+            .table-informe th:nth-child(8),
+            .table-informe td:nth-child(8) {
+                width: 1%;
+                padding: 0px;
+            }
+            <!--------------------------------------------------------------------------------->
+
+        </style>
+    </head>
+
+    <body>
+        
+        <br>
+        <hr>
+        <br>
+
+        <!-- Cantidad de Docentes por facultad -->
+        <div class="container" style="width: 50%;">
+            <div style="text-align: center;">
+                <h3>Docentes Registrados Por Facultad</h3>
+                <div style="text-align: center;">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; border: 1px solid rgb(187, 187, 187);">Ingeniería</th>
+                        <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; border: 1px solid rgb(187, 187, 187);">Humanidades</th>
+                        <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; border: 1px solid rgb(187, 187, 187);">Ciencias</th>
+                        <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; border: 1px solid rgb(187, 187, 187);">Educación</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; border: 1px solid rgb(187, 187, 187);">{{ cont_users_Ing }}</td>
+                        <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; border: 1px solid rgb(187, 187, 187);">{{ cont_users_Hum }}</td>
+                        <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; border: 1px solid rgb(187, 187, 187);">{{ cont_users_Adm }}</td>
+                        <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; border: 1px solid rgb(187, 187, 187);">{{ cont_users_Edu }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <hr>
+        <br>
+
+        <div class="container text-center">
+            <h3>INFORME #1</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <select id="facultad-selector" style="text-align: center;">
+                        <option>* Seleccione *</option>
+                        <option value="Humanidades">Humanidades</option>
+                        <option value="Ciencias_Admin">Ciencias Administrativas</option>
+                        <option value="Ingenieria">Ingenieria</option>
+                        <option value="Educacion">Educación</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="programa">Programa:</label>
+                    <select id="programa-selector" name="programa" style="text-align: center;">
+                        <!-- Las opciones de programa se llenarán dinámicamente -->
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="container">
+            <h4>Busqueda Avanzada</h4><br>
+            <div class="row">
+                <div class="col">
+                    <input type="text" class="form-control" id="identificacion" name="identificacion" placeholder="Identificacion">
+                </div>
+
+                <div class="col">
+                    <input type="date" class="form-control" id="fecha-inicio" name="fecha-inicio">
+                </div>
+                <div class="col">
+                    <input type="date" class="form-control" id="fecha-fin" name="fecha-fin">
+                </div>
+                
+                <div class="col">
+                    <button type="button" class="btn btn-primary" id="buscar-btn">Buscar</button>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="informe-facultad-container">
+        </div>
+
+        <br>
+        <br>
+
+
+        <!-- SCRIPTS-SECTION -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <!-- Informe dinámico por FACULTAD -->
+        <script>
+            $(document).ready(function() {
+                const facultadSelector = $('#facultad-selector');
+                const informeContainer = $('#informe-facultad-container');
+                const fechaInicioInput = $('#fecha-inicio');
+                const fechaFinInput = $('#fecha-fin');
+                const identificacionInput = $('#identificacion');
+                const buscarButton = $('#buscar-btn');
+
+                function actualizarInforme() {
+                    let rowNum = 1;
+
+                    const fechaInicio = fechaInicioInput.val();
+                    const fechaFin = fechaFinInput.val();
+                    const selectedFacultad = facultadSelector.val();
+                    const identificacion = identificacionInput.val(); // Obtener la identificación ingresada
+
+                    $.ajax({
+                        url: '/users/Admin-informe/',
+                        type: 'GET',
+                        data: {
+                            'facultad': selectedFacultad,
+                            'fecha_inicio': fechaInicio,
+                            'fecha_fin': fechaFin,
+                            'identificacion': identificacion // Pasar la identificación como parámetro
+                        },
+                        success: function(data) {
+                            informeContainer.empty();
+                            if (data.data.length > 0) {
+                                const table = $('<table class="table-informe"><thead><tr><th>#</th><th>Nombre</th><th>Identificación</th><th>Proyectos</th><th>Categorías</th><th>Tipos</th><th>Total C.</th></tr></thead><tbody></tbody></table>');
+                                const tbody = table.find('tbody');
+
+                                data.data.forEach(function(info) {
+                                    const usuario = info.usuario;
+                                    const proyectos = info.proyectos;
+
+                                    const row = $('<tr><td>' + rowNum + '</td><td>' + usuario.nombre + '</td><td>' + usuario.identificacion + '</td><td></td><td></td><td></td><td></td></tr>');
+                                    tbody.append(row);
+                                    rowNum++;
+
+                                    if (proyectos.length > 0) {
+                                        const proyectosHTML = '<ul>' + proyectos.map(function(proyecto) {
+                                            return '<li>' + proyecto.titulo + '</li><br>';
+                                        }).join('</li>') + '</ul>';
+                                        row.find('td:eq(3)').html(proyectosHTML);
+
+                                        const categoriasHTML = '<ul>' + proyectos.map(function(proyecto) {
+                                            return '<li>' + proyecto.categorias.join(', ') + '</li><br>';
+                                        }).join('</li>') + '</ul>';
+                                        row.find('td:eq(4)').html(categoriasHTML);
+
+                                        const tiposHTML = '<ul>' + proyectos.map(function(proyecto) {
+                                            return '<li>' + proyecto.tipos.join(', ') + '</li><br>';
+                                        }).join('</li>') + '</ul>';
+                                        row.find('td:eq(5)').html(tiposHTML);
+                                    } else {
+                                        row.find('td:eq(3)').text('N/A');
+                                        row.find('td:eq(4)').text('N/A');
+                                        row.find('td:eq(5)').text('N/A');
+                                    }
+                                });
+                                informeContainer.append(table);
+                            } else {
+                                informeContainer.html('<p style="text-align: center;"style="text-align: center;">No se encontraron usuarios para la facultad seleccionada.</p>');
+                            }
+                        },
+                        error: function() {
+                            informeContainer.html('<p style="text-align: center;">Error al cargar el informe.</p>');
+                        }
+                    });
+                }
+
+                // Escucha cambios en el selector de facultades
+                facultadSelector.on('change', function() {
+                    actualizarInforme();
+                });
+
+                // Escucha cambios en los campos de fecha
+                fechaInicioInput.on('change', function() {
+                    actualizarInforme();
+                });
+
+                fechaFinInput.on('change', function() {
+                    actualizarInforme();
+                });
+
+                // Agregar manejo de clic al botón de búsqueda
+                buscarButton.on('click', function() {
+                    actualizarInforme();
+                });
+            });
+        </script>
+    </body>
+
+</html>
+---------------------------------------------------------------------------
+
+NOSE QUE ES ESTO PERO ES LO ULTIMO:
+
+  <div class="container">
+    <br>
+    <div class="text-center">
+      <h2><strong>Investigador: </strong>{{ usuario.nombre }}</h2>
+      <h2><strong>Proyecto: </strong>{{ proyecto.titulo }}</h2>
+    </div>
+    <br>
+
+
+    {% for producto in productos %}
+
+      <div class="container-c-p">
+        <div class="container-c-p-1">
+          <div class="container-c-p text-center">
+            <h3 style="color: white;">Tipo de producto: <strong>{{ producto.tipo_producto }}</strong></h3>
+          </div>
+          <br>
+
+          <!--- EVIDENCIAS 1 -->
+          <div class="container-c-p-2">
+            <div class="text-center"><h4><strong>Informe N°1 de evidencias</strong></h4></div>
+            {% if portafolios %}
+              {% for portafolio in portafolios %}
+                {% if portafolio.producto == producto %}
+                  <div class="producto">
+
+                    {% if portafolio.avance_1_fecha %}
+                      <p class="producto-estado"><strong>Fecha:</strong> {{portafolio.avance_1_fecha}}</p>
+                    {% endif %}
+
+                    {% if portafolio.avance_1_nombre %}
+                      <p class="producto-nombre"><strong>Nombre De Producto:</strong> {{ portafolio.avance_1_nombre }}</p>
+                    {% endif %}
+
+                    {% if portafolio.avance_1_descripcion %}
+                      <p class="producto-descripcion"><strong>Descripción:</strong> {{ portafolio.avance_1_descripcion }}</p>
+                    {% endif %}
+
+                    {% if portafolio.avance_1_link %}
+                      <p class="producto-link"><strong>Link:</strong> {{ portafolio.avance_1_link }}</p>                
+                    {% endif %}
+
+                    {% if portafolio.avance_1_adjunto %}
+                      <p class="producto-adjunto"><strong>Adjunto:</strong> <a href="{{ portafolio.avance_1_adjunto.url }}">Descargar adjunto</a></p>
+                    {% endif %}
+
+                    {% if portafolio.avance_1_nombre or portafolio.avance_1_descripcion or portafolio.avance_1_link or portafolio.avance_1_adjunto %}
+
+                      {% if portafolio.avance_1_estado %}
+                        {% if portafolio.avance_1_estado == "No Revisado" %}
+                          <p class="producto-adjunto"><strong>Estado:</strong><span style="color: orange; font-size: 20px;"><strong> {{portafolio.avance_1_estado}}</strong> </span></p>
+                        {% endif %}
+
+                        {% if portafolio.avance_1_estado == "Correcciones Requeridas" %}
+                          <p class="producto-adjunto"><strong>Estado:</strong><span style="color: red; font-size: 20px;"><strong> {{portafolio.avance_1_estado}}</strong> </span></p>
+                          {% if portafolio.avance_1_correcciones_realizadas %}
+                            <p><strong>Oservaciones Atendidas por el Docente: </strong><span style="color: green; font-size: 25px;" ><strong>SI</strong></span></p>
+                          {% else %}
+                            <p><strong>Oservaciones Atendidas por el Docente: </strong>NO</p>
+                          {% endif %}
+                          <p><strong>Correcion Pendiente:</strong> {{ portafolio.avance_1_observacion }}</p>
+                        {% endif %}
+
+                        {% if portafolio.avance_1_estado == "Aceptado" %}
+                          <p class="producto-adjunto"><strong>Estado:</strong><span style="color: green; font-size: 20px;"><strong> {{portafolio.avance_1_estado}}</strong> </span></p>
+                        {% endif %}
+                      {% endif %}
+
+                      <a href="{% url 'Users:aceptar_estado' portafolio.id 1 %}" class="btn btn-success icon-btn">&#10003;</a>
+                      <a href="{% url 'Users:eliminar_estado' portafolio.id 1 %}" class="btn btn-danger icon-btn">X</a>
+
+                      <button id="boton-correcion" class="btn btn-warning">&#9888;</button>
+                      
+                      <div id="mostrarcorrecion" style="display: none;">
+                        <form method="post" action="{% url 'Users:enviar_correcciones' portafolio.id 1 %}">
+                          {% csrf_token %}
+                          <br>
+                          <textarea class="form-control" name="corrections_message" placeholder="Ingrese correcciones u observaciones" rows="2" required></textarea>
+                          <br>
+                          <button class="btn btn-secondary" type="submit">Enviar</button>
+                        </form>
+                      </div>
+                    {% endif %}
+
+                  </div>
+                {% endif %}
+              {% endfor %}
+            {% else %}
+              <p class="no-evidencias">El Docente Aun no Sube evidencias Del Primer Informe</p>
+            {% endif %}
+          </div>
+
+          <br>
+          <!--- EVIDENCIAS 2 -->
+          <div class="container-c-p-2">
+            <div class="text-center"><h4><strong>Informe N°2 de evidencias</strong></h4></div>
+            {% if portafolios %}
+              {% for portafolio in portafolios %}
+                {% if portafolio.producto == producto %}
+                  <div class="producto">
+                    {% if portafolio.avance_2_fecha %}
+                      <p class="producto-estado"><strong>Fecha:</strong> {{portafolio.avance_2_fecha}}</p>
+                    {% endif %}
+
+                    {% if portafolio.avance_2_descripcion %}
+                      <p class="producto-descripcion"><strong>Descripción:</strong> {{ portafolio.avance_2_descripcion }}</p>
+                    {% endif %}
+
+                    {% if portafolio.avance_2_link %}
+                      <p class="producto-link"><strong>Link:</strong> {{ portafolio.avance_2_link }}</p>                
+                    {% endif %}
+
+                    {% if portafolio.avance_2_adjunto %}
+                      <p class="producto-adjunto"><strong>Adjunto:</strong> <a href="{{ portafolio.avance_2_adjunto.url }}">Descargar adjunto</a></p>
+                    {% endif %}
+
+                    {% if portafolio.avance_2_descripcion or portafolio.avance_2_link or portafolio.avance_2_adjunto %}
+                      
+                      {% if portafolio.avance_2_estado %}
+                        {% if portafolio.avance_2_estado == "No Revisado" %}
+                          <p class="producto-adjunto"><strong>Estado:</strong><span style="color: orange; font-size: 20px;"><strong> {{portafolio.avance_2_estado}}</strong> </span></p>
+                        {% endif %}
+
+                        {% if portafolio.avance_2_estado == "Correcciones Requeridas" %}
+                          <p class="producto-adjunto"><strong>Estado:</strong><span style="color: red; font-size: 20px;"><strong> {{portafolio.avance_2_estado}}</strong> </span></p>
+                          {% if portafolio.avance_2_correcciones_realizadas %}
+                            <p><strong>Oservaciones Atendidas por el Docente: </strong><span style="color: green; font-size: 25px;" ><strong>SI</strong></span></p>
+                          {% else %}
+                            <p><strong>Oservaciones Atendidas por el Docente: </strong>NO</p>
+                          {% endif %}
+                          <p><strong>Correcion Pendiente:</strong> {{ portafolio.avance_2_observacion }}</p>
+                        {% endif %}
+
+                        {% if portafolio.avance_2_estado == "Aceptado" %}
+                          <p class="producto-adjunto"><strong>Estado:</strong><span style="color: green; font-size: 20px;"><strong> {{portafolio.avance_2_estado}}</strong> </span></p>
+                        {% endif %}
+                      {% endif %}
+
+                      <a href="{% url 'Users:aceptar_estado' portafolio.id 2 %}" class="btn btn-success icon-btn">&#10003;</a>
+                      <a href="{% url 'Users:eliminar_estado' portafolio.id 2 %}" class="btn btn-danger icon-btn">X</a>
+
+                      <button id="boton-correcion2" class="btn btn-warning">&#9888;</button>
+                      <div id="mostrarcorrecion2" style="display: none;">
+                        <form method="post" action="{% url 'Users:enviar_correcciones' portafolio.id 2 %}">
+                          {% csrf_token %}
+                          <br>
+                          <textarea class="form-control" name="corrections_message" placeholder="Ingrese correcciones u observaciones" rows="2" required></textarea>
+                          <br>
+                          <button class="btn btn-secondary" type="submit">Enviar</button>
+                        </form>
+                      </div>
+                    {% endif %}
+
+                  </div>
+                {% endif %}
+              {% endfor %}
+            {% else %}
+              <p class="no-evidencias">El Docente Aun no Sube evidencias Del Segundo Informe</p>
+            {% endif %}
+          </div>
+          <br>
+          
+          <!--- EVIDENCIAS 3 -->
+          <div class="container-c-p-2">
+            <div class="text-center"><h4><strong>Informe N°3 de evidencias</strong></h4></div>
+            {% if portafolios %}
+              {% for portafolio in portafolios %}
+                {% if portafolio.producto == producto %}
+                  <div class="producto">
+                    {% if portafolio.avance_3_fecha %}
+                      <p class="producto-estado"><strong>Fecha:</strong> {{portafolio.avance_3_fecha}}</p>
+                    {% endif %}
+                    {% if portafolio.avance_3_descripcion %}
+                      <p class="producto-descripcion"><strong>Descripción:</strong> {{ portafolio.avance_3_descripcion }}</p>
+                    {% endif %}
+                    {% if portafolio.avance_3_link %}
+                      <p class="producto-link"><strong>Link:</strong> {{ portafolio.avance_3_link }}</p>                
+                    {% endif %}
+                    {% if portafolio.avance_3_adjunto %}
+                      <p class="producto-adjunto"><strong>Adjunto:</strong> <a href="{{ portafolio.avance_3_adjunto.url }}">Descargar adjunto</a></p>
+                    {% endif %}
+
+                    {% if portafolio.avance_3_descripcion or portafolio.avance_3_link or portafolio.avance_3_adjunto %}
+
+                      {% if portafolio.avance_3_estado %}
+                        {% if portafolio.avance_3_estado == "No Revisado" %}
+                          <p class="producto-adjunto"><strong>Estado:</strong><span style="color: orange; font-size: 20px;"><strong> {{portafolio.avance_3_estado}}</strong> </span></p>
+                        {% endif %}
+
+                        {% if portafolio.avance_3_estado == "Correcciones Requeridas" %}
+                          <p class="producto-adjunto"><strong>Estado:</strong><span style="color: red; font-size: 20px;"><strong> {{portafolio.avance_3_estado}}</strong> </span></p>
+                          {% if portafolio.avance_3_correcciones_realizadas %}
+                            <p><strong>Oservaciones Atendidas por el Docente: </strong><span style="color: green; font-size: 25px;" ><strong>SI</strong></span></p>
+                          {% else %}
+                            <p><strong>Oservaciones Atendidas por el Docente: </strong>NO</p>
+                          {% endif %}
+                          <p><strong>Correcion Pendiente:</strong> {{ portafolio.avance_3_observacion }}</p>
+                        {% endif %}
+
+                        {% if portafolio.avance_3_estado == "Aceptado" %}
+                          <p class="producto-adjunto"><strong>Estado:</strong><span style="color: green; font-size: 20px;"><strong> {{portafolio.avance_3_estado}}</strong> </span></p>
+                        {% endif %}
+                      {% endif %}
+
+                      <a href="{% url 'Users:aceptar_estado' portafolio.id 3 %}" class="btn btn-success icon-btn">&#10003;</a>
+                      <a href="{% url 'Users:eliminar_estado' portafolio.id 3 %}" class="btn btn-danger icon-btn">X</a>
+
+                      <button id="boton-correcion3" class="btn btn-warning">&#9888;</button>
+                      <div id="mostrarcorrecion3" style="display: none;">
+                        <form method="post" action="{% url 'Users:enviar_correcciones' portafolio.id 3 %}">
+                          {% csrf_token %}
+                          <br>
+                          <textarea class="form-control" name="corrections_message" placeholder="Ingrese correcciones u observaciones" rows="2" required></textarea>
+                          <br>
+                          <button class="btn btn-secondary" type="submit">Enviar</button>
+                        </form>
+                      </div>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              {% endfor %}
+            {% else %}
+              <p class="no-evidencias">El Docente Aun no Sube evidencias Del Informe Final</p>
+            {% endif %}
+          </div>
+
+          <br>
+
+        </div>
+      </div>
+      
+      <br>
+      <br>
+    {% endfor %}
+
+    <br>
+    <br>
+
+    {% else %}
+
+      <br>
+      <div class="alert alert-danger text-center" role="alert">
+          <h5 class="no-permisos">No tienes permisos para acceder a esta página.</p>
+          {% if user.is_authenticated %}
+              <a href="{% url 'Users:Users_Home' %}" class="btn btn-primary">Ir al Portal de Docente Investigador</a>
+          {% endif %}
+          <a href="{% url 'Pagina_Principal' %}" class="btn btn-primary">Página Principal</a>
+      </div>
+    {% endif %}
+
+  </div>
+  </div>

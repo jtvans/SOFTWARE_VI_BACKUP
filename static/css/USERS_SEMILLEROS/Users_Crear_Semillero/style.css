@@ -1,31 +1,36 @@
 /* Google Font Link */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
-*{
+
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins" , sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
-body{
-    min-height: 100vh;
-    align-items: center;
-    justify-content: center;
-    background-image: url('/static/images/USERS_SEMILLEROS/Users_Crear_Semillero/');
-    background-repeat: no-repeat;
-    background-size: 50%;
-  }
+body {
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background-image: url('/static/images/USERS_SEMILLEROS/Fondo_3.avif');
+  background-repeat: repeat;
+  background-size: 100%;
+}
 
 
 /* ------------- NAVAR ----------------- */
 .navbar {
+  width: 100%;
   background-color: #1300fd;
-  padding: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 9999;
+  padding: 0;
 }
 
 .navbar-brand img {
@@ -41,11 +46,11 @@ body{
 }
 
 .navbar-item {
-  margin-right: 20px;
+  padding-left: 55px;
 }
 
 .navbar-item a {
-  padding: 16px;
+  padding: 15px;
   color: #ffffff;
   text-decoration: none;
   font-size: 16px;
@@ -86,12 +91,13 @@ body{
 .ajuste-izquierda {
   margin-left: 20px;
 }
+
 /* ------------------------------------- */
 
-  
+
 /* -------------- CARDS --------------- */
 .card-title {
-    color: #fff;
+  color: #fff;
 }
 
 
@@ -99,84 +105,88 @@ body{
 
 /* Estilos para el campo "Grupo Investigacion" */
 .mb-3 label[for="id_grupo_investigacion"] {
-    font-weight: bold;
-    color: #333;
+  font-weight: bold;
+  color: #333;
 }
 
 .mb-3 select#id_grupo_investigacion {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    color: #9c9b9b;
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #9c9b9b;
 }
 
 /* Estilos para el campo "Linea Investigacion" */
 .mb-3 label[for="id_linea_investigacion"] {
-    font-weight: bold;
-    color: #333;
+  font-weight: bold;
+  color: #333;
 }
 
 .mb-3 select#id_linea_investigacion {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    color: #555;
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #555;
 }
 
 /* ------------------------------------- */
 .container-c-p {
-    background-color: #1300fd; /* Color de fondo deseado */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #1300fd;
+  /* Color de fondo deseado */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .container-c-p-1 {
-    background-color: #f2f2f1; /* Color de fondo deseado */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #f2f2f1;
+  /* Color de fondo deseado */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .container-c-p-2 {
-    background-color: #dcdcdc; /* Color de fondo deseado */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #dcdcdc;
+  /* Color de fondo deseado */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .container-c-p h2.card-title,
 .container-c-p h6.card-title {
-    color: #fff; /* Color blanco */
+  color: #fff;
+  /* Color blanco */
 }
 
 /* ------------------------------------- */
 
 /* Estilos para el contenedor de las actividades */
 .card.mb-4 {
-    background-color: #1300fd;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #1300fd;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 /* Estilos para el título de las actividades */
 .card.mb-4 h2.card-title {
-    color: #fff;
-    font-size: 24px;
-    font-weight: bold;
-    text-align: center;
+  color: #fff;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
 }
 
 /* Estilos para el subtítulo de las actividades */
 .card.mb-4 h6.card-title {
-    color: #fff;
-    font-size: 16px;
-    text-align: center;
+  color: #fff;
+  font-size: 16px;
+  text-align: center;
 }
 
 /* ------------------------------------- */
@@ -193,7 +203,8 @@ body{
 }
 
 .card.mb-4 textarea {
-  resize: vertical; /* Permite redimensionar verticalmente el textarea */
+  resize: vertical;
+  /* Permite redimensionar verticalmente el textarea */
 }
 
 /* Estilos para las etiquetas (labels) en actividades */
@@ -204,21 +215,23 @@ body{
 
 /* ------------------------------------- */
 .btn-actividad {
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    color: #fff;
-    background-color: #1300fd; /* Color de fondo deseado */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-  }
-  
-  .btn-actividad:hover {
-    background-color: #ffffff; /* Color de fondo deseado al pasar el cursor */
-    color: #1300fd;
-  }
-  
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  background-color: #1300fd;
+  /* Color de fondo deseado */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.btn-actividad:hover {
+  background-color: #ffffff;
+  /* Color de fondo deseado al pasar el cursor */
+  color: #1300fd;
+}
+
 /* ------------------------------------- */
 
 .firmas {
@@ -226,7 +239,7 @@ body{
 }
 
 .firma-estudiante {
-  flex: 1; 
+  flex: 1;
   margin-right: 30px;
 }
 
@@ -237,14 +250,14 @@ body{
 .posicion {
   display: flex;
 }
+
 .posicion-derecha {
-  flex: 1; 
+  flex: 1;
   margin-left: 50%;
 }
 
 
 /* ------------------------------------- */
-  
 /* Seccion de Acciones Semilleros */
 article {
   --img-scale: 1.001;
@@ -299,11 +312,11 @@ article a {
   display: inline-flex;
   align-items: center;
   text-decoration: none;
-  color: #6300cd;
+  color: #1300fd;
 }
 
 article a:focus {
-  outline: 1px dotted #6300cd;
+  outline: 1px dotted #1300fd;
 }
 
 article a .icon {
@@ -319,7 +332,7 @@ article a .icon {
 /* using the has() relational pseudo selector to update our custom properties */
 article:has(:hover, :focus) {
   --img-scale: 1.1;
-  --title-color: #6300cd;
+  --title-color: #1300fd;
   --link-icon-translate: 0;
   --link-icon-opacity: 1;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
@@ -327,8 +340,8 @@ article:has(:hover, :focus) {
 }
 
 /************************ 
-Generic layout (demo looks)
-**************************/
+  Generic layout (demo looks)
+  **************************/
 
 *,
 *::before,
@@ -346,27 +359,6 @@ Generic layout (demo looks)
 }
 
 
-@media (min-width: 380px) {
-  .article-wrapper {
-    display: grid;
-    grid-template-columns: 100px 1fr;
-    gap: 16px;
-  }
-  .article-body {
-    padding-left: 0;
-  }
-  figure {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-  }
-  figure img {
-    height: 100%;
-    aspect-ratio: 1;
-    object-fit: cover;
-  }
-}
-
 .sr-only:not(:focus):not(:active) {
   clip: rect(0 0 0 0);
   clip-path: inset(50%);
@@ -377,4 +369,225 @@ Generic layout (demo looks)
   width: 1px;
 }
 
-/*-------------------------------------------------*/
+/*--------------------------*/
+.table-responsive {
+  overflow-x: auto;
+}
+
+
+
+/*-------------------------------------------------------------------------------------*/
+/* RESPONSIVE */
+@media (max-width: 968px) {
+  .navbar-item {
+    padding-left: 5px;
+  }
+
+  .navbar-item a {
+    padding: 13px;
+    font-size: 14px;
+  }
+
+  /*---------------------------------*/
+  #cursos-table {
+    display: block;
+  }
+  #cursos-table tbody {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  #cursos-table tbody tr {
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+  }
+  #cursos-table tbody td {
+    display: block;
+    text-align: left;
+  }
+  #cursos-table thead {
+    display: none;
+  }
+
+  /*---------------------------------*/
+  #semillero-proyecto {
+    display: block;
+  }
+  #semillero-proyecto tbody {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  #semillero-proyecto tbody tr {
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+  }
+  #semillero-proyecto tbody td {
+    display: block;
+    text-align: left;
+  }
+  #semillero-proyecto thead {
+    display: none;
+  }
+
+  /*----------------------------------*/
+  #actividades-table {
+    display: block;
+  }
+  #actividades-table tbody {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  #actividades-table tbody tr {
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+  }
+  #actividades-table tbody td {
+    display: block;
+    text-align: left;
+  }
+  #actividades-table thead {
+    display: none;
+  }
+
+  .firma-estudiante {
+    font-size: 14px;
+  }
+  
+  .firma-docente {
+    font-size: 14px;
+  }
+
+}
+@media (max-width: 350px) {
+  article {
+    --img-scale: 1.001;
+    --title-color: black;
+    --link-icon-translate: -20px;
+    --link-icon-opacity: 0;
+    position: relative;
+    border-radius: 16px;
+    box-shadow: none;
+    background: #fff;
+    transform-origin: center;
+    transition: all 0.4s ease-in-out;
+    overflow: hidden;
+  }
+  
+  article a::after {
+    position: absolute;
+    inset-block: 0;
+    inset-inline: 0;
+    cursor: pointer;
+    content: "";
+  }
+  
+  /* basic article elements styling */
+  article h2 {
+    margin: 0 0 18px 0;
+    font-size: 20px;
+    letter-spacing: 0.06em;
+    color: var(--title-color);
+    transition: color 0.3s ease-out;
+  }
+  
+  figure {
+    margin: 0;
+    padding: 0;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+  }
+  
+  article img {
+    max-width: 100%;
+    transform-origin: center;
+    transform: scale(var(--img-scale));
+    transition: transform 0.4s ease-in-out;
+  }
+  
+  .article-body {
+    padding: 24px;
+  }
+  
+  article a {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    color: #1300fd;
+  }
+  
+  article a:focus {
+    outline: 1px dotted #1300fd;
+  }
+  
+  article a .icon {
+    min-width: 24px;
+    width: 30px;
+    height: 30px;
+    margin-left: 5px;
+    transform: translateX(var(--link-icon-translate));
+    opacity: var(--link-icon-opacity);
+    transition: all 0.3s;
+  }
+  
+  /* using the has() relational pseudo selector to update our custom properties */
+  article:has(:hover, :focus) {
+    --img-scale: 1.1;
+    --title-color: #1300fd;
+    --link-icon-translate: 0;
+    --link-icon-opacity: 1;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
+      rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+  }
+  
+  /************************ 
+    Generic layout (demo looks)
+  **************************/
+  
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  
+  .articles {
+    display: grid;
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-inline: 1px;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+  }  
+
+  .navbar-item a {
+    padding: 12px;
+    font-size: 12px;
+  }
+
+  .firma-estudiante {
+    font-size: 12px;
+  }
+  
+  .firma-docente {
+    font-size: 12px;
+  }
+
+}
+
+
+
+/*Reducir/Aumentar - Navbar*/
+@media (max-width: 1280px) {
+  .navbar-item {
+    padding-left: 0px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .navbar-item {
+    padding-left: 150px;
+  }
+}
+
+/*----------------------------------------------------------------------------------------------------*/

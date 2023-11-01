@@ -18,6 +18,7 @@ urlpatterns = [
     path('eliminar_producto/<int:producto_id>/', views.eliminar_producto, name='eliminar_producto'),
     path('descargar_pdf/<int:proyecto_id>/', views.descargar_pdf, name='descargar_pdf'),
     path('ver_plan_trabajo/<int:proyecto_id>/', views.ver_plan_trabajo, name='ver_plan_trabajo'),
+    path('descargar_plan_trabajo/<int:proyecto_id>/', views.descargar_plan_trabajo, name='descargar_plan_trabajo'),
 
 
     # Portafolio

@@ -39,6 +39,11 @@ urlpatterns = [
     path('Admin_porcentaje_general/', views.Admin_porcentaje_general, name='Admin_porcentaje_general'),
     path('Admin_aprobar_proyecto/<int:proyecto_id>/<int:usuario_id>/', views.Admin_aprobar_proyecto, name='Admin_aprobar_proyecto'),
 
+
+    path('Admin-informes/', views.Admin_informes, name='Admin_informes'),
+    path('Admin-informe-facultad-programa/', views.Admin_informe_facultad_programa, name='Admin_informe_facultad_programa'),
+    path('Admin-informe-categoria-producto/', views.Admin_informe_categoria_producto, name='Admin_informe_categoria_producto'),
+
     # Usuario Estudiante -----------------------------------------------------------------------------------
     path('Users_E_consultar_identificacion/', views.Users_E_consultar_identificacion, name='Users_E_consultar_identificacion'),
     path('Users_E_registro_usuario/<str:nombre>/<str:identificacion>/<str:correo>/<str:programa>/<str:telefono>/', views.Users_E_registro_usuario, name='Users_E_registro_usuario'),

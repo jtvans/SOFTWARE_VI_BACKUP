@@ -330,15 +330,19 @@ class ActividadesSemilleroForm(forms.ModelForm):
     identificacion_estuidante_actividad_e = forms.CharField(max_length=20)
 
     nombre_actividad_e = forms.CharField(max_length=100)
-    descripcion_actividad_e = forms.CharField(max_length=100)
+    descripcion_actividad_e = forms.CharField(max_length=200)
     fecha_actividad_inicio_e = forms.DateField(widget=DateInput(attrs={'type': 'date'}), required=False)
     fecha_actividad_final_e = forms.DateField(widget=DateInput(attrs={'type': 'date'}), required=False)
     lugar_actividad_e = forms.CharField(max_length=100)
     ciudad_actividad_e = forms.CharField(max_length=100)
 
     participantes_actividad_e = forms.IntegerField(max_value=10, min_value=0)
-    adjunto_actividad_e = forms.FileField(required=False)
+    adjunto_actividad_e = forms.FileField(required=False, label='Adjuntar Evidencia')
 
     class Meta:
         model = ActividadesSemillero
         fields = ['nombre_estuidante_actividad_e', 'identificacion_estuidante_actividad_e', 'nombre_actividad_e', 'descripcion_actividad_e', 'fecha_actividad_inicio_e', 'fecha_actividad_final_e', 'lugar_actividad_e', 'ciudad_actividad_e', 'participantes_actividad_e', 'adjunto_actividad_e']
+
+# FORM ACTIVIDADES SEMILLERO [PARTICIPANTES] - ESTUDIANTE
+class BuscarEstudianteForm(forms.Form):
+    cedula_estudiante = forms.CharField(max_length=20, label='Cédula del Estudiante')

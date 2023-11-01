@@ -24,63 +24,71 @@
 <body>
 
   <!-- Navbar -->
-  <nav class="navbar">
+  <nav class="navbar navbar-expand-lg">
     <div class="navbar-brand">
         <a class="navbar-brand" href="{% url 'Users:Users_home' %}">
             <img src="{% static 'images/USERS_PROYECTOS/Users_Lista_Proyectos/Proyectos_Logo.png' %}" alt="" style="width: 240px; height: 60px;">
         </a>
     </div>
-    <ul class="navbar-menu">
-      {% if user.is_authenticated and not user.usuario_administrador %}
-      <li class="navbar-item">
-          <a class="nav-link" href="{% url 'Users:Users_home' %}">HOME</a>
-      </li>
-      <li class="navbar-item dropdown">
-          <a class="nav-link" href="#">PROYECTOS</a>
-          <div class="dropdown-content">
-              <a class="text-center" href="{% url 'Proyectos:crear_proyecto' %}">Crear Proyecto</a>
-              <a class="text-center" href="{% url 'Proyectos:lista_proyectos' %}">Lista de Proyectos</a>
-          </div>
-      </li>
-      <li class="navbar-item dropdown">
-          <a class="nav-link" href="#">SEMILLEROS</a>
-          <div class="dropdown-content">
-              <a class="text-center" href="{% url 'Semilleros:crear_semillero' %}">Crear Semillero</a>
-              <a class="text-center" href="{% url 'Semilleros:lista_semilleros' %}">Lista de Semilleros</a>
-          </div>
-      </li>
-      {% endif %}
-    </ul>
 
-    <ul class="navbar-menu ml-auto">
-      {% if user.is_authenticated and not user.usuario_administrador %}
-      <li class="navbar-item dropdown">
-          <a class="nav-link" href="#">GRUPOS INVESTIGACION</a>
-          <div class="dropdown-content">
-              <a class="text-center" href="{% url 'Users:Users_ver_grupos' %}">Ver Grupos</a>
-              <a class="text-center" href="{% url 'Users:Users_editar_grupos_investigacion' %}">Editar Grupos</a>
-          </div>
-      </li>
-      <li class="navbar-item dropdown">
-          <a class="nav-link" href="#">PERFIL</a>
-          <div class="dropdown-content">
-              <a class="text-center" href="{% url 'Users:Users_ver_perfil' %}">Ver Perfil</a>
-              <a class="text-center" href="{% url 'Users:Users_editar_perfil' %}">Editar Perfil</a>
-          </div>
-      </li>
-      <li class="navbar-item">                
-          <a class="nav-link fa" style="font-size:26px" href="{% url 'Users:logout' %}">&#xf011;</a>
-      </li>
-      {% else %}
-      <li class="navbar-item">
-          <a class="nav-link" href="{% url 'Users:Users_login' %}">INICIAR SESION</a>
-      </li>
-      <li class="navbar-item">
-          <a class="nav-link"
-              href="{% url 'Users:Users_consultar_identificacion' %}">REGISTRARSE</a>
-      </li>
-      {% endif %}
-    </ul>
+    <button style="color: white;" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span  class="navbar-toggler-icon" style="color: white;"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-menu">
+            {% if user.is_authenticated and not user.usuario_administrador %}
+            <li class="navbar-item">
+                <a class="nav-link" href="{% url 'Users:Users_home' %}">HOME</a>
+            </li>
+            <li class="navbar-item dropdown">
+                <a class="nav-link" href="#">PROYECTOS</a>
+                <div class="dropdown-content">
+                    <a class="text-center" href="{% url 'Proyectos:crear_proyecto' %}">Crear Proyecto</a>
+                    <a class="text-center" href="{% url 'Proyectos:lista_proyectos' %}">Lista de Proyectos</a>
+                </div>
+            </li>
+            <li class="navbar-item dropdown">
+                <a class="nav-link" href="#">SEMILLEROS</a>
+                <div class="dropdown-content">
+                    <a class="text-center" href="{% url 'Semilleros:crear_semillero' %}">Crear Semillero</a>
+                    <a class="text-center" href="{% url 'Semilleros:lista_semilleros' %}">Lista de Semilleros</a>
+                </div>
+            </li>
+            {% endif %}
+        </ul>
+
+        <ul class="navbar-menu ml-auto">
+            {% if user.is_authenticated and not user.usuario_administrador %}
+            <li class="navbar-item dropdown">
+                <a class="nav-link" href="#">GRUPOS INVESTIGACION</a>
+                <div class="dropdown-content">
+                    <a class="text-center" href="{% url 'Users:Users_ver_grupos' %}">Ver Grupos</a>
+                    <a class="text-center" href="{% url 'Users:Users_editar_grupos_investigacion' %}">Editar
+                        Grupos</a>
+                </div>
+            </li>
+            <li class="navbar-item dropdown">
+                <a class="nav-link" href="#">PERFIL</a>
+                <div class="dropdown-content">
+                    <a class="text-center" href="{% url 'Users:Users_ver_perfil' %}">Ver Perfil</a>
+                    <a class="text-center" href="{% url 'Users:Users_editar_perfil' %}">Editar Perfil</a>
+                </div>
+            </li>
+            <li class="navbar-item">
+                <a class="nav-link fa" style="font-size:26px;" href="{% url 'Users:logout' %}">&#xf011;</a>
+            </li>
+            {% else %}
+            <li class="navbar-item">
+                <a class="nav-link" href="{% url 'Users:Users_login' %}">INICIAR SESION</a>
+            </li>
+            <li class="navbar-item">
+                <a class="nav-link" href="{% url 'Users:Users_consultar_identificacion' %}">REGISTRARSE</a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
   </nav>
         
 
@@ -135,23 +143,26 @@
     <br>
     <br>
     <br>
-    <div class="modal-dialog">
+    <br>
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel"><strong>¿Confirmar Eliminar Proyecto?</strong></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <h4><strong>&#9888; ¿Estas Seguro? &#9888;</strong></h4>
-                <p><strong style="color: red;">Tenga en cuenta que al eliminar un proyecto. Se eliminaran todos los datos asociados a este y no se podran recuperar:</strong></p>
-                <p><strong>Productos</p></strong>
-                <p><strong>Evidencias</p></strong>
-                <p><strong>Portafolios</p></strong>
-                <p><strong>Cumplimientos</p></strong>
+                <h4><strong>&#9888; ¿Estás Seguro? &#9888;</strong></h4>
+                <p><strong style="color: red;">Tenga en cuenta que al eliminar un proyecto. Se eliminarán todos los datos asociados a este y no se podrán recuperar:</strong></p>
+                <ul>
+                    <li><strong>Productos</strong></li>
+                    <li><strong>Evidencias</strong></li>
+                    <li><strong>Portafolios</strong></li>
+                    <li><strong>Cumplimientos</strong></li>
+                </ul>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                <button type="button" class="btn btn-danger" id="eliminarProyecto" >Si</button>
+                <button type="button" class="btn btn-danger" id="eliminarProyecto">Sí</button>
             </div>
         </div>
     </div>
@@ -159,16 +170,14 @@
 
 
 
-  <br>
-  <br>
   <hr>
   <div class="container-title">
     <h2 class="centered-title">PROYECTO DE INVESTIGACION</h2>
     <form method="post" action="{% url 'Proyectos:descargar_pdf' proyecto.id %}">
         {% csrf_token %}
-        <button type="submit" class="download-button" style="background-color: rgb(123, 0, 255); color: rgb(255, 255, 255); padding: 10px 20px; border: none; border-radius: 5px; font-size: 20px; margin-right: 10px;">Descargar PDF</button>
+        <button type="submit" class="download-button">Descargar</button>
     </form>
-    <button type="button" class="btn btn-danger" style="background-color: red; color: rgb(255, 255, 255); padding: 10px 20px; border: none; border-radius: 5px; font-size: 20px;" data-bs-toggle="modal" data-bs-target="#exampleModal">Eliminar</button>
+    <button type="button" class="delete-button" data-bs-toggle="modal" data-bs-target="#exampleModal">Eliminar</button>
   </div>
 
    
@@ -203,8 +212,8 @@
         <p><strong>Nombre:</strong> {{ proyecto.nombre }}</p>
         <p><strong>Identificacion:</strong> {{ proyecto.identificacion }}</p>
         <p><strong>Telefono:</strong> {{ proyecto.telefono }}</p>
-        <p><strong>Correo:</strong> {{ proyecto.correo }}</p>
-        <p><strong>Cvlac:</strong> {{ proyecto.cvlac }}</p>
+        <p class="producto-link"><strong>Correo:</strong> {{ proyecto.correo }}</p>
+        <p class="producto-link"><strong>Cvlac:</strong> {{ proyecto.cvlac }}</p>
 
 
         {% if proyecto.co_investigador_1_nombre %}
@@ -214,10 +223,10 @@
             <h6><strong>Nombre:</strong> {{ proyecto.co_investigador_1_nombre }}</h6>
             <p><strong>Identificacion:</strong> {{ proyecto.co_investigador_1_identificacion }}</p>
             <p><strong>Telefono:</strong> {{ proyecto.co_investigador_1_telefono }}</p>
-            <p><strong>Correo:</strong> {{ proyecto.co_investigador_1_correo }}</p>
+            <p class="producto-link"><strong>Correo:</strong> {{ proyecto.co_investigador_1_correo }}</p>
             <p><strong>Formacion:</strong> {{ proyecto.co_investigador_1_formacion }}</p>
             <p><strong>Institución en la que labora:</strong> {{ proyecto.co_investigador_1_institucion }}</p>
-            <p><strong>Link CVLAC:</strong> {{ proyecto.co_investigador_1_cvlac }}</p>
+            <p class="producto-link"><strong>Link CVLAC:</strong> {{ proyecto.co_investigador_1_cvlac }}</p>
         {% endif %}
       </div>
 
@@ -261,15 +270,20 @@
         <p>{{ proyecto.impactos_esperados }}</p>
       </div>
 
+    </div>
+  </div>
+
+      <!-- Cronograma -->
       <br>
-      <div class="container-g-l-1">
+      <div class="container-g-l">
+        <div class="container-g-l-1 text-align: center;">
         <hr>
         <div style="text-align: center;"><h4>CRONOGRAMA</h4></div>
         <hr>
         <br>
 
         <div style="text-align: center;">
-          <table class="table">
+          <table class="table-cronograma">
             <thead>
               <tr>
                 <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; border: 1px solid rgb(187, 187, 187);">Actividad</th>
@@ -290,17 +304,20 @@
             </tbody>
           </table>
         </div>
+        </div>
       </div>
 
+      <!-- Productos -->
       <br>
-      <div class="container-g-l-1">
+      <div class="container-g-l">
+        <div class="container-g-l-1">
         <hr>
         <div style="text-align: center;"><h4>PRODUCTOS DERIVADOS DE LA INVESTIGACIÓN.</h4></div>
         <hr>
         <br>
 
         <div style="text-align: center;">
-          <table class="table" style="border-collapse: collapse; margin: auto; width: 100%; border: 1px solid rgb(187, 187, 187);">
+          <table class="table-productos">
             <thead>
               <tr>
                 <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; border: 1px solid rgb(187, 187, 187);">Generación de Nuevo Conocimiento</th>
@@ -371,57 +388,64 @@
             </tbody>
           </table>
         </div>
+        </div>
       </div>
 
-      <br>
-      <div class="container-g-l-1">
-        <hr>
-        <div style="text-align: center;"><h4>COMITE DE ETICA</h4></div>
-        <hr>
+    <div class="container">
+      <div class="container-g-l">
+        
+        <!-- Comite Etica -->
         <br>
+        <div class="container-g-l-1">
+          <hr>
+          <div style="text-align: center;"><h4>COMITE DE ETICA</h4></div>
+          <hr>
+          <br>
 
-        {% if proyecto.comite_etica == 'si' %}
-            <p>El proyecto ha sido sometido al Comité de Ética.</p>
-            {% if proyecto.archivo_adjunto %}
-                <p>Link de Acceso al Acta:</p>
-                <a href="{{ proyecto.archivo_adjunto.url }}" target="_blank">Descargar Acta</a>
-                <br>
-                <br>
-                <br>
-            {% endif %}
-        {% else %}
-            <p>El proyecto no ha sido sometido al Comité de Ética.</p>
-        {% endif %}
-      </div>
-
-      <br>
-      <div class="container-g-l-1">
-        <hr>
-        <div style="text-align: center;"><h4>APROBACION</h4></div>
-        <hr>
-        <br>
-
-        {% if not proyecto.aprobado %}
-
-          <p>El proyecto aún no ha sido aprobado</p>
-
-        {% else %}
-          <p><strong>Aprobaciones</strong></p>
-          <p>Fecha Aprobación: {{ proyecto.aprobado_fecha }}</p>
-          <p>Nombre de quien aprobó: {{ proyecto.aprobado_nombre }}</p>
-
-          {% if not proyecto.aprobado_adjunto %}
-            <p><strong>Aun no cuenta con el acta de aprobacion</strong></p>  
+          {% if proyecto.comite_etica == 'si' %}
+              <p>El proyecto ha sido sometido al Comité de Ética.</p>
+              {% if proyecto.archivo_adjunto %}
+                  <p>Link de Acceso al Acta:</p>
+                  <a href="{{ proyecto.archivo_adjunto.url }}" target="_blank">Descargar Acta</a>
+                  <br>
+                  <br>
+                  <br>
+              {% endif %}
           {% else %}
-            <p>Link de acceso al acta: <a href="{{ proyecto.aprobado_adjunto.url }}" target="_blank">Descargar</a></p>
+              <p>El proyecto no ha sido sometido al Comité de Ética.</p>
           {% endif %}
+        </div>
 
-        {% endif %}
+        <!-- Aprobaciones -->
+        <br>
+        <div class="container-g-l-1">
+          <hr>
+          <div style="text-align: center;"><h4>APROBACION</h4></div>
+          <hr>
+          <br>
+
+          {% if not proyecto.aprobado %}
+
+            <p>El proyecto aún no ha sido aprobado</p>
+
+          {% else %}
+            <p><strong>Aprobaciones</strong></p>
+            <p>Fecha Aprobación: {{ proyecto.aprobado_fecha }}</p>
+            <p>Nombre de quien aprobó: {{ proyecto.aprobado_nombre }}</p>
+
+            {% if not proyecto.aprobado_adjunto %}
+              <p><strong>Aun no cuenta con el acta de aprobacion</strong></p>  
+            {% else %}
+              <p>Link de acceso al acta: <a href="{{ proyecto.aprobado_adjunto.url }}" target="_blank">Descargar</a></p>
+            {% endif %}
+
+          {% endif %}
+        </div>
+
       </div>
-
     </div>
-  </div>
 
+  <!-- Evidencias -->
   <br>
   <div class="container-g-l">
     <div class="container-g-l-1">
@@ -432,7 +456,7 @@
       <hr>
       
       <div style="text-align: center;">
-        <table class="table">
+        <table class="table-evidencias">
           <thead>
             <tr>
               <th scope="col" style="text-align: center; padding-top: 5px; padding-bottom: 5px; border: 1px solid rgb(187, 187, 187);">Producto</th>
@@ -444,9 +468,9 @@
           <tbody>
             {% for producto in productos %}
               <tr>
-                <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; border: 1px solid rgb(187, 187, 187); font-size: 10px"><strong>{{ producto.tipo_producto }}</strong></td>
-        
-                <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; border: 1px solid rgb(187, 187, 187); font-size: 12px">
+                <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; border: 1px solid rgb(187, 187, 187); width: 20%;"><strong>{{ producto.tipo_producto }}</strong></td>
+
+                <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; border: 1px solid rgb(187, 187, 187);">
                   {% for portafolio in portafolios %}
                     {% if portafolio.producto.id == producto.id %}
                       {% if portafolio.avance_1_nombre %}
@@ -462,7 +486,7 @@
                   {% endfor %}
                 </td>
         
-                <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; border: 1px solid rgb(187, 187, 187); font-size: 12px">
+                <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; border: 1px solid rgb(187, 187, 187);">
                   {% for portafolio in portafolios %}
                     {% if portafolio.producto.id == producto.id %}
                       {% if portafolio.avance_2_descripcion %}
@@ -477,7 +501,7 @@
                   {% endfor %}
                 </td>
         
-                <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; border: 1px solid rgb(187, 187, 187); font-size: 12px">
+                <td style="text-align: center; padding-top: 2px; padding-bottom: 2px; border: 1px solid rgb(187, 187, 187);">
                   {% for portafolio in portafolios %}
                     {% if portafolio.producto.id == producto.id %}
                       {% if portafolio.avance_3_descripcion %}

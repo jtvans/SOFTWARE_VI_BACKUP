@@ -255,6 +255,8 @@ body{
 .container #flip{
   display: none;
 }
+
+
 @media (max-width: 730px) {
   .container .cover{
     display: none;

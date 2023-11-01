@@ -1,0 +1,353 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}">
+    <title>SeedResearchTool</title>
+
+    <style>
+        .table-informe {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 50px;
+        }
+
+        .table-informe th,
+        .table-informe td {
+            text-align: center;
+            padding: 10px;
+            border: 2px solid #000000;
+            font-size: 10px;
+        }
+
+         /*-- N° --*/
+         .table-informe th:nth-child(1),
+        .table-informe td:nth-child(1) {
+            width: 1%;
+            padding: 0px;
+        }
+        /*-- Investigador --*/
+        .table-informe th:nth-child(2),
+        .table-informe td:nth-child(2) {
+            width: 5%;
+            padding: 0px;
+        }
+        /*-- Identificacion --*/
+        .table-informe th:nth-child(3),
+        .table-informe td:nth-child(3) {
+            width: 1%;
+            padding: 0px;
+        }
+        /*-- Tipos --*/
+        .table-informe th:nth-child(4),
+        .table-informe td:nth-child(4) {
+            width: 5%;
+            padding: 0px;
+        }
+        /*-- Cantidad --*/
+        .table-informe th:nth-child(5),
+        .table-informe td:nth-child(5) {
+            width: 1%;
+            padding: 0px;
+        }
+        /*-- No Iniciados --*/
+        .table-informe th:nth-child(6),
+        .table-informe td:nth-child(6) {
+            width: 5%;
+            padding: 0px;
+        }
+        /*-- Cantidad No Iniciados --*/
+        .table-informe th:nth-child(7),
+        .table-informe td:nth-child(7) {
+            width: 5%;
+            padding: 0px;
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <br>
+    <br>
+
+    <!-- BACKUP BASE
+    <div class="container text-center">
+        <h3>INFORME - CATEGORIA DE PRODUCTOS</h3>
+        <div class="row-5">
+            <div class="col-md-3 mx-auto">
+                <select class="form-control text-center" id="categoria-selector">
+                    <option>** SELECCIONE **</option>
+                    <option value="Generación de Nuevo Conocimiento">Generación de Nuevo Conocimiento</option>
+                    <option value="Desarrollo Tecnológico e Innovación">Desarrollo Tecnológico e Innovación</option>
+                    <option value="Apropiación Social del Conocimiento">Apropiación Social del Conocimiento</option>
+                    <option value="Formación del Recurso Humano CteI">Formación del Recurso Humano CteI</option>
+                    <option value="Gestión de semillero">Gestión de semillero</option>
+                    <option value="Otros encargos">Otros encargos</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <br>
+
+    
+    <div id="informe-categoria-container">
+        <table class="table-informe">
+            <thead>
+                <tr>
+                    <th>N°</th>
+                    <th>Nombre</th>
+                    <th>Identificacion</th>
+                    <th>Cantidad</th>
+                    <th>Tipos</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            const categoriaSelector = $('#categoria-selector');
+            const informeContainer = $('#informe-categoria-container').find('tbody');
+
+            categoriaSelector.on('change', function () {
+                const selectedCategoria = categoriaSelector.val();
+                $.ajax({
+                    url: '/users/Admin-informe-categoria-producto/',
+                    type: 'GET',
+                    data: { 'categoria': selectedCategoria },
+                    success: function (data) {
+                        informeContainer.empty();
+
+                        if (data.data.length > 0) {
+                            data.data.forEach(function (info, index) {
+                                const row = $('<tr></tr>');
+                                row.append($('<td>' + (index + 1) + '</td>'));
+                                row.append($('<td>' + info.nombre + '</td>'));
+                                row.append($('<td>' + info.identificacion + '</td>'));
+                                row.append($('<td>' + info.cantidad_productos + '</td>'));
+
+                                const tiposCell = $('<td></td>');
+                                if (info.tipos_productos) {
+                                    const tiposList = $('<ul></ul>');
+                                    info.tipos_productos.split(', ').forEach(function (tipo) {
+                                        tiposList.append($('<li>' + tipo + '</li>'));
+                                    });
+                                    tiposCell.append(tiposList);
+                                }
+                                row.append(tiposCell);
+
+                                informeContainer.append(row);
+                            });
+                        } else {
+                            informeContainer.html('<tr><td colspan="5">No se encontraron resultados.</td></tr>');
+                        }
+                    },
+                    error: function () {
+                        informeContainer.html('<tr><td colspan="5">Error al cargar el informe.</td></tr>');
+                    }
+                });
+            });
+        });
+    </script>
+    -->
+
+    <!-- BACKUP 2 - ESTADOS
+    <div class="container text-center">
+        <h3>INFORME - CATEGORIA DE PRODUCTOS</h3>
+        <div class="row-5">
+            <div class="col-md-3 mx-auto">
+                <select class="form-control text-center" id="categoria-selector">
+                    <option>** SELECCIONE **</option>
+                    <option value="Generación de Nuevo Conocimiento">Generación de Nuevo Conocimiento</option>
+                    <option value="Desarrollo Tecnológico e Innovación">Desarrollo Tecnológico e Innovación</option>
+                    <option value="Apropiación Social del Conocimiento">Apropiación Social del Conocimiento</option>
+                    <option value="Formación del Recurso Humano CteI">Formación del Recurso Humano CteI</option>
+                    <option value="Gestión de semillero">Gestión de semillero</option>
+                    <option value="Otros encargos">Otros encargos</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <br>
+    <div id="informe-categoria-container">
+        <table class="table-informe">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>No Iniciado</th>
+                    <th>Justificado</th>
+                    <th>Iniciado</th>
+                    <th>En Progreso</th>
+                    <th>Completado</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            const categoriaSelector = $('#categoria-selector');
+            const informeContainer = $('#informe-categoria-container').find('tbody');
+
+            categoriaSelector.on('change', function () {
+                const selectedCategoria = categoriaSelector.val();
+                $.ajax({
+                    url: '/users/Admin-informe-categoria-producto/',
+                    type: 'GET',
+                    data: { 'categoria': selectedCategoria },
+                    success: function (data) {
+                        informeContainer.empty();
+
+                        if (data.data.length > 0) {
+                            data.data.forEach(function (info) {
+                                const row = $('<tr></tr>');
+                                row.append($('<td>' + info.nombre + '</td>'));
+                                row.append($('<td>' + info["No Iniciado"] + '</td>'));
+                                row.append($('<td>' + info["Justificado"] + '</td>'));
+                                row.append($('<td>' + info["Iniciado"] + '</td>'));
+                                row.append($('<td>' + info["En Progreso"] + '</td>'));
+                                row.append($('<td>' + info["Completado"] + '</td>'));
+
+                                informeContainer.append(row);
+                            });
+                        } else {
+                            informeContainer.html('<tr><td colspan="6">No se encontraron resultados.</td></tr>');
+                        }
+                    },
+                    error: function () {
+                        informeContainer.html('<tr><td colspan="6">Error al cargar el informe.</td></tr>');
+                    }
+                });
+            });
+        });
+
+    </script>
+    -->
+    
+
+    <div class="container text-center">
+        <h3>INFORME - CATEGORIA DE PRODUCTOS</h3>
+        <div class="row-5">
+            <div class="col-md-3 mx-auto">
+                <select class="form-control text-center" id="categoria-selector">
+                    <option>** SELECCIONE **</option>
+                    <option value="General">TODOS</option>
+                    <option value="Generación de Nuevo Conocimiento">Generación de Nuevo Conocimiento</option>
+                    <option value="Desarrollo Tecnológico e Innovación">Desarrollo Tecnológico e Innovación</option>
+                    <option value="Apropiación Social del Conocimiento">Apropiación Social del Conocimiento</option>
+                    <option value="Formación del Recurso Humano CteI">Formación del Recurso Humano CteI</option>
+                    <option value="Gestión de semillero">Gestión de semillero</option>
+                    <option value="Otros encargos">Otros encargos</option>
+                </select>
+            </div>            
+        </div>
+    </div>
+
+    <br>
+    <br>
+
+    
+    <div id="informe-categoria-container">
+        <table class="table-informe">
+            <thead>
+                <tr>
+                    <th>N°</th>
+                    <th>Nombre</th>
+                    <th>Identificacion</th>
+                    <th>Tipos</th>
+                    <th>Cantidad</th>
+                    <th>No Iniciados</th>
+                    <th>Cantidad No Iniciados</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            const categoriaSelector = $('#categoria-selector');
+            const informeContainer = $('#informe-categoria-container').find('tbody');
+
+            categoriaSelector.on('change', function () {
+                const selectedCategoria = categoriaSelector.val();
+                $.ajax({
+                    url: '/users/Admin-informe-categoria-producto/',
+                    type: 'GET',
+                    data: { 'categoria': selectedCategoria },
+                    success: function (data) {
+                        informeContainer.empty();
+
+                        if (data.data.length > 0) {
+                            data.data.forEach(function (info, index) {
+                                const row = $('<tr></tr>');
+                                row.append($('<td>' + (index + 1) + '</td>'));
+                                row.append($('<td>' + info.nombre + '</td>'));
+                                row.append($('<td>' + info.identificacion + '</td>'));
+
+                                // Tipos Productos Y Cantidad 
+                                const tiposCell = $('<td></td>');
+                                if (info.tipos_productos) {
+                                    const tiposList = $('<ul></ul>');
+                                    info.tipos_productos.split(', ').forEach(function (tipo) {
+                                        tiposList.append($('<li>' + tipo + '</li>'));
+                                    });
+                                    tiposCell.append(tiposList);
+                                }
+                                row.append(tiposCell);
+                                row.append($('<td>' + info.cantidad_productos + '</td>'));
+
+                                // No Iniciados Y Cantidad
+                                const no_iniciados_cell = $('<td></td>');
+                                if (info.no_iniciados) {
+                                    const no_iniciados_list = $('<ul></ul>');
+                                    info.no_iniciados.split(', ').forEach(function (tipo) {
+                                        no_iniciados_list.append($('<li>' + tipo + '</li>'));
+                                    });
+                                    no_iniciados_cell.append(no_iniciados_list);
+                                }
+                                row.append(no_iniciados_cell);
+                                row.append($('<td>' + info.cant_no_iniciados + '</td>'));
+
+                                informeContainer.append(row);
+                            });
+                        } else {
+                            informeContainer.html('<tr><td colspan="7">No se encontraron resultados.</td></tr>');
+                        }
+                    },
+                    error: function () {
+                        informeContainer.html('<tr><td colspan="7">Error al cargar el informe.</td></tr>');
+                    }
+                });
+            });
+        });
+    </script>
+
+    
+
+
+
+
+</body>
+</html>

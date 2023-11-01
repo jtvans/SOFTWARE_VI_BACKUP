@@ -11,76 +11,83 @@
     <link rel="stylesheet" href="{% static 'css/USERS_SEMILLEROS/Breadcrumbs/style.css' %}">
 
     <link rel="stylesheet" href="{% static 'css/USERS_SEMILLEROS/Users_Crear_Semillero/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/USERS_SEMILLEROS/Users_Lista_Semilleros/style.css' %}">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}">
     <title>SeedResearchTool</title>
-    {% block extra_styles %}
-    {% endblock %}
 </head>
 
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar">
+    <nav class="navbar navbar-expand-lg">
         <div class="navbar-brand">
-            <a class="navbar-brand" href="{% url 'Users:Users_home' %}">
-                <img src="{% static 'images/USERS_PROYECTOS/Users_Crear_Proyecto/Proyectos_Logo.png' %}" alt=""
-                style="width: 240px; height: 60px;">
-            </a>
+        <a class="navbar-brand" href="{% url 'Users:Users_home' %}">
+            <img src="{% static 'images/USERS_PROYECTOS/Users_Crear_Proyecto/Proyectos_Logo.png' %}" alt="" style="width: 240px;height: 60px;">
+        </a>
         </div>
-        <ul class="navbar-menu">
-            {% if user.is_authenticated and not user.usuario_administrador %}
-            <li class="navbar-item">
-                <a class="nav-link" href="{% url 'Users:Users_home' %}">HOME</a>
-            </li>
-            <li class="navbar-item dropdown">
-                <a class="nav-link" href="#">PROYECTOS</a>
-                <div class="dropdown-content">
-                    <a class="text-center" href="{% url 'Proyectos:crear_proyecto' %}">Crear Proyecto</a>
-                    <a class="text-center" href="{% url 'Proyectos:lista_proyectos' %}">Lista de Proyectos</a>
-                </div>
-            </li>
-            <li class="navbar-item dropdown">
-                <a class="nav-link" href="#">SEMILLEROS</a>
-                <div class="dropdown-content">
-                    <a class="text-center" href="{% url 'Semilleros:crear_semillero' %}">Crear Semillero</a>
-                    <a class="text-center" href="{% url 'Semilleros:lista_semilleros' %}">Lista de Semilleros</a>
-                </div>
-            </li>
-            {% endif %}
-        </ul>
 
-        <ul class="navbar-menu ml-auto">
-            {% if user.is_authenticated and not user.usuario_administrador %}
-            <li class="navbar-item dropdown">
-                <a class="nav-link" href="#">GRUPOS INVESTIGACION</a>
-                <div class="dropdown-content">
-                    <a class="text-center" href="{% url 'Users:Users_ver_grupos' %}">Ver Grupos</a>
-                    <a class="text-center" href="{% url 'Users:Users_editar_grupos_investigacion' %}">Editar Grupos</a>
-                </div>
-            </li>
-            <li class="navbar-item dropdown">
-                <a class="nav-link" href="#">PERFIL</a>
-                <div class="dropdown-content">
-                    <a class="text-center" href="{% url 'Users:Users_ver_perfil' %}">Ver Perfil</a>
-                    <a class="text-center" href="{% url 'Users:Users_editar_perfil' %}">Editar Perfil</a>
-                </div>
-            </li>
-            <li class="navbar-item ajuste-izquierda">                
-                <a class="nav-link fa" style="font-size:26px" href="{% url 'Users:logout' %}">&#xf011;</a>
-            </li>
-            {% else %}
-            <li class="navbar-item">
-                <a class="nav-link" href="{% url 'Users:Users_login' %}">INICIAR SESION</a>
-            </li>
-            <li class="navbar-item">
-                <a class="nav-link"
-                    href="{% url 'Users:Users_consultar_identificacion' %}">REGISTRARSE</a>
-            </li>
-            {% endif %}
-        </ul>
+        <button style="color: white;" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span  class="navbar-toggler-icon" style="color: white;"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-menu">
+                {% if user.is_authenticated and not user.usuario_administrador %}
+                <li class="navbar-item">
+                    <a class="nav-link" href="{% url 'Users:Users_home' %}">HOME</a>
+                </li>
+                <li class="navbar-item dropdown">
+                    <a class="nav-link" href="#">PROYECTOS</a>
+                    <div class="dropdown-content">
+                        <a class="text-center" href="{% url 'Proyectos:crear_proyecto' %}">Crear Proyecto</a>
+                        <a class="text-center" href="{% url 'Proyectos:lista_proyectos' %}">Lista de Proyectos</a>
+                    </div>
+                </li>
+                <li class="navbar-item dropdown">
+                    <a class="nav-link" href="#">SEMILLEROS</a>
+                    <div class="dropdown-content">
+                        <a class="text-center" href="{% url 'Semilleros:crear_semillero' %}">Crear Semillero</a>
+                        <a class="text-center" href="{% url 'Semilleros:lista_semilleros' %}">Lista de Semilleros</a>
+                    </div>
+                </li>
+                {% endif %}
+            </ul>
+
+            <ul class="navbar-menu ml-auto">
+                {% if user.is_authenticated and not user.usuario_administrador %}
+                <li class="navbar-item dropdown">
+                    <a class="nav-link" href="#">GRUPOS INVESTIGACION</a>
+                    <div class="dropdown-content">
+                        <a class="text-center" href="{% url 'Users:Users_ver_grupos' %}">Ver Grupos</a>
+                        <a class="text-center" href="{% url 'Users:Users_editar_grupos_investigacion' %}">Editar
+                            Grupos</a>
+                    </div>
+                </li>
+                <li class="navbar-item dropdown">
+                    <a class="nav-link" href="#">PERFIL</a>
+                    <div class="dropdown-content">
+                        <a class="text-center" href="{% url 'Users:Users_ver_perfil' %}">Ver Perfil</a>
+                        <a class="text-center" href="{% url 'Users:Users_editar_perfil' %}">Editar Perfil</a>
+                    </div>
+                </li>
+                <li class="navbar-item">
+                    <a class="nav-link fa" style="font-size:26px;" href="{% url 'Users:logout' %}">&#xf011;</a>
+                </li>
+                {% else %}
+                <li class="navbar-item">
+                    <a class="nav-link" href="{% url 'Users:Users_login' %}">INICIAR SESION</a>
+                </li>
+                <li class="navbar-item">
+                    <a class="nav-link" href="{% url 'Users:Users_consultar_identificacion' %}">REGISTRARSE</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
     </nav>
 
     <!-- Breadcrumb -->
@@ -119,26 +126,31 @@
     </div>
 
     <br>
-    <br>
-    <hr>
-    <div class="container">
-        <h3><strong>Semilleros</strong></h3>
+    <div class="eleven">
+        <h1>Mis Semilleros</h1>
     </div>
-    <hr>
 
     <div class="container">
         {% for semillero in semilleros %}
-        <div class="card">
-            <div class="card-body">
-                <div class="center">
-                    <h4><a href="{% url 'Semilleros:opciones_semillero' semillero.id %}">{{ semillero.nombre_semillero }}</a></h4>
+        <a href="{% url 'Semilleros:opciones_semillero' semillero.id %}" class="card-link">
+            <div class="card">
+                <div class="card-body">
+                    <div class="center">
+                        <h4 class="semillero-title">
+                            <img src="{% static 'images/USERS_SEMILLEROS/Semilleros.jpg' %}" alt="Icono Semillero" class="icono-semillero">
+                            {{ semillero.nombre_semillero }}
+                        </h4>
+                    </div>
                 </div>
             </div>
-        </div>
+        </a>
         {% empty %}
         <p>No se encontraron Semilleros.</p>
         {% endfor %}
     </div>
+    
+    <br>
+    <br>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

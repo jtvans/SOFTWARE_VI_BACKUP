@@ -1,5 +1,5 @@
 from .models import Semillero, InscripcionSemillero, ActividadesSemillero
-from .forms import SemilleroForm, InscripcionSemilleroForm, ActividadesSemilleroForm
+from .forms import SemilleroForm, InscripcionSemilleroForm, ActividadesSemilleroForm, BuscarEstudianteForm
 from Users.models import User
 from Users.models import Usuario_Estudiante, Usuario
 from Proyectos.models import Proyecto
@@ -30,12 +30,10 @@ def crear_semillero(request):
     usuario_actual = request.user.usuario
     proyectos = Proyecto.objects.filter(usuario=request.user)
 
-    # Verificar datos perfil.
     if not usuario_actual.telefono or not usuario_actual.facultad or not usuario_actual.Programa:
         messages.error(request, "Se requiere completar los datos de tu perfil.")
         return redirect('Users:Users_editar_perfil')
     
-    # Verificar Grupos y lineas.
     if (not usuario_actual.grupo_investigacion and not usuario_actual.grupo_investigacion_2 and not usuario_actual.grupo_investigacion_3) or not usuario_actual.lineas_investigacion:
         messages.error(request, "Se requiere especificar minimo un Grupo y una Linea de investigacion")
         return redirect('Users:Users_editar_grupos_investigacion')
@@ -182,7 +180,6 @@ def ver_detalle_actividad_semillero(request, actividad_id):
 def ver_semilleros_estudiante(request):
     usuario_e = request.user.usuario_estudiante
     semilleros_disponibles = Semillero.objects.all()
-
     return render(request, 'Estudiantes/ver_semilleros_estudiante.html', {'semilleros_disponibles': semilleros_disponibles, 'usuario_e': usuario_e})
 
 
@@ -377,7 +374,11 @@ def ver_semilleros_admin(request):
 # VER SEMILLERO
 def detalle_semillero_admin(request, semillero_id):
     semillero = get_object_or_404(Semillero, id=semillero_id)
-    return render(request, 'AdminSemilleros/detalle_semillero_admin.html', {'semillero': semillero})
+    estudiantes_inscritos = InscripcionSemillero.objects.filter(semillero=semillero)
+    docente = semillero.usuario
+    proyectos_docente = Proyecto.objects.filter(usuario=docente)
+
+    return render(request, 'AdminSemilleros/detalle_semillero_admin.html', {'semillero': semillero,'estudiantes_inscritos':estudiantes_inscritos, 'proyectos_docente': proyectos_docente})
 
 
 # APROBAR SEMILLERO
@@ -397,3 +398,46 @@ def aprobar_semillero(request, semillero_id):
         semillero.save()
         return redirect('Semilleros:detalle_semillero_admin', semillero_id=semillero_id)
     return render(request, 'AdminSemilleros/detalle_semillero_admin.html', {'semillero': semillero})
+
+
+# VER AVAL
+@login_required
+def generar_aval_admin_semi(request, estudiante_id, semillero_id):
+    semillero = get_object_or_404(Semillero, id=semillero_id)
+    estudiante = InscripcionSemillero.objects.get(id=estudiante_id)
+    html = render_to_string('Docentes/generar_aval_pdf.html', {'semillero': semillero, 'estudiante': estudiante})
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="Carta Aval Semillero - Estudiante.pdf"'
+
+    pisa.CreatePDF(html, dest=response)
+
+    return response
+
+
+# INFORMES
+@login_required
+def informes_semi(request):
+    return render(request, 'AdminSemilleros/informes_semi.html')
+
+
+# INFORMES FACULTAD
+@login_required
+def informes_facultad(request):
+    semilleros = Semillero.objects.all()
+    Total_Estudiantes = Usuario_Estudiante.objects.count()
+    Total_Estudiantes_Inscritos = Usuario_Estudiante.objects.filter(inscripcionsemillero__isnull=False).distinct().count
+    Total_Semilleristas = InscripcionSemillero.objects.filter(estado_e=True).count()
+
+    """Semilleristas_Ingenieria = [] # SEMILLERISTAS / INGENIERIA
+    for estudiante in Total_Semilleristas:
+        if 'ingenieria' in estudiante.programa_e.lower():
+            Semilleristas_Ingenieria.append(estudiante)"""
+    
+    
+    return render(request, 'AdminSemilleros/informes_facultad.html', {
+        'semilleros': semilleros,
+        'Total_Estudiantes': Total_Estudiantes,
+        'Total_Estudiantes_Inscritos': Total_Estudiantes_Inscritos,
+        #'Semilleristas_Ingenieria': Semilleristas_Ingenieria,
+        'Total_Semilleristas': Total_Semilleristas
+    })

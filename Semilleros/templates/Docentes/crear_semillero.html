@@ -1,3 +1,4 @@
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -11,75 +12,82 @@
     <link rel="stylesheet" href="{% static 'css/USERS_SEMILLEROS/Breadcrumbs/style.css' %}">
 
     <link rel="stylesheet" href="{% static 'css/USERS_SEMILLEROS/Users_Crear_Semillero/style.css' %}">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}">
     <title>SeedResearchTool</title>
-    {% block extra_styles %}
-    {% endblock %}
 </head>
 
 <body>
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="navbar-brand">
-            <a class="navbar-brand" href="{% url 'Users:Users_home' %}">
-                <img src="{% static 'images/USERS_PROYECTOS/Users_Crear_Proyecto/Proyectos_Logo.png' %}" alt=""
-                style="width: 240px; height: 60px;">
-            </a>
-        </div>
-        <ul class="navbar-menu">
-            {% if user.is_authenticated and not user.usuario_administrador %}
-            <li class="navbar-item">
-                <a class="nav-link" href="{% url 'Users:Users_home' %}">HOME</a>
-            </li>
-            <li class="navbar-item dropdown">
-                <a class="nav-link" href="#">PROYECTOS</a>
-                <div class="dropdown-content">
-                    <a class="text-center" href="{% url 'Proyectos:crear_proyecto' %}">Crear Proyecto</a>
-                    <a class="text-center" href="{% url 'Proyectos:lista_proyectos' %}">Lista de Proyectos</a>
-                </div>
-            </li>
-            <li class="navbar-item dropdown">
-                <a class="nav-link" href="#">SEMILLEROS</a>
-                <div class="dropdown-content">
-                    <a class="text-center" href="{% url 'Semilleros:crear_semillero' %}">Crear Semillero</a>
-                    <a class="text-center" href="{% url 'Semilleros:lista_semilleros' %}">Lista de Semilleros</a>
-                </div>
-            </li>
-            {% endif %}
-        </ul>
 
-        <ul class="navbar-menu ml-auto">
-            {% if user.is_authenticated and not user.usuario_administrador %}
-            <li class="navbar-item dropdown">
-                <a class="nav-link" href="#">GRUPOS INVESTIGACION</a>
-                <div class="dropdown-content">
-                    <a class="text-center" href="{% url 'Users:Users_ver_grupos' %}">Ver Grupos</a>
-                    <a class="text-center" href="{% url 'Users:Users_editar_grupos_investigacion' %}">Editar Grupos</a>
-                </div>
-            </li>
-            <li class="navbar-item dropdown">
-                <a class="nav-link" href="#">PERFIL</a>
-                <div class="dropdown-content">
-                    <a class="text-center" href="{% url 'Users:Users_ver_perfil' %}">Ver Perfil</a>
-                    <a class="text-center" href="{% url 'Users:Users_editar_perfil' %}">Editar Perfil</a>
-                </div>
-            </li>
-            <li class="navbar-item">                
-                <a class="nav-link fa" style="font-size:26px" href="{% url 'Users:logout' %}">&#xf011;</a>
-            </li>
-            {% else %}
-            <li class="navbar-item">
-                <a class="nav-link" href="{% url 'Users:Users_login' %}">INICIAR SESION</a>
-            </li>
-            <li class="navbar-item">
-                <a class="nav-link"
-                    href="{% url 'Users:Users_consultar_identificacion' %}">REGISTRARSE</a>
-            </li>
-            {% endif %}
-        </ul>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="navbar-brand">
+        <a class="navbar-brand" href="{% url 'Users:Users_home' %}">
+            <img src="{% static 'images/USERS_PROYECTOS/Users_Crear_Proyecto/Proyectos_Logo.png' %}" alt="" style="width: 240px;height: 60px;">
+        </a>
+        </div>
+
+        <button style="color: white;" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span  class="navbar-toggler-icon" style="color: white;"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-menu">
+                {% if user.is_authenticated and not user.usuario_administrador %}
+                <li class="navbar-item">
+                    <a class="nav-link" href="{% url 'Users:Users_home' %}">HOME</a>
+                </li>
+                <li class="navbar-item dropdown">
+                    <a class="nav-link" href="#">PROYECTOS</a>
+                    <div class="dropdown-content">
+                        <a class="text-center" href="{% url 'Proyectos:crear_proyecto' %}">Crear Proyecto</a>
+                        <a class="text-center" href="{% url 'Proyectos:lista_proyectos' %}">Lista de Proyectos</a>
+                    </div>
+                </li>
+                <li class="navbar-item dropdown">
+                    <a class="nav-link" href="#">SEMILLEROS</a>
+                    <div class="dropdown-content">
+                        <a class="text-center" href="{% url 'Semilleros:crear_semillero' %}">Crear Semillero</a>
+                        <a class="text-center" href="{% url 'Semilleros:lista_semilleros' %}">Lista de Semilleros</a>
+                    </div>
+                </li>
+                {% endif %}
+            </ul>
+
+            <ul class="navbar-menu ml-auto">
+                {% if user.is_authenticated and not user.usuario_administrador %}
+                <li class="navbar-item dropdown">
+                    <a class="nav-link" href="#">GRUPOS INVESTIGACION</a>
+                    <div class="dropdown-content">
+                        <a class="text-center" href="{% url 'Users:Users_ver_grupos' %}">Ver Grupos</a>
+                        <a class="text-center" href="{% url 'Users:Users_editar_grupos_investigacion' %}">Editar
+                            Grupos</a>
+                    </div>
+                </li>
+                <li class="navbar-item dropdown">
+                    <a class="nav-link" href="#">PERFIL</a>
+                    <div class="dropdown-content">
+                        <a class="text-center" href="{% url 'Users:Users_ver_perfil' %}">Ver Perfil</a>
+                        <a class="text-center" href="{% url 'Users:Users_editar_perfil' %}">Editar Perfil</a>
+                    </div>
+                </li>
+                <li class="navbar-item">
+                    <a class="nav-link fa" style="font-size:26px;" href="{% url 'Users:logout' %}">&#xf011;</a>
+                </li>
+                {% else %}
+                <li class="navbar-item">
+                    <a class="nav-link" href="{% url 'Users:Users_login' %}">INICIAR SESION</a>
+                </li>
+                <li class="navbar-item">
+                    <a class="nav-link" href="{% url 'Users:Users_consultar_identificacion' %}">REGISTRARSE</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
     </nav>
 
     <!-- Breadcrumb -->
@@ -226,11 +234,15 @@
                 {% if form.cvlac.value %}
                     <label for="tematica"><strong>Ingrese su Cvlac *</strong></label>
                     {{ form.cvlac }}
+                    <br>
                 {% else %}
                     <label for="tematica"><strong>Ingrese su Cvlac *</strong></label>
                     {{ form.cvlac }}
+                    <br>
                 {% endif %}
+                <br>
             </div>
+            
 
             <!-- Es docente invesitgador -->
             <div class="form-group">
@@ -240,43 +252,46 @@
                 </div>
             </div>
             <div class="form-group">
-                <table id="cursos-table">
-                    <thead>
-                        <tr>
-                            <th>Tematica</th>
-                            <th>Institución</th>
-                            <th>Horas</th>
-                            <th>Fecha</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>{{ form.tematica }}</td>
-                            <td>{{ form.institucion }}</td>
-                            <td>{{ form.horas }}</td>
-                            <td>{{ form.fecha }}</td>
-
-                        </tr>
-                        <tr>
-                            <td>{{ form.tematica_2 }}</td>
-                            <td>{{ form.institucion_2 }}</td>
-                            <td>{{ form.horas_2 }}</td>
-                            <td>{{ form.fecha_2 }}</td>
-                        </tr>
-                        <tr>
-                            <td>{{ form.tematica_3 }}</td>
-                            <td>{{ form.institucion_3 }}</td>
-                            <td>{{ form.horas_3 }}</td>
-                            <td>{{ form.fecha_3 }}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table id="cursos-table">
+                        <thead>
+                            <tr>
+                                <th>Tematica</th>
+                                <th>Institución</th>
+                                <th>Horas</th>
+                                <th>Fecha</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="text" name="tematica" placeholder="Tematica"></td>
+                                <td><input type="text" name="institucion" placeholder="Institución"></td>
+                                <td><input type="text" name="horas" placeholder="Horas"></td>
+                                <td>{{ form.fecha }}</td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" name="tematica_2" placeholder="Tematica"></td>
+                                <td><input type="text" name="institucion_2" placeholder="Institución"></td>
+                                <td><input type="text" name="horas_2" placeholder="Horas"></td>
+                                <td>{{ form.fecha_2 }}</td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" name="tematica_3" placeholder="Tematica"></td>
+                                <td><input type="text" name="institucion_3" placeholder="Institución"></td>
+                                <td><input type="text" name="horas_3" placeholder="Horas"></td>
+                                <td>{{ form.fecha_3 }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
             </div>
             <div class="proyectos-fields" style="display: none;">
                 <label for="proyectos"><strong>Proyectos de Investigación *</strong></label>
                     {% for proyecto in proyectos %}
                         <option value="{{ proyecto.id }}">{{ proyecto.titulo }}</option>
                     {% endfor %}
+                <br>
             </div>
 
             <!-- Tiene Proyectos -->
@@ -287,36 +302,39 @@
                 </div>
             </div>
             <div class="form-group">
-                <table id="semillero-proyecto">
-                    <thead>
-                        <tr>
-                            <th>Nombre Proyecto</th>
-                            <th>Institucion</th>
-                            <th>Tipo Vinculacion</th>
-                            <th>Año</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>{{ form.Se_nombre_proyecto }}</td>
-                            <td>{{ form.Se_institucion }}</td>
-                            <td>{{ form.Se_tipo_vinculacion }}</td>
-                            <td>{{ form.Se_fecha }}</td>
-                        </tr>
-                        <tr>
-                            <td>{{ form.Se_nombre_proyecto_2 }}</td>
-                            <td>{{ form.Se_institucion_2 }}</td>
-                            <td>{{ form.Se_tipo_vinculacion_2 }}</td>
-                            <td>{{ form.Se_fecha_2 }}</td>
-                        </tr>
-                        <tr>
-                            <td>{{ form.Se_nombre_proyecto_3 }}</td>
-                            <td>{{ form.Se_institucion_3 }}</td>
-                            <td>{{ form.Se_tipo_vinculacion_3 }}</td>
-                            <td>{{ form.Se_fecha_3 }}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table id="semillero-proyecto">
+                        <thead>
+                            <tr>
+                                <th>Nombre Proyecto</th>
+                                <th>Institucion</th>
+                                <th>Tipo Vinculacion</th>
+                                <th>Año</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="text" name="Se_nombre_proyecto" placeholder="Nombre Proyecto"></td>
+                                <td><input type="text" name="Se_institucion" placeholder="Institución"></td>
+                                <td><input type="text" name="Se_tipo_vinculacion" placeholder="Tipo Vinculación"></td>
+                                <td>{{ form.Se_fecha }}</td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" name="Se_nombre_proyecto_2" placeholder="Nombre Proyecto"></td>
+                                <td><input type="text" name="Se_institucion_2" placeholder="Institución"></td>
+                                <td><input type="text" name="Se_tipo_vinculacion_2" placeholder="Tipo Vinculación"></td>
+                                <td>{{ form.Se_fecha_2 }}</td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" name="Se_nombre_proyecto_3" placeholder="Nombre Proyecto"></td>
+                                <td><input type="text" name="Se_institucion_3" placeholder="Institución"></td>
+                                <td><input type="text" name="Se_tipo_vinculacion_3" placeholder="Tipo Vinculación"></td>
+                                <td>{{ form.Se_fecha_3 }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
             </div>
 
 
@@ -328,36 +346,39 @@
                 </div>
             </div>
             <div class="form-group">
-                <table id="actividades-table">
-                    <thead>
-                        <tr>
-                            <th>Nombre Grupo / Comite</th>
-                            <th>Actividad O Tematica</th>
-                            <th>Tipo De Vinculacion (Rol)</th>
-                            <th>Fecha</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>{{ form.nombre_grupo }}</td>
-                            <td>{{ form.actividad_tema }}</td>
-                            <td>{{ form.tipo_vinculacion }}</td>
-                            <td>{{ form.fecha_actividad }}</td>
-                        </tr>
-                        <tr>
-                            <td>{{ form.nombre_grupo_2 }}</td>
-                            <td>{{ form.actividad_tema_2 }}</td>
-                            <td>{{ form.tipo_vinculacion_2 }}</td>
-                            <td>{{ form.fecha_actividad_2 }}</td>
-                        </tr>
-                        <tr>
-                            <td>{{ form.nombre_grupo_3 }}</td>
-                            <td>{{ form.actividad_tema_3 }}</td>
-                            <td>{{ form.tipo_vinculacion_3 }}</td>
-                            <td>{{ form.fecha_actividad_3 }}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table id="actividades-table">
+                        <thead>
+                            <tr>
+                                <th>Nombre Grupo / Comite</th>
+                                <th>Actividad O Tematica</th>
+                                <th>Tipo De Vinculacion (Rol)</th>
+                                <th>Fecha</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="text" name="nombre_grupo" placeholder="Nombre"></td>
+                                <td><input type="text" name="actividad_tema" placeholder="Actividad"></td>
+                                <td><input type="text" name="tipo_vinculacion" placeholder="Rol"></td>
+                                <td>{{ form.fecha_actividad }}</td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" name="nombre_grupo_2" placeholder="Nombre"></td>
+                                <td><input type="text" name="actividad_tema_2" placeholder="Actividad"></td>
+                                <td><input type="text" name="tipo_vinculacion_2" placeholder="Rol"></td>
+                                <td>{{ form.fecha_actividad_2 }}</td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" name="nombre_grupo_3" placeholder="Nombre"></td>
+                                <td><input type="text" name="actividad_tema_3" placeholder="Actividad"></td>
+                                <td><input type="text" name="tipo_vinculacion_3" placeholder="Rol"></td>
+                                <td>{{ form.fecha_actividad_3 }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
             </div>
 
         </div>

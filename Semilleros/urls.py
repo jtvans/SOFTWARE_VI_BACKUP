@@ -25,5 +25,8 @@ urlpatterns = [
     path('ver-semilleros-admin/', views.ver_semilleros_admin, name='ver_semilleros_admin'),
     path('detalle-semillero-admin/<int:semillero_id>/', views.detalle_semillero_admin, name='detalle_semillero_admin'),
     path('aprobar-semillero/<int:semillero_id>/', views.aprobar_semillero, name='aprobar_semillero'),
+    path('generar_aval_admin_semi/<int:semillero_id>/<int:estudiante_id>/', views.generar_aval_admin_semi, name='generar_aval_admin_semi'),
+    path('informes_semi/', views.informes_semi, name='informes_semi'),
+    path('informes_facultad/', views.informes_facultad, name='informes_facultad'),
     
 ]

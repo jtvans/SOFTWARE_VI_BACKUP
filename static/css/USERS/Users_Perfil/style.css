@@ -1,29 +1,25 @@
 /* Google Font Link */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins" , sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
-
-body{
-  min-height: 100vh;
-  display: flex;
+body {
+  min-height: auto;
   align-items: center;
   justify-content: center;
-  background: #000000;
-  padding: 30px;
   background-image: url('/static/images/USERS/Users_Home/Users_Perfil_Fondo.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-repeat: auto;
 }
+
 
 /* ------------------------------ */
 .custom-text-G {
   font-size: 20px;
-  margin-top: 5px; 
+  margin-top: 5px;
 }
 
 .custom-text-L {
@@ -31,7 +27,7 @@ body{
 }
 
 .custom-text-L-1 {
-  
+
   font-size: 16px;
   margin-top: 5px;
   display: block;
@@ -41,15 +37,22 @@ body{
   font-size: 20px;
   margin-top: 10px;
   display: block;
+
+  color: #000000;
+  max-width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-all;
 }
 
 .text-center {
   text-align: center;
 }
-/* ----------------------------- */
+
 
 /* ------------- NAVAR ----------------- */
 .navbar {
+  width: 100%;
   background-color: #ffffff;
   padding: 10px;
   display: flex;
@@ -60,6 +63,7 @@ body{
   left: 0;
   right: 0;
   z-index: 9999;
+  
 }
 
 .navbar-brand img {
@@ -75,10 +79,11 @@ body{
 }
 
 .navbar-item {
-  margin-right: 20px;
+  padding-left: 100px;
 }
 
 .navbar-item a {
+
   color: #101010;
   text-decoration: none;
   font-size: 16px;
@@ -93,7 +98,7 @@ body{
   display: none;
   position: absolute;
   background-color: #f9f9f9;
-  min-width: 200px;
+  min-width: 180px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
   border: 1px solid #ccc;
@@ -102,7 +107,7 @@ body{
 
 .dropdown-content a {
   color: black;
-  padding: 12px 16px;
+  padding: 12px 15px;
   text-decoration: none;
   display: block;
   transition: background-color 0.3s ease;
@@ -119,15 +124,22 @@ body{
 .ajuste-izquierda {
   margin-left: 30px;
 }
+
 /*--------------------------------------------------*/
+.custom-container {
+  max-width: 50%;
+  margin: 0 auto;
+}
+
 .container-g-l {
-  background-color: #ffffff; /* Color de fondo deseado */
+  background-color: #ffffff;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
 .container-g-l-1 {
-  background-color: #c9e6ee; /* Color de fondo deseado */
+  background-color: #c9e6ee;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -140,31 +152,96 @@ body{
 }
 
 .button-container .btn {
-    float: left;
+  float: left;
 }
 
-.content-container {
-    width: 50%;
-}
 
 .button-container .btn {
-    float: left;
-    background-color: #000000; /* Color de fondo azul */
-    color: #ffffff; /* Color del texto blanco */
-    border: none; /* Sin borde */
-    padding: 5px 20px; /* Espaciado interior del botón */
-    border-radius: 5px; /* Bordes redondeados */
-    font-size: 20px; /* Tamaño de fuente */
-    text-decoration: none; /* Sin decoración de texto */
+  float: left;
+  background-color: #000000;
+  color: #ffffff;
+  border: none;
+  padding: 5px 20px;
+  border-radius: 5px;
+  font-size: 20px;
+  text-decoration: none;
 }
 
-/* Estilos para el botón de "Editar Perfil" al pasar el cursor sobre él */
 .button-container .btn:hover {
-    background-color: #5394a7; /* Color de fondo al pasar el cursor */
-    color: #ffffff;
+  background-color: #5394a7;
+  color: #ffffff;
 }
 
 .content-container p {
-    margin-bottom: 30px; /* Ajusta el valor según el espacio que desees entre líneas */
+  margin-bottom: 30px;
 }
-/* ------------------------------ */
+
+.imagen-grupo {
+  border: 5px solid #ffffff;
+  width: 20%;
+  height: 50%;
+  display: block;
+  margin: 0 auto;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+
+/*----------------------------------------------------------------------------------------------------*/
+/* RESPONSIVE */
+/*Configuracion Especial*/
+@media (max-width: 968px) {
+  .navbar-item {
+    padding-left: 5px;
+  }
+
+  .custom-container {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .custom-text-info {
+    font-size: 15px;
+  }
+
+  .navbar-item a {
+    padding: 13px;
+    font-size: 14px;
+  }
+
+  .imagen-grupo {
+    border: 5px solid #ffffff;
+    width: 50%;
+    height: 60%;
+    display: block;
+    margin: 0 auto;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+}
+
+
+
+/*Reducir/Aumentar - Navbar*/
+@media (max-width: 1280px) {
+  .navbar-item {
+    padding-left: 0px;
+  }
+
+  .imagen-grupo {
+    border: 5px solid #ffffff;
+    width: 40%;
+    height: 50%;
+    display: block;
+    margin: 0 auto;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+}
+@media (min-width: 1920px) {
+  .navbar-item {
+    padding-left: 150px;
+  }
+}
+/*----------------------------------------------------------------------------------------------------*/

@@ -20,7 +20,7 @@ class LineaInvestigacion_3(models.Model):
         return self.nombre
     
 
-# USUARIO
+# USUARIO NORMAL
 class Usuario(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='usuario')
     nombre = models.CharField(max_length=100)

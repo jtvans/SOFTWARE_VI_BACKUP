@@ -5,36 +5,26 @@
 <html>
 
 <head>
-  <!-- Basic -->
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <!-- Mobile Metas -->
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <!-- Site Metas -->
   <meta name="keywords" content="" />
   <meta name="description" content="" />
   <meta name="author" content="" />
 
   <title> SeedResearchTool </title>
 
-  <!-- slider stylesheet -->
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
 
-  <!-- fonts style -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:400,700|Raleway:400,700&display=swap" rel="stylesheet" />
 
-  <!-- bootstrap core css -->
   <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
-
-  <!-- Custom styles for this template -->
   <link href="static/css/style.css" rel="stylesheet" />
-  <!-- responsive style -->
   <link href="static/css/responsive.css" rel="stylesheet" />
 </head>
 
 <body>
   <div class="hero_area">
-    <!-- header section strats -->
     <header class="header_section">
       <div class="container-fluid">
         <nav class="navbar navbar-expand-lg custom_nav-container pt-3">
@@ -52,7 +42,7 @@
             <div class="d-flex ml-auto flex-column flex-lg-row align-items-center">
               <ul class="navbar-nav  ">
                 <li class="nav-item active">
-                  <a class="nav-link" href="{% url 'Pagina_Principal' %}">Home <span class="sr-only">(current)</span></a>
+                  <a class="nav-link" href="{% url 'Pagina_Principal' %}">Principal <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'Users:Admin_Semi_registro_usuario' %}">Semilleros</a>
@@ -82,9 +72,7 @@
         </nav>
       </div>
     </header>
-    <!-- end header section -->
 
-    <!-- slider section -->
     <section class="slider_section">
       <div class="slider_container">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -201,19 +189,13 @@
         </p>
       </div>
       <div class="row">
-        <div class="col-lg-6 ">
+        <div class="col-lg-6">
           <div class="img-container tab-content">
             <div class="img-box tab-pane fade show active" id="img1" role="tabpanel">
-              <img src="static/images/semillero-img.png" alt="" />
+              <a href=""><img src="static/images/semillero-1.jpg" alt="" /></a>
             </div>
-            <div class="img-box tab-pane fade  " id="img2" role="tabpanel">
-              <img src="static/images/semillero-img.png" alt="" />
-            </div>
-            <div class="img-box tab-pane fade  " id="img3" role="tabpanel">
-              <img src="static/images/semillero-img.png" alt="" />
-            </div>
-            <div class="img-box tab-pane fade  " id="img4" role="tabpanel">
-              <img src="static/images/semillero-img.png" alt="" />
+            <div class="img-box tab-pane fade" id="img2" role="tabpanel">
+              <a href="{% url 'Semilleros:ver_semilleros_estudiante' %}"><img src="static/images/semillero-2.jpg" alt="" /></a>
             </div>
           </div>
         </div>
@@ -221,7 +203,7 @@
           <div class="detail-container nav nav-tabs" id="myTab" role="tablist">
             <div class="detail-box active" id="img1-tab" data-toggle="tab" href="#img1" role="tab" aria-selected="true">
               <h4>
-                Inscripcion <br />
+                Inscripción <br />
               </h4>
             </div>
             <div class="detail-box" id="img2-tab" data-toggle="tab" href="#img2" role="tab" aria-selected="false">
@@ -235,6 +217,7 @@
     </div>
   </section>
   <!-- end service section -->
+
 
 
 

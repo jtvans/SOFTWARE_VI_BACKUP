@@ -24,64 +24,71 @@
 <body>
 
     <!-- Navbar -->
-    <nav class="navbar">
+    <nav class="navbar navbar-expand-lg">
         <div class="navbar-brand">
             <a class="navbar-brand" href="{% url 'Users:Users_home' %}">
-                <img src="{% static 'images/USERS_PROYECTOS/Users_Lista_Proyectos/Proyectos_Logo.png' %}" alt=""
-                    style="width: 240px; height: 60px;">
+                <img src="{% static 'images/USERS_PROYECTOS/Users_Lista_Proyectos/Proyectos_Logo.png' %}" alt="" style="width: 240px; height: 60px;">
             </a>
         </div>
-        <ul class="navbar-menu">
-            {% if user.is_authenticated and not user.usuario_administrador %}
-            <li class="navbar-item">
-                <a class="nav-link" href="{% url 'Users:Users_home' %}">HOME</a>
-            </li>
-            <li class="navbar-item dropdown">
-                <a class="nav-link" href="#">PROYECTOS</a>
-                <div class="dropdown-content">
-                    <a class="text-center" href="{% url 'Proyectos:crear_proyecto' %}">Crear Proyecto</a>
-                    <a class="text-center" href="{% url 'Proyectos:lista_proyectos' %}">Lista de Proyectos</a>
-                </div>
-            </li>
-            <li class="navbar-item dropdown">
-                <a class="nav-link" href="#">SEMILLEROS</a>
-                <div class="dropdown-content">
-                    <a class="text-center" href="{% url 'Semilleros:crear_semillero' %}">Crear Semillero</a>
-                    <a class="text-center" href="{% url 'Semilleros:lista_semilleros' %}">Lista de Semilleros</a>
-                </div>
-            </li>
-            {% endif %}
-          </ul>
-      
-          <ul class="navbar-menu ml-auto">
-            {% if user.is_authenticated and not user.usuario_administrador %}
-            <li class="navbar-item dropdown">
-                <a class="nav-link" href="#">GRUPOS INVESTIGACION</a>
-                <div class="dropdown-content">
-                    <a class="text-center" href="{% url 'Users:Users_ver_grupos' %}">Ver Grupos</a>
-                    <a class="text-center" href="{% url 'Users:Users_editar_grupos_investigacion' %}">Editar Grupos</a>
-                </div>
-            </li>
-            <li class="navbar-item dropdown">
-                <a class="nav-link" href="#">PERFIL</a>
-                <div class="dropdown-content">
-                    <a class="text-center" href="{% url 'Users:Users_ver_perfil' %}">Ver Perfil</a>
-                    <a class="text-center" href="{% url 'Users:Users_editar_perfil' %}">Editar Perfil</a>
-                </div>
-            </li>
-            <li class="navbar-item">                
-                <a class="nav-link fa" style="font-size:26px" href="{% url 'Users:logout' %}">&#xf011;</a>
-            </li>
-            {% else %}
-            <li class="navbar-item">
-                <a class="nav-link" href="{% url 'Users:Users_login' %}">INICIAR SESION</a>
-            </li>
-            <li class="navbar-item">
-                <a class="nav-link"
-                    href="{% url 'Users:Users_consultar_identificacion' %}">REGISTRARSE</a>
-            </li>
-            {% endif %}
-          </ul>
+
+        <button style="color: white;" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span  class="navbar-toggler-icon" style="color: white;"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-menu">
+                {% if user.is_authenticated and not user.usuario_administrador %}
+                <li class="navbar-item">
+                    <a class="nav-link" href="{% url 'Users:Users_home' %}">HOME</a>
+                </li>
+                <li class="navbar-item dropdown">
+                    <a class="nav-link" href="#">PROYECTOS</a>
+                    <div class="dropdown-content">
+                        <a class="text-center" href="{% url 'Proyectos:crear_proyecto' %}">Crear Proyecto</a>
+                        <a class="text-center" href="{% url 'Proyectos:lista_proyectos' %}">Lista de Proyectos</a>
+                    </div>
+                </li>
+                <li class="navbar-item dropdown">
+                    <a class="nav-link" href="#">SEMILLEROS</a>
+                    <div class="dropdown-content">
+                        <a class="text-center" href="{% url 'Semilleros:crear_semillero' %}">Crear Semillero</a>
+                        <a class="text-center" href="{% url 'Semilleros:lista_semilleros' %}">Lista de Semilleros</a>
+                    </div>
+                </li>
+                {% endif %}
+            </ul>
+
+            <ul class="navbar-menu ml-auto">
+                {% if user.is_authenticated and not user.usuario_administrador %}
+                <li class="navbar-item dropdown">
+                    <a class="nav-link" href="#">GRUPOS INVESTIGACION</a>
+                    <div class="dropdown-content">
+                        <a class="text-center" href="{% url 'Users:Users_ver_grupos' %}">Ver Grupos</a>
+                        <a class="text-center" href="{% url 'Users:Users_editar_grupos_investigacion' %}">Editar
+                            Grupos</a>
+                    </div>
+                </li>
+                <li class="navbar-item dropdown">
+                    <a class="nav-link" href="#">PERFIL</a>
+                    <div class="dropdown-content">
+                        <a class="text-center" href="{% url 'Users:Users_ver_perfil' %}">Ver Perfil</a>
+                        <a class="text-center" href="{% url 'Users:Users_editar_perfil' %}">Editar Perfil</a>
+                    </div>
+                </li>
+                <li class="navbar-item">
+                    <a class="nav-link fa" style="font-size:26px;" href="{% url 'Users:logout' %}">&#xf011;</a>
+                </li>
+                {% else %}
+                <li class="navbar-item">
+                    <a class="nav-link" href="{% url 'Users:Users_login' %}">INICIAR SESION</a>
+                </li>
+                <li class="navbar-item">
+                    <a class="nav-link" href="{% url 'Users:Users_consultar_identificacion' %}">REGISTRARSE</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
     </nav>
 
 
@@ -92,7 +99,7 @@
                 <a class="breadcrumb" href="{% url 'Users:Users_home' %}" itemprop="item">
                     <span itemprop="name">
                         <i class="material-icons" aria-hidden="true">home</i>
-                        <span>INICIO</span>
+                        <span></span>
                     </span>
                 </a>
                 <meta itemprop="position" content="1" />
@@ -122,7 +129,7 @@
                 <a class="breadcrumb" href="{% url 'Proyectos:portafolio_actividades' proyecto.id %}" itemprop="item">
                     <span itemprop="name">
                         <i class="material-icons" aria-hidden="true">receipt_long</i>
-                        <span>PORTAFOLIO ACTIVIDADES</span>
+                        <span>PORTAFOLIO</span>
                     </span>
                 </a>
                 <meta itemprop="position" content="2" />
@@ -132,7 +139,7 @@
                 <a class="breadcrumb" href="{% url 'Proyectos:ver_evidencias_1' proyecto_id=proyecto.id producto_id=producto.id %}" itemprop="item">
                     <span itemprop="name">
                         <i class="material-icons" aria-hidden="true">feed</i>
-                        <span>INFORME EVIDENCIA N°1</span>
+                        <span>EVIDENCIA N°1</span>
                     </span>
                 </a>
                 <meta itemprop="position" content="2" />
@@ -142,7 +149,7 @@
                 <a class="breadcrumb" href="" itemprop="item">
                     <span itemprop="name">
                         <i class="material-icons" aria-hidden="true">settings_applications</i>
-                        <span>EDITAR EVIDENCIA N°1</span>
+                        <span>EDITAR</span>
                     </span>
                 </a>
                 <meta itemprop="position" content="2" />
@@ -198,9 +205,12 @@
             </div>        
             <br>
             <div class="form-group">
-                <label for="avance_adjunto"><strong>Adjunto -- Evidencia:</strong></label>
-                <input type="file" class="form-control-file" id="avance_adjunto" name="avance_adjunto" value="{{ form.avance_adjunto.value }}">
-            </div>
+                <label for="avance_adjunto"><strong>Adjunto:</strong></label>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="avance_adjunto" name="avance_adjunto" value="{{ form.avance_adjunto.value }}">
+                    <label class="custom-file-label" for="avance_adjunto"><i class="material-icons">attach_file</i> Adjuntar</label>
+                </div>
+            </div>           
             <br>
             <label for="avance_correcciones_realizadas"><strong>Atender Observaciones:</strong></label>
             <div class="form-check">
@@ -265,6 +275,14 @@
             });
         });
 
+    </script>
+
+    <script>
+        // Escuchar el cambio en el campo de archivo y actualizar la etiqueta personalizada con el nombre del archivo
+        document.getElementById('avance_adjunto').addEventListener('change', function () {
+            const fileName = this.files[0].name;
+            document.querySelector('.custom-file-label').textContent = fileName;
+        });
     </script>
 
 </body>
